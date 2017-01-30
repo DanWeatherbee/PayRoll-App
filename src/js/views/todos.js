@@ -22,7 +22,9 @@ we will add event listeners to the view that listen for events on an individual 
 
     // The DOM events specific to an item.
     events: {
+      'click .toggle': 'toggleCompleted',            // New
       'dblclick label': 'edit',
+      'click .destroy': 'clear',                               // New
       'keypress .edit': 'updateOnEnter',
       'blur .edit': 'close'
     },
@@ -32,13 +34,36 @@ we will add event listeners to the view that listen for events on an individual 
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);                                        // New
+      this.listenTo(this.model, 'visible', this.toggleVisible);                                 // New
     },
 
     // Re-renders the titles of the todo item.
     render: function() {
       this.$el.html( this.template( this.model.attributes ) );
+      this.$el.toggleClass('completed', this.model.get('completed'));               // New
+      this.toggleVisible();
       this.$input = this.$('.edit');
       return this;
+    },
+
+      // NEW - Toggles visibility of item
+    toggleVisible : function () {
+      this.$el.toggleClass( 'hidden',  this.isHidden());
+    },
+
+    // NEW - Determines if item should be hidden
+    isHidden : function () {
+      var isCompleted = this.model.get('completed');
+      return ( // hidden cases only
+        (!isCompleted && app.TodoFilter === 'completed')
+        || (isCompleted && app.TodoFilter === 'active')
+      );
+    },
+
+      // NEW - Toggle the `"completed"` state of the model.
+    togglecompleted: function() {
+      this.model.toggle();
     },
 
     // Switch this view into `"editing"` mode, displaying the input field.
@@ -53,6 +78,8 @@ we will add event listeners to the view that listen for events on an individual 
 
       if ( value ) {
         this.model.save({ title: value });
+      } else {
+        this.clear();                                                         // New
       }
 
       this.$el.removeClass('editing');
@@ -63,7 +90,13 @@ we will add event listeners to the view that listen for events on an individual 
       if ( e.which === ENTER_KEY ) {
         this.close();
       }
+    },
+
+    // NEW - Remove the item, destroy the model from *localStorage* and delete its view.
+    clear: function() {
+      this.model.destroy();
     }
+
   });
 
   /*
