@@ -25,13 +25,14 @@ var app = app || {};
                 // collection, when items are added or changed. Kick things off by
                 // loading any preexisting todos that might be saved in *localStorage*.
                 initialize: function () {
-                        this.render();
+
+
                 },
 
                 // Re-rendering the App just means refreshing the statistics -- the rest
                 // of the app doesn't change.
                 render: function () {
-                        this.$el.html('<input id="#search" placeholder="Search"></input>');
+
                 }
         });
 })(jQuery);

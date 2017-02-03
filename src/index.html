@@ -20,7 +20,22 @@
   <link rel="stylesheet" href="assets/index.css">
 </head>
 <body>
-<section id="health-tracker"></section>
+<section id="health-tracker">
+
+  <script type="text/template" id="nutritionx-template">
+    <section id="nutritionx">
+    <hr>
+      <header id="header">
+        <h1>Nutritionx API Health Tracker App Template</h1>
+        <input id="search" placeholder="Search a food" autofocus>
+      </header>
+      <section id="search-result">
+        <%=  "results: " %>
+      </section>
+      <hr>
+  </script>
+
+</section>
 
   <script src="js/lib/jquery-3.1.1.min.js"></script>
   <script src="js/lib/underscore-min.js"></script>

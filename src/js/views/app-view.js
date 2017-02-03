@@ -9,9 +9,10 @@ var app = app || {};
 
         // Our overall **AppView** is the top-level piece of UI.
         app.AppView = Backbone.View.extend({
-
+                nutritionxTemplate: _.template( $('#nutritionx-template').html() ),
                 initialize: function () {
-                        new app.ItemView();
+                        new GetJsonData("bread");
+                        $('#health-tracker').html(this.nutritionxTemplate());
                 },
 
                 // Re-rendering the App just means refreshing the statistics -- the rest
