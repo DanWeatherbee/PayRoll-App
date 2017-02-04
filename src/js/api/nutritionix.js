@@ -13,6 +13,8 @@ var API_STR_PREFIX;
 var API_STR_MID;
 var API_STR_KEY;
 var GetJsonData;
+var foodArray = [];
+var itemModel;
 
 GetJsonData = function(keyWord, keyWord2) {
         "use strict";
@@ -38,10 +40,19 @@ GetJsonData = function(keyWord, keyWord2) {
                 var tracker = $('#search-result');
                 var i = 0;
                 searchResults.forEach(function (iterator) {
-                    console.log("hello" + i);
-                    // tracker.html(searchResults[i].fields.item_name + " Calories: " + searchResults[i].fields.nf_calories);
+                    // Model
+                                    itemModel = {
+                                    title: searchResults[i].fields.item_name,
+                                    brand: searchResults[i].fields.brand_name,
+                                    calories: searchResults[i].fields.nf_calories,
+                                    fat: searchResults[i].fields.nf_total_fat,
+                                    id: i
+                                };
+                                $('#health-tracker').append('<div>' + itemModel.title + '</div>');
+                    foodArray.push(itemModel);
                     i++;
                 });
-
         });
 };
+
+

@@ -11,7 +11,8 @@ var app = app || {};
         app.AppView = Backbone.View.extend({
                 nutritionxTemplate: _.template( $('#nutritionx-template').html() ),
                 initialize: function () {
-                        new GetJsonData("bread");
+                        new GetJsonData("cheese", "salad");
+                        console.log(foodArray);
                         $('#health-tracker').html(this.nutritionxTemplate());
                 },
 
