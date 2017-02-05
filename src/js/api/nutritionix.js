@@ -4,7 +4,6 @@ var keyWord2;
 var searchResults;
 var totalHits;
 var apiQuery;
-var status;
 // Globals
 var KEY;
 var APPID;
@@ -41,14 +40,20 @@ GetJsonData = function(keyWord, keyWord2) {
                 var i = 0;
                 searchResults.forEach(function (iterator) {
                     // Model
-                                    itemModel = {
-                                    title: searchResults[i].fields.item_name,
-                                    brand: searchResults[i].fields.brand_name,
-                                    calories: searchResults[i].fields.nf_calories,
-                                    fat: searchResults[i].fields.nf_total_fat,
-                                    id: i
-                                };
-                                $('#health-tracker').append('<div>' + itemModel.title + '</div>');
+                    itemModel = {
+                    title: searchResults[i].fields.item_name,
+                    brand: searchResults[i].fields.brand_name,
+                    calories: searchResults[i].fields.nf_calories,
+                    fat: searchResults[i].fields.nf_total_fat,
+                    id: i
+                    };
+                    $('#health-tracker').append('<a href="#health-tracker"><p>' +
+                        itemModel.title +
+                        itemModel.brand +
+                        itemModel.calories +
+                        itemModel.fat +
+                        itemModel.id +
+                        '</p></a>');
                     foodArray.push(itemModel);
                     i++;
                 });
