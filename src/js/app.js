@@ -7,5 +7,5 @@ $(function () {
         'use strict';
 
         // kick things off by creating the `App`
-        var startApp = new app.AppView();
+        new app.AppView();
 });

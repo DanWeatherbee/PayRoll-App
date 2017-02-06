@@ -1,0 +1,13 @@
+button {
+        width: 100%;
+        padding: 1em;
+}
+
+#health-tracker {
+        background-color: ghostwhite;
+        padding: 15%;
+}
+
+html {
+        background-color: midnightblue;
+}
