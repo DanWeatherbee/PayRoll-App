@@ -14,11 +14,19 @@ var app = app || {};
 
                 el: '#health-tracker',
                 events: {
-                        "click button": "query"
+                        "click .submit": "query",
+                        "click .items-bt": "computeCalories"
                 },
 
                 query: function () {
-                        new GetJsonData($('#search').val());
+                        app.queryApi = new GetJsonData($('#search').val());
+
+                },
+
+                computeCalories: function (totalCal) {
+                        this.totalCal = "not configured yet.";
+                        console.log("computeCalories is being run" + this.totalCal);
+                        alert("has been clicked.");
 
                 },
 

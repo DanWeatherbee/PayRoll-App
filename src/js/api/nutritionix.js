@@ -50,7 +50,7 @@ GetJsonData = function(keyWord) {
                     fat: searchResults[i].fields.nf_total_fat,
                     id: i
                     };
-                    $('#search-result').append('<button><p>Item: ' +
+                    $('#search-result').append('<button class="items-bt"><p>Item: ' +
                         itemModel.title + '</p><p>Brand: ' +
                         itemModel.brand + '</p><p>Calories: ' +
                         itemModel.calories + '</p><p>Fat: ' +

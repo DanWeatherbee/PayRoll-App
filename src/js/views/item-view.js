@@ -7,17 +7,17 @@ var app = app || {};
                 // Dom Element
         app.ItemView = Backbone.View.extend({
 
-                // Instead of generating a new element, bind to the existing skeleton of
-                // the App already present in the HTML.
-                el: '',
+                    // Cache the template function for a single item.
+                template: _.template($('#nutritionx-template').html()),
+
 
                 initialize: function () {
-
+                        this.listenTo(this.model, 'change', this.render);
 
                 },
 
                 render: function () {
-
+                        console.log("model has changed.")
                 }
         });
 })(jQuery);
