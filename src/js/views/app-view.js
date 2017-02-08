@@ -25,7 +25,10 @@ var app = app || {};
 
                 computeCalories: function (totalCal) {
                         this.totalCal = "not configured yet.";
-                        console.log("computeCalories is being run" + this.totalCal);
+                        var searchResult = $('#search-result');
+
+
+                        console.log(searchResult.children()[0].children[4]);
                         alert("has been clicked.");
 
                 },
