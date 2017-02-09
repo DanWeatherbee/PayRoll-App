@@ -1,5 +1,6 @@
-button {
-        width: 100%;
+button,
+input {
+
         padding: 1em;
 }
 
@@ -10,4 +11,8 @@ button {
 
 html {
         background-color: midnightblue;
+}
+
+.submit {
+        width: 50%;
 }

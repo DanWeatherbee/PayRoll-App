@@ -20,33 +20,143 @@
   <link rel="stylesheet" href="assets/index.css">
 </head>
 <body>
-<section id="health-tracker">
-<!-- ===================================>Backbone Template -->
-  <script type="text/template" id="nutritionx-template">
-    <section id="nutritionx">
-    <hr>
-      <header id="header">
-        <h1>Nutritionx API Health Tracker App Template</h1>
-        <input id="search" placeholder="Search a food" autofocus>
-        <button class="submit">Go</button>
-      </header>
-      <section id="search-result">
-        <%=  "results: " %>
-      </section>
-      <hr>
-  </script>
-<!-- ===================================>Backbone Template -->
-</section>
+
 
   <script src="js/lib/jquery-3.1.1.min.js"></script>
   <script src="js/lib/underscore-min.js"></script>
   <script src="js/lib/backbone-min.js"></script>
   <script src="js/lib/backbone-localstorage.min.js"></script>
-  <script src="js/api/nutritionix.js"></script>
-  <script src="js/models/food-array.js"></script>
-  <script src="js/collections/food-items.js"></script>
-  <script src="js/views/app-view.js"></script>
-  <script src="js/routers/router.js"></script>
-  <script src="js/app.js"></script>
+
+
+
+<section id="health-tracker">
+<!-- ===================================>Backbone Template -->
+  <script type="text/template" id="nutritionx-template">
+    <section id="nutritionx">
+      <header id="header">
+        <h1>Dan Weatherbee</h1>
+        <hr>
+        <h4>Front End Web Development</h4>
+        <h5>Backbone Nutritionx API Health Tracker App Template</h5>
+        <input id="search" placeholder="Search a food or Brand?" autofocus>
+        <hr>
+        <button class="submit">Go</button>
+      </header>
+      <section id="calorie-count">
+         <h5><%=  "Cal total:" %></h5>
+      </section>
+      <section id="search-result">
+        <h5><%=  "results: " %></h5>
+      </section>
+      <hr>
+  </script>
+<!-- ===================================>Backbone Template -->
+</section>
+<script>
+// Mutables
+var keyWord;
+var searchResults;
+var totalHits;
+var apiQuery;
+// Globals
+var KEY;
+var APPID;
+var API;
+var API_STR_PREFIX;
+var API_STR_MID;
+var API_STR_KEY;
+var GetJsonData;
+var foodArray = [];
+var itemModel;
+var App = function (keyWord) {
+        KEY = "b9914a3ffda1ac8218e155c05cb52409";
+        this.keyWord;
+        APPID = "ffa2c4b5";
+        API_STR_PREFIX = "https://api.nutritionix.com/v1_1/search/" + keyWord + "%20";
+        API_STR_MID = "?fields=item_name%2Citem_id%2Cbrand_name" +
+                "%2Cnf_calories%2Cnf_total_fat&appId=";
+        API_STR_KEY = "&appKey=";
+        API = API_STR_PREFIX +
+                keyWord +
+                API_STR_MID +
+                APPID +
+                API_STR_KEY +
+                KEY;
+          $.getJSON(API, function(data, status) {
+                searchResults = data.hits;
+                totalHits = data.total_hits;
+                status = status;
+                var i = 0;
+                $('#search-result').html('');
+                foodArray = [];
+                searchResults.forEach(function (iterator) {
+                    // Model
+                    itemModel = {
+                    title: searchResults[i].fields.item_name,
+                    brand: searchResults[i].fields.brand_name,
+                    calories: searchResults[i].fields.nf_calories,
+                    fat: searchResults[i].fields.nf_total_fat,
+                    id: i
+                    };
+
+                    $('#search-result').append('<button class="items-bt"><p>Item: ' +
+                        itemModel.title + '</p><p>Brand: ' +
+                        itemModel.brand + '</p><p>Calories: ' +
+                        itemModel.calories + '</p><p>Fat: ' +
+                        itemModel.fat + '</p><p>Id: ' +
+                        itemModel.id +
+                        '</p></button>');
+                    foodArray.push(itemModel);
+                    i++;
+                });
+              });
+};
+var Model = Backbone.Model.extend({
+                initialize: function () {
+                     app = new App('cheese');
+                },
+
+                defaults: {
+                     calories: "default 160"
+                }
+});
+
+ var View = Backbone.View.extend({
+
+                template: _.template( $('#nutritionx-template').html() ),
+                el: '#health-tracker',
+                events: {
+                        "click .submit": "query",
+                        "click .items-bt": "render"
+                },
+
+                initialize: function () {
+                     this.model = new Model()
+                        this.$el.html(this.template({model: this.model}));
+                },
+
+
+                query: function () {
+
+                     app = new App($('#search').val());
+                     this.model.set({calories: "1 serving: " + foodArray[0].calories})
+                     $('#calorie-count').append('<div>' + this.model.get('calories') + '</div>');
+                     console.log(this.model.get('calories'));
+
+
+                },
+
+                computeCalories: function (totalCal) {
+
+                },
+
+                render: function () {
+                     alert(this.model.get('calories'));
+                }
+        });
+ appView = new View();
+
+</script>
+
 </body>
 </html>

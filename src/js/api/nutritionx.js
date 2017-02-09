@@ -11,8 +11,9 @@ var API_STR_PREFIX;
 var API_STR_MID;
 var API_STR_KEY;
 var GetJsonData;
-var foodArray = [];
+
 var itemModel;
+
 
 GetJsonData = function(keyWord) {
         "use strict";
@@ -37,10 +38,7 @@ GetJsonData = function(keyWord) {
                 status = status;
                 var tracker = $('#search-result');
                 var i = 0;
-
-                // Clear or refresh the array so it does'nt keep growing.
-                foodArray = [];
-
+                var foodArray = [];
                 searchResults.forEach(function (iterator) {
                     // Model
                     itemModel = {
@@ -57,11 +55,12 @@ GetJsonData = function(keyWord) {
                         itemModel.fat + '</p><p>Id: ' +
                         itemModel.id +
                         '</p></button>');
-
                     foodArray.push(itemModel);
                     i++;
                 });
+
         });
+
 };
 
 
