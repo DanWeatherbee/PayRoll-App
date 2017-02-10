@@ -43,7 +43,7 @@
         <button class="submit">Go</button>
       </header>
       <section id="calorie-count">
-         <h5><%=  "Cal total:" %></h5>
+
       </section>
       <section id="search-result">
         <h5><%=  "results: " %></h5>
@@ -112,37 +112,35 @@ var App = function (keyWord) {
               });
 };
 var Model = Backbone.Model.extend({
-                initialize: function () {
-                     app = new App('cheese');
-                },
 
                 defaults: {
-                     calories: "default 160"
+                     calories: "default 160",
+                     done: false
                 }
 });
-
+model = new Model();
  var View = Backbone.View.extend({
 
-                template: _.template( $('#nutritionx-template').html() ),
-                el: '#health-tracker',
-                events: {
-                        "click .submit": "query",
-                        "click .items-bt": "render"
+                initialize: function () {
+                     this.render();
                 },
 
-                initialize: function () {
-                     this.model = new Model()
-                        this.$el.html(this.template({model: this.model}));
+
+                el: '#health-tracker',
+                model: model,
+                template: _.template( $('#nutritionx-template').html() ),
+
+                events: {
+                        "click .submit": "query"
                 },
+
+
 
 
                 query: function () {
 
                      app = new App($('#search').val());
-                     this.model.set({calories: "1 serving: " + foodArray[0].calories})
-                     $('#calorie-count').append('<div>' + this.model.get('calories') + '</div>');
-                     console.log(this.model.get('calories'));
-
+                     this.render();
 
                 },
 
@@ -151,7 +149,8 @@ var Model = Backbone.Model.extend({
                 },
 
                 render: function () {
-                     alert(this.model.get('calories'));
+
+                        this.$el.html(this.template({model: this.model.attributes}));
                 }
         });
  appView = new View();
