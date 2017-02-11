@@ -43,7 +43,7 @@
         <button class="submit">Go</button>
       </header>
       <section id="calorie-count">
-
+       <%=  calories %>
       </section>
       <section id="search-result">
         <h5><%=  "results: " %></h5>
@@ -112,13 +112,13 @@ var App = function (keyWord) {
               });
 };
 var Model = Backbone.Model.extend({
-
+                calories: "im working",
                 defaults: {
                      calories: "default 160",
                      done: false
                 }
 });
-model = new Model();
+
  var View = Backbone.View.extend({
 
                 initialize: function () {
@@ -127,7 +127,7 @@ model = new Model();
 
 
                 el: '#health-tracker',
-                model: model,
+                model: new Model(),
                 template: _.template( $('#nutritionx-template').html() ),
 
                 events: {
@@ -141,6 +141,9 @@ model = new Model();
 
                      app = new App($('#search').val());
                      this.render();
+                     console.log(this.model.set('calories', "model is working"));
+                     var foo = this.model.get('calories')
+                     console.log(foo);
 
                 },
 
@@ -150,7 +153,7 @@ model = new Model();
 
                 render: function () {
 
-                        this.$el.html(this.template({model: this.model.attributes}));
+                        this.$el.html(this.template(this.model.attributes));
                 }
         });
  appView = new View();
