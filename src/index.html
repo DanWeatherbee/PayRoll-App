@@ -111,6 +111,15 @@ var App = function (keyWord) {
                 });
               });
 };
+
+var default_data = [
+{caloires: '1000', done: false},
+{caloires: '1001', done: false},
+{caloires: '1002', done: false},
+{caloires: '1003', done: false}
+];
+
+
 var Model = Backbone.Model.extend({
                 calories: "im working",
                 defaults: {
@@ -118,6 +127,9 @@ var Model = Backbone.Model.extend({
                      done: false
                 }
 });
+
+
+model = new Model();
 
  var View = Backbone.View.extend({
 
@@ -127,7 +139,7 @@ var Model = Backbone.Model.extend({
 
 
                 el: '#health-tracker',
-                model: new Model(),
+                model: model,
                 template: _.template( $('#nutritionx-template').html() ),
 
                 events: {
@@ -156,6 +168,33 @@ var Model = Backbone.Model.extend({
                         this.$el.html(this.template(this.model.attributes));
                 }
         });
+
+
+var Collection = Backbone.Collection.extend({
+       model: model
+});
+var collection = new Collection();
+
+
+
+var CollectionView = Backbone.View.extend({
+
+
+
+                initialize: function () {
+                     this.render();
+                },
+              tagName: 'ul',
+              collection: collection,
+              render: function () {
+                     this.collection.forEach(function (item) {
+                            console.log('for each is working.');
+                     })
+              }
+});
+
+var collection_view = new CollectionView();
+
  appView = new View();
 
 </script>
