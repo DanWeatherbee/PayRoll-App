@@ -30,8 +30,7 @@
 
 
 <section id="health-tracker">
-<!-- ===================================>Backbone Template -->
-  <script type="text/template" id="nutritionx-template">
+
     <section id="nutritionx">
       <header id="header">
         <h1>Dan Weatherbee</h1>
@@ -43,15 +42,14 @@
         <button class="submit">Go</button>
       </header>
       <section id="calorie-count">
-       <%=  calories %>
+
       </section>
       <section id="search-result">
-        <h5><%=  "results: " %></h5>
+
       </section>
       <hr>
-  </script>
-<!-- ===================================>Backbone Template -->
 </section>
+
 <script>
 // Mutables
 var keyWord;
@@ -112,15 +110,7 @@ var App = function (keyWord) {
               });
 };
 
-var default_data = [
-{caloires: '1000', done: false},
-{caloires: '1001', done: false},
-{caloires: '1002', done: false},
-{caloires: '1003', done: false}
-];
-
-
-var Model = Backbone.Model.extend({
+var SearchItem = Backbone.Model.extend({
                 calories: "im working",
                 defaults: {
                      calories: "default 160",
@@ -129,7 +119,9 @@ var Model = Backbone.Model.extend({
 });
 
 
-model = new Model();
+model = new SearchItem();
+var model2 = new SearchItem({calories: "20000", done: false});
+
 
  var View = Backbone.View.extend({
 
@@ -139,9 +131,7 @@ model = new Model();
 
 
                 el: '#health-tracker',
-                model: model,
-                template: _.template( $('#nutritionx-template').html() ),
-
+                model: model2,
                 events: {
                         "click .submit": "query"
                 },
@@ -152,8 +142,8 @@ model = new Model();
                 query: function () {
 
                      app = new App($('#search').val());
-                     this.render();
-                     console.log(this.model.set('calories', "model is working"));
+
+
                      var foo = this.model.get('calories')
                      console.log(foo);
 
@@ -165,35 +155,24 @@ model = new Model();
 
                 render: function () {
 
-                        this.$el.html(this.template(this.model.attributes));
+
                 }
         });
 
 
-var Collection = Backbone.Collection.extend({
-       model: model
-});
-var collection = new Collection();
-
-
-
-var CollectionView = Backbone.View.extend({
-
-
-
-                initialize: function () {
-                     this.render();
-                },
-              tagName: 'ul',
-              collection: collection,
-              render: function () {
-                     this.collection.forEach(function (item) {
-                            console.log('for each is working.');
-                     })
-              }
+var SearchItems = Backbone.Collection.extend({
+              initialize: function () {
+                     console.log("SearchItems is initialized.")
+              },
+              model: model
 });
 
-var collection_view = new CollectionView();
+
+var items = new SearchItems();
+
+
+
+
 
  appView = new View();
 
