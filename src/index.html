@@ -119,8 +119,10 @@ var SearchItem = Backbone.Model.extend({
 });
 
 
-model = new SearchItem();
-var model2 = new SearchItem({calories: "20000", done: false});
+var model = new SearchItem();
+var model2 = new SearchItem({calories: "20000", done: false}, {calories: "20010", done: false});
+
+var model3 = [{calories: "20000", done: false}, {calories: "20010", done: false}];
 
 
  var View = Backbone.View.extend({
@@ -163,15 +165,16 @@ var model2 = new SearchItem({calories: "20000", done: false});
 var SearchItems = Backbone.Collection.extend({
               initialize: function () {
                      console.log("SearchItems is initialized.")
-              },
-              model: model
+
+              }
 });
 
 
-var items = new SearchItems();
-
-
-
+var items = new SearchItems({model: model3});
+items.add({calories: "new cal", done: false});
+items.models[0].attributes.model.forEach(function(i) {
+       console.log("hello world");
+});
 
 
  appView = new View();
