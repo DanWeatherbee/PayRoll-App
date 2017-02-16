@@ -66,6 +66,7 @@ var API_STR_KEY;
 var GetJsonData;
 var foodArray = [];
 var itemModel;
+var myCalories;
 var App = function (keyWord) {
         KEY = "b9914a3ffda1ac8218e155c05cb52409";
         this.keyWord;
@@ -97,13 +98,32 @@ var App = function (keyWord) {
                     id: i
                     };
 
-                    $('#search-result').append('<button class="items-bt"><p>Item: ' +
+                    $('#search-result').append('<button class="items-bt" id="' +
+                        itemModel.id + '"><p>Item: ' +
                         itemModel.title + '</p><p>Brand: ' +
                         itemModel.brand + '</p><p>Calories: ' +
                         itemModel.calories + '</p><p>Fat: ' +
                         itemModel.fat + '</p><p>Id: ' +
                         itemModel.id +
                         '</p></button>');
+                    $('#' +  itemModel.id).click(function () {
+                                   var myCalories = new SearchItems();
+                                   myCalories.fetch();
+                                   var item1 = new SearchItem({
+                                          calories: itemModel.calories
+                                   });
+
+                                   myCalories.add(item1);
+
+                                   item1.save();
+
+                                   var count = 0;
+                                   myCalories.models.forEach(function(model){
+                                          count = item1.get('calories') +  item1.get('calories');
+                                          console.log("Model in collection: " + model.get("calories"));
+                                          $('#calorie-count').html( '<div>Calories: ' + count + ' ' + item1.get('calories') + ' Models in storage: ' + myCalories.length + '</div>');
+                                   });
+                    });
                     foodArray.push(itemModel);
                     i++;
                 });
@@ -111,18 +131,38 @@ var App = function (keyWord) {
 };
 
 var SearchItem = Backbone.Model.extend({
-                calories: "im working",
-                defaults: {
-                     calories: "default 160",
-                     done: false
+                calories: "empty",
+                defaults: function () {
+                     return {
+                            content: "Item created on " + new Date().toISOString()
+                     }
                 }
 });
+/*
+ADDING AND SAVING NOTE MODELS
+http://www.mattzeunert.com/2013/01/26/minimal-backbone-localstorage-example.html
+Backbone collections have a fetch method that retrieves models from the server or, in this case, local storage.
+Before calling save on the model we need to add it to the collection,
+otherwise Backbone would attempt to use an Http request to store it on a server.
 
+var myCalories = new NoteCollection();
+myCalories.fetch();
+var item1 = new Note();
+myCalories.add(item1);
+item1.save();
 
-var model = new SearchItem();
-var model2 = new SearchItem({calories: "20000", done: false}, {calories: "20010", done: false});
+myCalories.models.forEach(function(model){
+    console.log("Model in collection: " + model.get("content"));
+});
+*/
+var SearchItems = Backbone.Collection.extend({
+              model: SearchItem,
+              localStorage: new Backbone.LocalStorage("calories"),
+              initialize: function () {
+                     console.log("SearchItems is initialized.");
 
-var model3 = [{calories: "20000", done: false}, {calories: "20010", done: false}];
+              }
+});
 
 
  var View = Backbone.View.extend({
@@ -133,21 +173,15 @@ var model3 = [{calories: "20000", done: false}, {calories: "20010", done: false}
 
 
                 el: '#health-tracker',
-                model: model2,
+                collection: myCalories,
                 events: {
                         "click .submit": "query"
                 },
-
-
-
 
                 query: function () {
 
                      app = new App($('#search').val());
 
-
-                     var foo = this.model.get('calories')
-                     console.log(foo);
 
                 },
 
@@ -156,25 +190,12 @@ var model3 = [{calories: "20000", done: false}, {calories: "20010", done: false}
                 },
 
                 render: function () {
-
-
+                     // this.$el.prepend(this.collection.models[72].attributes.calories);
                 }
         });
 
 
-var SearchItems = Backbone.Collection.extend({
-              initialize: function () {
-                     console.log("SearchItems is initialized.")
 
-              }
-});
-
-
-var items = new SearchItems({model: model3});
-items.add({calories: "new cal", done: false});
-items.models[0].attributes.model.forEach(function(i) {
-       console.log("hello world");
-});
 
 
  appView = new View();
