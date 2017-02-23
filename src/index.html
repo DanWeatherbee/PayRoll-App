@@ -64,7 +64,7 @@
     </tr>
   </thead>
   <tbody>
-    <% _.each(models, function(item) { %>
+    <% _.each(itemCollection, function(item) { %>
       <tr>
         <td><%= item.get('title') %></td>
         <td><%= item.get('brand') %></td>
@@ -87,6 +87,9 @@
 
 
 <script>
+
+
+
 // Mutables
 var keyWord;
 var searchResults;
@@ -145,7 +148,7 @@ var SearchItems = Backbone.Collection.extend({
               }
 });
 
-
+var itemCollection = new SearchItems();
  var View = Backbone.View.extend({
 
                 initialize: function () {
@@ -154,7 +157,7 @@ var SearchItems = Backbone.Collection.extend({
 
 
                 el: '#health-tracker',
-                collection: myCalories,
+
                 events: {
                         "click .submit": "query"
                 },
@@ -171,7 +174,8 @@ var SearchItems = Backbone.Collection.extend({
                 },
 
                 render: function () {
-                     // this.$el.prepend(this.collection.models[72].attributes.calories);
+                      var template = _.template($('#item-list-template').html(), {collection: itemCollection.models});
+                      this.$el.prepend(template);
                 }
         });
 
@@ -198,8 +202,8 @@ var App = function (keyWord) {
                 var i = 0;
                 $('#search-result').html('');
                 foodArray = [];
-                var itemCollection = new SearchItems();
-                var foo = itemCollection.fetch();
+
+
                 searchResults.forEach(function (iterator) {
 
                         // Model
@@ -212,10 +216,8 @@ var App = function (keyWord) {
                         });
                         console.log(itemModel);
 
-                        foo.add(itemModel);
-                        console.log(itemCollection);
-                        itemModel.save();
-
+                        itemCollection.add(itemModel.save);
+                        console.log(itemCollection.models[0]);
                   });
 
 
