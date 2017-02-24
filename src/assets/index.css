@@ -1,0 +1,16 @@
+table {
+        width: 100%;
+        text-align: center;
+}
+th {
+        background-color: lightblue;
+}
+td {
+        background-color: lightgrey;
+        font-weight: 900;
+}
+tr {
+        padding: 20%;
+        background-color: black;
+        height: 3em;
+}

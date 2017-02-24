@@ -36,15 +36,15 @@
       <th>Favorite Color</th>
     </tr>
   </thead>
-<!--   <tbody>
-    <% _.each(artists, function(artist) { %>
+  <tbody>
+    <% _.each(artistArray, function(artist) { %>
       <tr>
         <td><%= artist.get('name') %></td>
         <td><%= artist.get('hometown') %></td>
         <td><%= artist.get('favoriteColor') %></td>
       </tr>
     <% }); %>
-  </tbody> -->
+  </tbody>
 </table>
 </script>
 
@@ -69,9 +69,6 @@ var Artists = Backbone.Collection.extend({
 });
 
 var artistArray = [biggie, mike, taylor];
-var artists = new Artists(artistArray);
-
-
 
 var ArtistListView = Backbone.View.extend({
     el: '.content',
@@ -80,8 +77,8 @@ var ArtistListView = Backbone.View.extend({
         this.render();
     },
     render: function () {
-      // console.log(artists.models)
-        var template = _.template($('#artist-list-template').html(), {artists: artists.models});
+
+        var template = _.template($('#artist-list-template').html());
         this.$el.html(template);
     }
 });
