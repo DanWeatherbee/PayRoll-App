@@ -28,6 +28,7 @@
   <script src="js/lib/backbone-localstorage.min.js"></script>
 <section class="content"></section>
 <script type="text/template" id="artist-list-template">
+<input id="search-input" placeholder="Search?"></input>
 <table>
   <thead>
     <tr>
@@ -48,6 +49,29 @@
 </table>
 </script>
 
+
+
+<section class="content-food"></section>
+
+<script type="text/template" id="food-list-template">
+<input id="search-input" placeholder="Search?"></input>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% _.each(itemsArray, function(item) { %>
+      <tr>
+        <td><%= item.get('name') %></td>
+        <td><%= item.get('id') %></td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+</script>
 <script>
 
 var Artist = Backbone.Model.extend({
@@ -83,6 +107,67 @@ var ArtistListView = Backbone.View.extend({
     }
 });
 var artistListView = new ArtistListView();
+
+
+
+
+
+/*
+ADDING AND SAVING NOTE MODELS
+http://www.mattzeunert.com/2013/01/26/minimal-backbone-localstorage-example.html
+Backbone collections have a fetch method that retrieves models from the server or, in this case, local storage.
+Before calling save on the model we need to add it to the collection,
+otherwise Backbone would attempt to use an Http request to store it on a server.
+
+var myCalories = new NoteCollection();
+myCalories.fetch();
+var item1 = new Note();
+myCalories.add(item1);
+item1.save();
+
+myCalories.models.forEach(function(model){
+    console.log("Model in collection: " + model.get("content"));
+});
+*/
+
+
+var Item = Backbone.Model.extend({
+    defaults: {
+        id: 0
+    }
+});
+
+var itemsArray = [];
+var item1 = new Item({
+  id: 1,
+  name: "banana"
+});
+
+itemsArray.push(item1);
+
+var Items = Backbone.Collection.extend({
+    model: Item,
+    localStorage: new Backbone.LocalStorage("database"),
+    initialize: function () {
+       console.log("Items is initialized.");
+
+    }
+});
+
+var ItemListView = Backbone.View.extend({
+    el: '.content-food',
+
+    initialize:function(){
+
+        this.render();
+    },
+    render: function () {
+
+        var template = _.template($('#food-list-template').html(), {collection: Items.models});
+        this.$el.html(template);
+    }
+});
+var itemListView = new ItemListView();
 
 
 </script>
