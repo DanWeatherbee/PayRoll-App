@@ -63,7 +63,7 @@
     </tr>
   </thead>
   <tbody>
-    <% _.each(app.Items.models, function(item) { %>
+    <% _.each(foods.models, function(item) { %>
       <tr>
         <td><%= item.get('name') %></td>
         <td><%= item.get('id') %></td>
@@ -163,6 +163,7 @@ var totalHits;
 var status;
 var i;
 var foodArray = [];
+var foods;
 
 $(function() {
     // Get food data from API so we have something to work with.
@@ -200,16 +201,6 @@ app.Item = Backbone.Model.extend({
 });
 
 
-// var itemsArray = [];
-
-alert("testing app.Item initialization...")
-var item1 = new app.Item({
-  id: 1,
-  name: "banana"
-});
-
-// itemsArray.push(item1);
-
 app.Items = Backbone.Collection.extend({
     model: app.Item,
     localStorage: new Backbone.LocalStorage("database"),
@@ -224,14 +215,24 @@ app.ItemListView = Backbone.View.extend({
 
     initialize:function(){
         alert("ItemListView has initialized.")
-
         this.render();
     },
     render: function () {
-        
+        alert("testing app.Item initialization...")
+
+        var item1 = new app.Item({
+          id: 1,
+          name: "banana"
+        });
+
+        foods = new app.Items();
+
+        foods.add(item1.save);
+
+        console.log(foods);
         var template = _.template($('#food-list-template').html(), {collection: app.Items.models});
         this.$el.html(template);
-        alert("render has initialized. Models: " + app.Items.models);
+        alert("render has initialized.");
     }
 });
 
