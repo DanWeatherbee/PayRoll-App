@@ -126,7 +126,7 @@ myCalories.add(item1);
 item1.save();
 
 myCalories.models.forEach(function(model){
-    alert("Model in collection: " + model.get("content"));
+    console.log("Model in collection: " + model.get("content"));
 });
 */
 
@@ -172,13 +172,13 @@ $(function() {
           totalHits = data.total_hits;
           status = status;
           i = 0;
-          alert("Create array searchResults to hold json data.")
+          console.log("Create array searchResults to hold json data. L175 Step 2");
           searchResults.forEach(function (iterator) {
 
-                  alert("searchResults for loop initialized. (" + i + " items in array.)");
+                  // console.log("searchResults for loop initialized. L178  Step 3(" + i + " items in array.)");
                   i++;
             });
-          alert("searchResults array has been created. data retrieval complete.")
+          console.log("searchResults array has been created. data retrieval complete. L181 Step 4");
 
 
     });
@@ -196,7 +196,7 @@ app.Item = Backbone.Model.extend({
         id: 0
     },
     initialize: function () {
-      alert("app.Item model has been initialized.")
+      console.log("app.Item model has been initialized. L199");
     }
 });
 
@@ -205,34 +205,32 @@ app.Items = Backbone.Collection.extend({
     model: app.Item,
     localStorage: new Backbone.LocalStorage("database"),
     initialize: function () {
-       alert("localStorage is initialized." + this.model);
+       console.log("localStorage is initialized. L208" + this.model);
 
     }
 });
 
 app.ItemListView = Backbone.View.extend({
+    template: _.template($('#food-list-template').html(), {collection: app.Items.models}),
+
     el: '.content-food',
 
     initialize:function(){
-        alert("ItemListView has initialized.")
+        console.log("ItemListView has initialized. L219 Step 1");
         this.render();
     },
     render: function () {
-        alert("testing app.Item initialization...")
+        console.log("testing app.Item initialization...")
 
-        var item1 = new app.Item({
-          id: 1,
-          name: "banana"
-        });
+        var item1 = new app.Item({id: 1, name: "banana"});
 
         foods = new app.Items();
 
         foods.add(item1.save);
 
-        console.log(foods);
-        var template = _.template($('#food-list-template').html(), {collection: app.Items.models});
-        this.$el.html(template);
-        alert("render has initialized.");
+
+        this.$el.html(this.template);
+        console.log("render has initialized. L237");
     }
 });
 
