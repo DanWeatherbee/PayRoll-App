@@ -55,62 +55,9 @@
 
 <script type="text/template" id="food-list-template">
 <input id="search-input" placeholder="Search?"></input>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% _.each(app.Items.models, function(item) { %>
-      <tr>
-        <td><%= item.get('name') %></td>
-        <td><%= item.get('id') %></td>
-      </tr>
-    <% }); %>
-  </tbody>
-</table>
+<section class="content"></section>
 </script>
 <script>
-
-// var Artist = Backbone.Model.extend({
-//     defaults: {
-//         name: 'New Artist',
-//         birthday: 'January 1, 1970',
-//         hometown: 'Los Angeles, CA',
-//         favoriteColor: 'blue',
-//     }
-// });
-
-// var biggie = new Artist({ id: 1, name: 'Notorious BIG', birthday: 'May 21, 1972', hometown: 'Brooklyn, NY', favoriteColor: 'green' });
-// var mike = new Artist({ id: 2, name: 'Mike Jones', birthday: 'January 6, 1981', hometown: 'Houston, TX', favoriteColor: 'blue' });
-// var taylor = new Artist({ id: 3, name: 'Taylor Swift', birthday: 'December 13, 1989', hometown: 'Reading, PA', favoriteColor: 'red' });
-
-
-// var Artists = Backbone.Collection.extend({
-//     model: Artist
-// });
-
-// var artistArray = [biggie, mike, taylor];
-
-// var ArtistListView = Backbone.View.extend({
-//     el: '.content',
-
-//     initialize:function(){
-//         this.render();
-//     },
-//     render: function () {
-
-//         var template = _.template($('#artist-list-template').html());
-//         this.$el.html(template);
-//     }
-// });
-// var artistListView = new ArtistListView();
-
-
-
-
 
 /*
 ADDING AND SAVING NOTE MODELS
@@ -126,7 +73,7 @@ myCalories.add(item1);
 item1.save();
 
 myCalories.models.forEach(function(model){
-    alert("Model in collection: " + model.get("content"));
+    console.log("Model in collection: " + model.get("content"));
 });
 */
 
@@ -163,6 +110,7 @@ var totalHits;
 var status;
 var i;
 var foodArray = [];
+var foods;
 
 $(function() {
     // Get food data from API so we have something to work with.
@@ -171,13 +119,13 @@ $(function() {
           totalHits = data.total_hits;
           status = status;
           i = 0;
-          alert("Create array searchResults to hold json data.")
+          console.log("Create array searchResults to hold json data. L175 Step 2");
           searchResults.forEach(function (iterator) {
 
-                  alert("searchResults for loop initialized. (" + i + " items in array.)");
+                  // console.log("searchResults for loop initialized. L178  Step 3(" + i + " items in array.)");
                   i++;
             });
-          alert("searchResults array has been created. data retrieval complete.")
+          console.log("searchResults array has been created. data retrieval complete. L181 Step 4");
 
 
     });
@@ -191,47 +139,45 @@ $(function() {
 
 
 app.Item = Backbone.Model.extend({
+    id: 25,
+    name: "me",
     defaults: {
         id: 0
     },
     initialize: function () {
-      alert("app.Item model has been initialized.")
+      console.log("app.Item model has been initialized. L199");
     }
 });
 
-
-// var itemsArray = [];
-
-alert("testing app.Item initialization...")
-var item1 = new app.Item({
-  id: 1,
-  name: "banana"
-});
-
-// itemsArray.push(item1);
 
 app.Items = Backbone.Collection.extend({
     model: app.Item,
     localStorage: new Backbone.LocalStorage("database"),
     initialize: function () {
-       alert("localStorage is initialized." + this.model);
+       console.log("localStorage is initialized. L208" + this.model);
 
     }
 });
 
 app.ItemListView = Backbone.View.extend({
-    el: '.content-food',
+    template: _.template($('#food-list-template').html()),
+    collection: app.Items,
+    el: '.content',
 
     initialize:function(){
-        alert("ItemListView has initialized.")
+        console.log("ItemListView has initialized. L219 Step 1");
+        var foo = this.collection;
 
+        console.log("this.collection.fetch. L168" + foo);
         this.render();
     },
     render: function () {
-        
-        var template = _.template($('#food-list-template').html(), {collection: app.Items.models});
-        this.$el.html(template);
-        alert("render has initialized. Models: " + app.Items.models);
+        console.log("testing app.Item initialization... L170")
+
+
+
+        this.$el.html(this.template);
+        console.log("render has initialized. L237");
     }
 });
 
