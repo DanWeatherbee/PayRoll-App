@@ -27,64 +27,12 @@
   <script src="js/lib/backbone-min.js"></script>
   <script src="js/lib/backbone-localstorage.min.js"></script>
 <section class="content"></section>
-<script type="text/template" id="artist-list-template">
-<input id="search-input" placeholder="Search?"></input>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Hometown</th>
-      <th>Favorite Color</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% _.each(artistArray, function(artist) { %>
-      <tr>
-        <td><%= artist.get('name') %></td>
-        <td><%= artist.get('hometown') %></td>
-        <td><%= artist.get('favoriteColor') %></td>
-      </tr>
-    <% }); %>
-  </tbody>
-</table>
-</script>
 
-
-
-<section class="content-food"></section>
-
-<script type="text/template" id="food-list-template">
-<input id="search-input" placeholder="Search?"></input>
-<section class="content"></section>
-</script>
 <script>
 
 /*
-ADDING AND SAVING NOTE MODELS
-http://www.mattzeunert.com/2013/01/26/minimal-backbone-localstorage-example.html
-Backbone collections have a fetch method that retrieves models from the server or, in this case, local storage.
-Before calling save on the model we need to add it to the collection,
-otherwise Backbone would attempt to use an Http request to store it on a server.
-
-var myCalories = new NoteCollection();
-myCalories.fetch();
-var item1 = new Note();
-myCalories.add(item1);
-item1.save();
-
-myCalories.models.forEach(function(model){
-    console.log("Model in collection: " + model.get("content"));
-});
-*/
-
-
-
-
-/*
 Startup
-So now we have two views: AppView and TodoView.
-The former needs to be instantiated on page load so its code gets executed.
-This can be accomplished through jQuery’s ready() utility,
+jQuery’s ready() utility,
 which will execute a function when the DOM is loaded.
 */
 
@@ -105,83 +53,36 @@ var API = API_STR_PREFIX +
         APPID +
         API_STR_KEY +
         KEY;
-var searchResults;
-var totalHits;
-var status;
-var i;
-var foodArray = [];
-var foods;
 
 $(function() {
-    // Get food data from API so we have something to work with.
-    $.getJSON(API, function(data, status) {
-          searchResults = data.hits;
-          totalHits = data.total_hits;
-          status = status;
-          i = 0;
-          console.log("Create array searchResults to hold json data. L175 Step 2");
-          searchResults.forEach(function (iterator) {
+  /*
+      =================================================>
+  Reference http://stackoverflow.com/
+   questions/15980586/how-to-get-backbone-ajax-to-return-data-on-success
+  */
 
-                  // console.log("searchResults for loop initialized. L178  Step 3(" + i + " items in array.)");
-                  i++;
-            });
-          console.log("searchResults array has been created. data retrieval complete. L181 Step 4");
+  //definitions
+  var MyModel = Backbone.Model.extend({});
+  var MyCollection = Backbone.Collection.extend({
+      localStorage: new Backbone.LocalStorage("database"),
+      model:MyModel
+  });
 
+  //wherever you need a collection instance
+  collection = new MyCollection();
 
-    });
-
-  // Kick things off by creating the **App**.
-  // new app.AppView();
-  new app.ItemListView();
-
-
+  //wherever you need to do the ajax
+  Backbone.ajax({
+      dataType: "json",
+      url: API,
+      data: "",
+      success: function(val){
+          collection.add(val);  //or reset
+          alert("ajax has initialized L81: collection.models[0].attributes.hits[0].fields = " + collection.models[0].attributes.hits[0].fields.brand_name);
+      }
+  });
 });
-
-
-app.Item = Backbone.Model.extend({
-    id: 25,
-    name: "me",
-    defaults: {
-        id: 0
-    },
-    initialize: function () {
-      console.log("app.Item model has been initialized. L199");
-    }
-});
-
-
-app.Items = Backbone.Collection.extend({
-    model: app.Item,
-    localStorage: new Backbone.LocalStorage("database"),
-    initialize: function () {
-       console.log("localStorage is initialized. L208" + this.model);
-
-    }
-});
-
-app.ItemListView = Backbone.View.extend({
-    template: _.template($('#food-list-template').html()),
-    collection: app.Items,
-    el: '.content',
-
-    initialize:function(){
-        console.log("ItemListView has initialized. L219 Step 1");
-        var foo = this.collection;
-
-        console.log("this.collection.fetch. L168" + foo);
-        this.render();
-    },
-    render: function () {
-        console.log("testing app.Item initialization... L170")
-
-
-
-        this.$el.html(this.template);
-        console.log("render has initialized. L237");
-    }
-});
-
 </script>
-
+<a href="http://www.tutorialspoint.com/backbonejs/">Backbone Tutorials</a>
 </body>
 </html>
