@@ -68,10 +68,19 @@
         */
 
         //definitions
-        var MyModel = Backbone.Model.extend({});
+        var MyModel = Backbone.Model.extend({
+          initialize: function () {
+            var foo = this.has('title');
+            this.save();
+            console.log("Model has been initialized." + foo);
+          }
+        });
         var MyCollection = Backbone.Collection.extend({
             localStorage: new Backbone.LocalStorage("database"),
-            model:MyModel
+            model:MyModel,
+            initialize: function () {
+              console.log("collection has been initialized.");
+            }
         });
 
         //wherever you need a collection instance
@@ -82,9 +91,28 @@
             dataType: "json",
             url: API,
             data: "",
-            success: function(val){
-                collection.add(val);  //or reset
-                alert("ajax has initialized L81: collection.models[0].attributes.hits[0].fields = " + collection.models[0].attributes.hits[0].fields.brand_name);
+            success: function(searchResults){
+
+                var i = 0;
+                var foodArray = [];
+                searchResults.hits.forEach(function (iterator) {
+                  console.log(searchResults.hits[i].fields.item_name);
+                    // Model
+                    itemModel = {
+                    title: searchResults.hits[i].fields.item_name,
+                    brand: searchResults.hits[i].fields.brand_name,
+                    calories: searchResults.hits[i].fields.nf_calories,
+                    fat: searchResults.hits[i].fields.nf_total_fat,
+                    id: i
+                    };
+
+                    foodArray.push(itemModel);
+                    i++;
+                });
+
+
+                collection.reset(foodArray);  //or reset
+                console.log("ajax has initialized L81" + collection.models[0]);
             }
         });
 
@@ -113,7 +141,7 @@
           //When user clicks the button, it refers to the button defined within the 'div' tag and
           //it will display the below statements
           myFunc1: function () {
-             data('<div>Hello...</div><div>' + collection.models[0].attributes.hits[0].fields.brand_name + '</div>');
+             data('<div>Hello...</div>');
           },
 
           myFunc2: function () {
