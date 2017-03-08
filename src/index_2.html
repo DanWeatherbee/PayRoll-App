@@ -1,88 +1,141 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8 /" content="Dans app">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Cache-control" content="description">
-    <meta http-equiv="Set-Cookie" content="name, date">
-    <meta name="description" content="Dan Weatherbee's Todo in Backbone">
-    <meta name="web_author" content="Dan Weatherbee Web Developer">
-    <meta name="keywords" content="web developement,front end developement,front end web developement,danweatherbee,dan weatherbee,portfolio,dan weatherbee developer,danweatherby,dan weatherby,dan weatherbee web developer,dan weatherbee programmer,backbone.js">
-    <meta name="author" content="Dan Weatherbee">
-    <meta name="copyright" content="Dan Weatherbee">
-    <meta name="contact" content="dan@jedi-clan.us">
-    <meta name="reply-to" content="dan@jedi-clan.us">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#db5945">
-    <meta name="msapplication-square310x310logo" content="favicon.ico">
-  <title>Dan Weatherbee's Health Tracker App</title>
-  <link rel="stylesheet" href="assets/index.css">
-</head>
-<body>
+  <head>
+      <meta charset="utf-8 /" content="Dans app">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="robots" content="index, follow">
+      <meta http-equiv="Cache-control" content="description">
+      <meta http-equiv="Set-Cookie" content="name, date">
+      <meta name="description" content="Dan Weatherbee's Todo in Backbone">
+      <meta name="web_author" content="Dan Weatherbee Web Developer">
+      <meta name="keywords" content="web developement,front end developement,front end web developement,danweatherbee,dan weatherbee,portfolio,dan weatherbee developer,danweatherby,dan weatherby,dan weatherbee web developer,dan weatherbee programmer,backbone.js">
+      <meta name="author" content="Dan Weatherbee">
+      <meta name="copyright" content="Dan Weatherbee">
+      <meta name="contact" content="dan@jedi-clan.us">
+      <meta name="reply-to" content="dan@jedi-clan.us">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="theme-color" content="#db5945">
+      <meta name="msapplication-square310x310logo" content="favicon.ico">
+    <title>Dan Weatherbee's Health Tracker App</title>
+    <link rel="stylesheet" href="assets/index.css">
+  </head>
+  <body>
 
 
-  <script src="js/lib/jquery-3.1.1.min.js"></script>
-  <script src="js/lib/underscore-min.js"></script>
-  <script src="js/lib/backbone-min.js"></script>
-  <script src="js/lib/backbone-localstorage.min.js"></script>
-<section class="content"></section>
+    <script src="js/lib/jquery-3.1.1.min.js"></script>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/backbone-min.js"></script>
+    <script src="js/lib/backbone-localstorage.min.js"></script>
 
-<script>
+        <div id = "myVal">
+            called in events with this syntax ===> [data-test]
+           <button id = "button" data-test = "">Click Here</button>
+        </div>
 
-/*
-Startup
-jQuery’s ready() utility,
-which will execute a function when the DOM is loaded.
-*/
+        <div id = "myLog"></div>
+
+    <script>
+
+      var app = app || {};
+      var ENTER_KEY = 13;
+      var ESC_KEY = 27;
+      var KEY = "b9914a3ffda1ac8218e155c05cb52409";
+      var keyWord = "";
+      var APPID = "ffa2c4b5";
+      var API_STR_PREFIX = "https://api.nutritionix.com/v1_1/search/" + keyWord + "%20";
+      var API_STR_MID = "?fields=item_name%2Citem_id%2Cbrand_name" +
+              "%2Cnf_calories%2Cnf_total_fat&appId=";
+      var API_STR_KEY = "&appKey=";
+      var API = API_STR_PREFIX +
+              keyWord +
+              API_STR_MID +
+              APPID +
+              API_STR_KEY +
+              KEY;
+
+      $(function() {
+        /*
+
+        If jQuery is included on the page, each view has a $ function that runs queries scoped within the view's element.
+        If you use this scoped jQuery function, you don't have to use the model ids as part of your query to pull out specific elements in a list, and can rely much more on the HTML class attributes.
+        It is equivalent to running – view.$el.find(selector).
+
+        SYNTAX view.$(selector)
+
+            =================================================>
+        Reference http://stackoverflow.com/
+         questions/15980586/how-to-get-backbone-ajax-to-return-data-on-success
+        */
+
+        //definitions
+        var MyModel = Backbone.Model.extend({});
+        var MyCollection = Backbone.Collection.extend({
+            localStorage: new Backbone.LocalStorage("database"),
+            model:MyModel
+        });
+
+        //wherever you need a collection instance
+        collection = new MyCollection();
+
+        //wherever you need to do the ajax
+        Backbone.ajax({
+            dataType: "json",
+            url: API,
+            data: "",
+            success: function(val){
+                collection.add(val);  //or reset
+                alert("ajax has initialized L81: collection.models[0].attributes.hits[0].fields = " + collection.models[0].attributes.hits[0].fields.brand_name);
+            }
+        });
+
+        //The variable contains id selector as 'mydata'
+        var myLog = $('#mydata');
+
+        //The variable 'data' is used to display the values
+        var data = function(val) {
+          document.write('<div>' + val + '</div>');
+        };
+
+        //'ViewDemo' is a name of the view class
+        var ViewDemo = Backbone.View.extend ({
+
+          //When click event occurs it activates the defined functions 'myFunc1' and 'myFunc2'
+          events: {
+             'click [data-test]' : 'myFunc1',
+             'click *[data-test]': 'myFunc2',
+             'click *[data-test]': 'myFunc3',
+             'click *[data-test]': 'myFunc4'
+          },
+
+          //'el' uses '#myVal' as the view reference
+          el: $('#myVal'),
+
+          //When user clicks the button, it refers to the button defined within the 'div' tag and
+          //it will display the below statements
+          myFunc1: function () {
+             data('<div>Hello...</div><div>' + collection.models[0].attributes.hits[0].fields.brand_name + '</div>');
+          },
+
+          myFunc2: function () {
+             data('<div>Welcome to Tutorialspoint...</div>');
+          },
+          myFunc3: function () {
+
+             data('<button id = "button" data-test = "">Welcome to Tutorialspoint...</button>');
+          },
+          myFunc4: function () {
+
+             data("myfunction 4 ativated.");
+          }
+        });
+
+        //'myview' is an instance of the 'ViewDemo' class
+        var myview = new ViewDemo();
 
 
-var app = app || {};
-var ENTER_KEY = 13;
-var ESC_KEY = 27;
-var KEY = "b9914a3ffda1ac8218e155c05cb52409";
-var keyWord = "";
-var APPID = "ffa2c4b5";
-var API_STR_PREFIX = "https://api.nutritionix.com/v1_1/search/" + keyWord + "%20";
-var API_STR_MID = "?fields=item_name%2Citem_id%2Cbrand_name" +
-        "%2Cnf_calories%2Cnf_total_fat&appId=";
-var API_STR_KEY = "&appKey=";
-var API = API_STR_PREFIX +
-        keyWord +
-        API_STR_MID +
-        APPID +
-        API_STR_KEY +
-        KEY;
 
-$(function() {
-  /*
-      =================================================>
-  Reference http://stackoverflow.com/
-   questions/15980586/how-to-get-backbone-ajax-to-return-data-on-success
-  */
-
-  //definitions
-  var MyModel = Backbone.Model.extend({});
-  var MyCollection = Backbone.Collection.extend({
-      localStorage: new Backbone.LocalStorage("database"),
-      model:MyModel
-  });
-
-  //wherever you need a collection instance
-  collection = new MyCollection();
-
-  //wherever you need to do the ajax
-  Backbone.ajax({
-      dataType: "json",
-      url: API,
-      data: "",
-      success: function(val){
-          collection.add(val);  //or reset
-          alert("ajax has initialized L81: collection.models[0].attributes.hits[0].fields = " + collection.models[0].attributes.hits[0].fields.brand_name);
-      }
-  });
-});
-</script>
-<a href="http://www.tutorialspoint.com/backbonejs/">Backbone Tutorials</a>
-</body>
+      });
+    </script>
+    <a href="http://www.tutorialspoint.com/backbonejs/">Backbone Tutorials</a>
+  </body>
 </html>
