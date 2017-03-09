@@ -56,124 +56,145 @@
               KEY;
 
       $(function() {
-        /*
+              'use srtict'
+              /*
 
-        If jQuery is included on the page, each view has a $ function that runs queries scoped within the view's element.
-        If you use this scoped jQuery function, you don't have to use the model ids as part of your query to pull out specific elements in a list, and can rely much more on the HTML class attributes.
-        It is equivalent to running – view.$el.find(selector).
+              If jQuery is included on the page, each view has a $ function that runs queries scoped within the view's element.
+              If you use this scoped jQuery function, you don't have to use the model ids as part of your query to pull out specific elements in a list, and can rely much more on the HTML class attributes.
+              It is equivalent to running – view.$el.find(selector).
 
-        SYNTAX view.$(selector)
+              SYNTAX view.$(selector)
 
-            =================================================>
-        Reference http://stackoverflow.com/
-         questions/15980586/how-to-get-backbone-ajax-to-return-data-on-success
-        */
-
-        //definitions
-        var MyModel = Backbone.Model.extend({
-          defaults: {
-            title: "no data"
-          },
-
-          initialize: function () {
-            var foo = this.has('title');
-            this.save();
-            var bar = this.previous('title');
-            var was = this.get('title');
-            console.log(" Model has been initialized. " + foo + bar +
-               " was: " + was);
-          },
-
-          render: function () {
-
-          }
-        });
-        var MyCollection = Backbone.Collection.extend({
-            localStorage: new Backbone.LocalStorage("database"),
-            model:MyModel,
-            initialize: function () {
-              console.log(" collection has been initialized. ");
-              var cals = this.fetch();
-              console.log(cals.catch);
-            }
-        });
-
-        //wherever you need a collection instance
-        collection = new MyCollection();
-
-        //wherever you need to do the ajax
-        Backbone.ajax({
-            dataType: "json",
-            url: API,
-            data: "",
-            success: function(searchResults){
-
-                var i = 0;
-                var foodArray = [];
-                searchResults.hits.forEach(function (iterator) {
-                  console.log(searchResults.hits[i].fields.item_name);
-                    // Model
-                    itemModel = {
-                    title: searchResults.hits[i].fields.item_name,
-                    brand: searchResults.hits[i].fields.brand_name,
-                    calories: searchResults.hits[i].fields.nf_calories,
-                    fat: searchResults.hits[i].fields.nf_total_fat,
-                    id: i
-                    };
-
-                    foodArray.push(itemModel);
-                    i++;
-                });
+                  =================================================>
+              Reference http://stackoverflow.com/
+               questions/15980586/how-to-get-backbone-ajax-to-return-data-on-success
 
 
-                collection.reset(foodArray);  //or add
-                console.log(" ajax has initialized L81 " + collection.models[0]);
-            }
-        });
+               definitions:
 
-        //The variable contains id selector as 'mydata'
-        var myLog = $('#mydata');
+               The variable contains id selector as 'mydata'
+              */
+              var myLog = $('#mydata');
 
-        //The variable 'data' is used to display the values
-        var data = function(val) {
-          document.write('<div>' + val + '</div>');
-        };
+              //The variable 'data' is used to display the values
+              var data = function(val) {
+                      document.write('<button>' + val + '</button>');
 
-        //'ViewDemo' is a name of the view class
-        var ViewDemo = Backbone.View.extend ({
+              };
 
-          //When click event occurs it activates the defined functions 'myFunc1' and 'myFunc2'
-          events: {
-             'click [data-test]' : 'myFunc1',
-             'click *[data-test]': 'myFunc2',
-             'click *[data-test]': 'myFunc3',
-             'click *[data-test]': 'myFunc4'
-          },
 
-          //'el' uses '#myVal' as the view reference
-          el: $('#myVal'),
 
-          //When user clicks the button, it refers to the button defined within the 'div' tag and
-          //it will display the below statements
-          myFunc1: function () {
-             data('<div>Hello...</div>');
-          },
 
-          myFunc2: function () {
-             data('<div>Welcome to Tutorialspoint...</div>');
-          },
-          myFunc3: function () {
+              var MyModel = Backbone.Model.extend({
+                      defaults: {
+                              title: "no data"
+                      },
 
-             data('<button id = "button" data-test = "">Welcome to Tutorialspoint...</button>');
-          },
-          myFunc4: function () {
+                      initialize: function() {
+                              var foo = this.has('title');
+                              this.save();
+                              var bar = this.previous('title');
+                              var was = this.get('title');
+                              console.log(" Model has been initialized. " + foo + bar +
+                                      " was: " + was);
 
-             data("myfunction 4 ativated.");
-          }
-        });
+                              this.render();
+                      },
 
-        //'myview' is an instance of the 'ViewDemo' class
-        var myview = new ViewDemo();
+                      render: function() {
+
+                              console.log('render was called through MyModel initialize.');
+
+                      }
+              });
+              MyCollection = Backbone.Collection.extend({
+                      localStorage: new Backbone.LocalStorage("database"),
+                      model: MyModel,
+                      initialize: function() {
+                              console.log(" collection has been initialized. this.models: " + this);
+                              console.log(this.models);
+                              var modelsArray = [];
+                              modelsArray.push(this.models);
+                              console.log(" modelsArray below: ");
+                              console.log(modelsArray);
+                              var context = {
+                                      name: 'object name'
+                              };
+
+                              _.each(modelsArray, function(element, index, list) {
+                                      console.log(this); // Object {name: 'object name'}
+                                      console.log(element); // array value
+                                      console.log(index); // index value
+                                      console.log(list); // returns array
+                              }, context);
+
+                      },
+
+                      render: function() {
+
+                      }
+
+              });
+              //wherever you need a collection instance
+              collection = new MyCollection();
+
+              //wherever you need to do the ajax
+              Backbone.ajax({
+                      dataType: "json",
+                      url: API,
+                      data: "",
+                      success: function(searchResults) {
+
+                              var i = 0;
+                              var foodArray = [];
+                              searchResults.hits.forEach(function(iterator) {
+                                      console.log(searchResults.hits[i].fields.item_name);
+                                      // Model
+                                      itemModel = {
+                                              title: searchResults.hits[i].fields.item_name,
+                                              brand: searchResults.hits[i].fields.brand_name,
+                                              calories: searchResults.hits[i].fields.nf_calories,
+                                              fat: searchResults.hits[i].fields.nf_total_fat,
+                                              id: i
+                                      };
+
+                                      foodArray.push(itemModel);
+                                      i++;
+                              });
+
+
+                              collection.reset(foodArray); //or add
+                              console.log(" ajax has initialized L81 " + collection.models[0]);
+                      }
+              });
+
+              //'ViewDemo' is a name of the view class
+              var ViewDemo = Backbone.View.extend({
+
+                      //When click event occurs it activates the defined functions 'myFunc1' and 'myFunc2'
+                      events: {
+                              'click [data-test]': 'myFunc1'
+                      },
+
+                      //'el' uses '#myVal' as the view reference
+                      el: $('#myVal'),
+
+                      //When user clicks the button, it refers to the button defined within the 'div' tag and
+                      //it will display the below statements
+                      myFunc1: function() {
+                              _.each(collection.models, function(element, index, list) {
+                                      console.log(this); // Object {name: 'object name'}
+                                      console.log(element); // array value
+                                      console.log(index); // index value
+                                      console.log(list); // returns array
+                                      data(collection.models[index].attributes.title);
+                              });
+
+                      }
+              });
+
+              //'myview' is an instance of the 'ViewDemo' class
+              var myview = new ViewDemo();
 
 
 
