@@ -26,7 +26,9 @@
     <script src="js/lib/underscore-min.js"></script>
     <script src="js/lib/backbone-min.js"></script>
     <script src="js/lib/backbone-localstorage.min.js"></script>
-
+    <a href="https://www.tutorialspoint.com/backbonejs/">
+      <img src="https://www.tutorialspoint.com/backbonejs/images/backbonearch.jpg" style="height: 50%; width: 50%;" alt="Click to go to tutorialspoint.com">
+    </a>
         <div id = "myVal">
             called in events with this syntax ===> [data-test]
            <button id = "button" data-test = "">Click Here</button>
@@ -69,17 +71,30 @@
 
         //definitions
         var MyModel = Backbone.Model.extend({
+          defaults: {
+            title: "no data"
+          },
+
           initialize: function () {
             var foo = this.has('title');
             this.save();
-            console.log("Model has been initialized." + foo);
+            var bar = this.previous('title');
+            var was = this.get('title');
+            console.log(" Model has been initialized. " + foo + bar +
+               " was: " + was);
+          },
+
+          render: function () {
+
           }
         });
         var MyCollection = Backbone.Collection.extend({
             localStorage: new Backbone.LocalStorage("database"),
             model:MyModel,
             initialize: function () {
-              console.log("collection has been initialized.");
+              console.log(" collection has been initialized. ");
+              var cals = this.fetch();
+              console.log(cals.catch);
             }
         });
 
@@ -111,8 +126,8 @@
                 });
 
 
-                collection.reset(foodArray);  //or reset
-                console.log("ajax has initialized L81" + collection.models[0]);
+                collection.reset(foodArray);  //or add
+                console.log(" ajax has initialized L81 " + collection.models[0]);
             }
         });
 
