@@ -18,20 +18,22 @@
       <meta name="msapplication-square310x310logo" content="favicon.ico">
     <title>Dan Weatherbee's Health Tracker App</title>
     <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
   </head>
   <body>
-
-
     <script src="js/lib/jquery-3.1.1.min.js"></script>
+    <!-- https://mdbootstrap.com/css/animations/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+
     <script src="js/lib/underscore-min.js"></script>
     <script src="js/lib/backbone-min.js"></script>
     <script src="js/lib/backbone-localstorage.min.js"></script>
     <a href="https://www.tutorialspoint.com/backbonejs/">
-      <img src="https://www.tutorialspoint.com/backbonejs/images/backbonearch.jpg" style="height: 50%; width: 50%;" alt="Click to go to tutorialspoint.com">
+      <img class="animated lightSpeedIn" src="https://www.tutorialspoint.com/backbonejs/images/backbonearch.jpg" style="height: 50%; width: 50%;" alt="Click to go to tutorialspoint.com">
     </a>
-        <div id = "myVal">
+        <div id = "myVal" class="animated rotateInUpRight">
             called in events with this syntax ===> [data-test]
-           <button id = "button" data-test = "">Click Here</button>
+           <button id = "button" class="animated rotateInUpRight" data-test = "">Click Here</button>
         </div>
 
         <div id = "myLog"></div>
@@ -78,7 +80,7 @@
 
               //The variable 'data' is used to display the values
               var data = function(val) {
-                      document.write('<button>' + val + '</button>');
+                      document.write('<button class="items-bt">' + val + '</button>');
 
               };
 
