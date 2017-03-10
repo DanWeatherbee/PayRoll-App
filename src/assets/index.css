@@ -14,3 +14,17 @@ tr {
         background-color: black;
         height: 3em;
 }
+
+body,
+#myVal {
+        background-color: black;
+        color: lawngreen;
+}
+
+.btn-item {
+        width: 100px;
+}
+
+#myVal {
+        z-index: 1;
+}

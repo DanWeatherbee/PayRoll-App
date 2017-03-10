@@ -28,15 +28,26 @@
     <script src="js/lib/underscore-min.js"></script>
     <script src="js/lib/backbone-min.js"></script>
     <script src="js/lib/backbone-localstorage.min.js"></script>
-    <a href="https://www.tutorialspoint.com/backbonejs/">
-      <img class="animated lightSpeedIn" src="https://www.tutorialspoint.com/backbonejs/images/backbonearch.jpg" style="height: 50%; width: 50%;" alt="Click to go to tutorialspoint.com">
-    </a>
-        <div id = "myVal" class="animated rotateInUpRight">
-            called in events with this syntax ===> [data-test]
-           <button id = "button" class="animated rotateInUpRight" data-test = "">Click Here</button>
-        </div>
+      <section>
+        <h1>
+          Dan Weatherbee
+        </h1>
+        <h4>
+          Front End Web Developer
+        </h4>
+      </section>
+      <a href="https://www.tutorialspoint.com/backbonejs/">
+        <img class="animated lightSpeedIn" src="https://www.tutorialspoint.com/backbonejs/images/backbonearch.jpg" style="height: 50%; width: 50%;" alt="Click to go to tutorialspoint.com">
+      </a>
 
-        <div id = "myLog"></div>
+      <div id = "myVal" class="animated rotateInUpRight">
+        <p>called in events with this syntax ===> [data-test]</p>
+         <button id = "button" class="btn btn-primary animated rotateInUpRight" data-test = "">
+            Click Here
+        </button>
+      </div>
+
+      <div id = "myLog"></div>
 
     <script>
 
@@ -80,7 +91,7 @@
 
               //The variable 'data' is used to display the values
               var data = function(val) {
-                      document.write('<button class="items-bt">' + val + '</button>');
+                      document.write('<li class="btn-item">' + val + '</li>');
 
               };
 
@@ -175,7 +186,8 @@
 
                       //When click event occurs it activates the defined functions 'myFunc1' and 'myFunc2'
                       events: {
-                              'click [data-test]': 'myFunc1'
+                              'click [data-test]': 'myFunc1',
+                              'click *[data-test]': 'myFunc2'
                       },
 
                       //'el' uses '#myVal' as the view reference
@@ -192,7 +204,20 @@
                                       data(collection.models[index].attributes.title);
                               });
 
-                      }
+                      },
+
+                      myFunc2: function() {
+                                                    _.each(collection.models, function(element, index, list) {
+                                                            console.log(this); // Object {name: 'object name'}
+                                                            console.log(element); // array value
+                                                            console.log(index); // index value
+                                                            console.log(list); // returns array
+                                                            data(collection.models[index].attributes.calories);
+                                                            data(collection.models[index].attributes.fat);
+                                                            data(collection.models[index].attributes.id);
+                                                    }, this);
+
+                                            }
               });
 
               //'myview' is an instance of the 'ViewDemo' class
