@@ -48,6 +48,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>CIBC Mall</option>
                     <option>Telus</option>
                     <option>HSBC</option>
+                    <option>The Bay</option>
                   </select>
 
 
@@ -162,18 +163,17 @@ This is because the viewport width is in pixels and does not change with the fon
     <script>
         $('.btn-print').hide();
         $('.btn-pop').click(function() {
-            var data_1 = $('#sel-1 option:selected').text();
-            var data_2 = $('#sel-2 option:selected').text();
-            var data_3 = $('#sel-3 option:selected').text();
-            var data_4 = $('#sel-4 option:selected').text();
-            var data_5 = $('#sel-5 option:selected').text();
-            var data_6 = $('#sel-5 option:selected').text();
-            var dataHtml = '<div class="view">Job: ' + data_1 + ' | Date : ' +
-                            data_2 + ' | Month: ' +
-                            data_3 + ' | Year: ' +
-                            data_4 + ' | Hours: ' +
-                            data_5 + ' | Date: ' +
-                            data_6 + '</div>';
+            var data_job = $('#sel-1 option:selected').text();
+            var data_day = $('#sel-2 option:selected').text();
+            var data_month = $('#sel-3 option:selected').text();
+            var data_year = $('#sel-4 option:selected').text();
+            var data_hours = $('#sel-5 option:selected').text();
+            var data_date = $('#sel-6 option:selected').text();
+            var dataHtml = '<table><thead><tr><th>Year<th>Month<th>' +
+            'Day<th>Date<th>Hours<th>Job<tbody><tr><td>' + data_year +
+            '<td>' + data_month + '<td>' + data_date +
+             '<td>' + data_day + '<td>' + data_date +
+              '<td>' + data_job + '</table>'
             console.log(dataHtml);
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').show();
@@ -185,5 +185,6 @@ This is because the viewport width is in pixels and does not change with the fon
             window.print();
         });
     </script>
+
 </body>
 </html>
