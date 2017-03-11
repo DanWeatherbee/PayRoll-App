@@ -151,7 +151,14 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>30</option>
                     <option>31</option>
                   </select>
+
+                  <label for="sel-7">Select Employee:</label>
+                  <select class="form-control" id="sel-7">
+                    <option>Dan</option>
+                    <option>Tina</option>
+                  </select>
             </div>
+
             <div class="row">
                 <div class="col-sm-12" id="data-container">
                     <button class="btn btn-primary btn-pop">Add data</button>
@@ -168,12 +175,15 @@ This is because the viewport width is in pixels and does not change with the fon
             var data_month = $('#sel-3 option:selected').text();
             var data_year = $('#sel-4 option:selected').text();
             var data_hours = $('#sel-5 option:selected').text();
+
             var data_date = $('#sel-6 option:selected').text();
-            var dataHtml = '<table><thead><tr><th>Year<th>Month<th>' +
-            'Day<th>Date<th>Hours<th>Job<tbody><tr><td>' + data_year +
+
+            var data_employee = $('#sel-7 option:selected').text();
+            var dataHtml = '<table><thead><tr><th>Employee<th>Year<th>Month<th>' +
+            'Day<th>Date<th>Hours<th>Job<tbody><tr><td>' + data_employee + '<td>' + data_year +
             '<td>' + data_month + '<td>' + data_date +
-             '<td>' + data_day + '<td>' + data_date +
-              '<td>' + data_job + '</table>'
+             '<td>' + data_day + '<td id="hours">' + data_hours +
+              '<td>' + data_job + '</table>Entry Date: ' + Date();
             console.log(dataHtml);
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').show();
