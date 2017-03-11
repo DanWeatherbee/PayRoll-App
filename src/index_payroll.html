@@ -39,7 +39,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <h1>Dan Weatherbee's Payroll App</h1>
                 <h4>Front End Web Developer</h4>
             </section>
-            <div class="col-sm-12">
+            <section class="col-sm-12 option-panel">
 
                   <label for="sel-1">Select Job:</label>
                   <select class="form-control" id="sel-1">
@@ -161,39 +161,53 @@ This is because the viewport width is in pixels and does not change with the fon
 
             <div class="row">
                 <div class="col-sm-12" id="data-container">
-                    <button class="btn btn-primary btn-pop">Add data</button>
+                    <button class="btn btn-primary btn-add">Add data</button>
                     <button class="btn btn-primary btn-print">Print</button>
                 </div>
             </div>
 
     </div>
     <script>
+        var hoursArray = [];
         $('.btn-print').hide();
-        $('.btn-pop').click(function() {
+        $('.btn-add').click(function() {
             var data_job = $('#sel-1 option:selected').text();
             var data_day = $('#sel-2 option:selected').text();
             var data_month = $('#sel-3 option:selected').text();
             var data_year = $('#sel-4 option:selected').text();
-            var data_hours = $('#sel-5 option:selected').text();
-
+            var data_hours = $('#sel-5 option:selected').val();
             var data_date = $('#sel-6 option:selected').text();
 
             var data_employee = $('#sel-7 option:selected').text();
-            var dataHtml = '<table><thead><tr><th>Employee<th>Year<th>Month<th>' +
+            var dataHtml = '<table class="data-table"><thead><tr><th>Employee<th>Year<th>Month<th>' +
             'Day<th>Date<th>Hours<th>Job<tbody><tr><td>' + data_employee + '<td>' + data_year +
             '<td>' + data_month + '<td>' + data_date +
              '<td>' + data_day + '<td id="hours">' + data_hours +
               '<td>' + data_job + '</table>Entry Date: ' + Date();
             console.log(dataHtml);
+            hoursArray.push(data_hours);
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').show();
-
-
         });
 
         $('.btn-print').click(function() {
+            totalHours();
             window.print();
         });
+
+        var totalHours = function () {
+            console.log("totalHours function initialized.");
+
+            $('.option-panel').hide();
+            $('.btn-print').hide();
+            $('.btn-add').hide();
+
+            hoursArray.forEach(function (i) {
+                console.log(i);
+            });
+
+        };
+
     </script>
 
 </body>
