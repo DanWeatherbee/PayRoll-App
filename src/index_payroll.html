@@ -35,7 +35,10 @@ pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
 
     <div class="container">
-
+            <section class="header">
+                <h1>Dan Weatherbee's Payroll App</h1>
+                <h4>Front End Web Developer</h4>
+            </section>
             <div class="col-sm-12">
 
                   <label for="sel-1">Select Job:</label>
@@ -44,7 +47,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>CIBC Downtown</option>
                     <option>CIBC Mall</option>
                     <option>Telus</option>
-                    <option>HSBC</option>                    
+                    <option>HSBC</option>
                   </select>
 
 
@@ -60,7 +63,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>Sun</option>
                   </select>
 
- 
+
 
                   <label for="sel-3">Select Month:</label>
                   <select class="form-control" id="sel-3">
@@ -75,7 +78,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>Sep</option>
                     <option>Oct</option>
                     <option>Nov</option>
-                    <option>Dec</option>                
+                    <option>Dec</option>
                   </select>
 
 
@@ -85,9 +88,9 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>2017</option>
                     <option>2018</option>
                     <option>2019</option>
-                    <option>2020</option>                
+                    <option>2020</option>
                   </select>
-  
+
 
 
                   <label for="sel-5">Select Hours:</label>
@@ -101,7 +104,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>7</option>
                     <option>8</option>
                     <option>9</option>
-                    <option>10</option>                                
+                    <option>10</option>
                     <option>1.5</option>
                     <option>2.5</option>
                     <option>3.5</option>
@@ -124,7 +127,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>7</option>
                     <option>8</option>
                     <option>9</option>
-                    <option>10</option>                                
+                    <option>10</option>
                     <option>11</option>
                     <option>12</option>
                     <option>13</option>
@@ -146,16 +149,18 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>29</option>
                     <option>30</option>
                     <option>31</option>
-                  </select>     
-            </div>            
+                  </select>
+            </div>
             <div class="row">
                 <div class="col-sm-12" id="data-container">
-                    <button class="btn btn-primary-lg btn-pop">Populate with data</button>
+                    <button class="btn btn-primary btn-pop">Add data</button>
+                    <button class="btn btn-primary btn-print">Print</button>
                 </div>
             </div>
 
     </div>
     <script>
+        $('.btn-print').hide();
         $('.btn-pop').click(function() {
             var data_1 = $('#sel-1 option:selected').text();
             var data_2 = $('#sel-2 option:selected').text();
@@ -171,9 +176,14 @@ This is because the viewport width is in pixels and does not change with the fon
                             data_6 + '</div>';
             console.log(dataHtml);
             $('#data-container').append('<hr>' + dataHtml);
-            alert("add function is running, data was appended");            
+            $('.btn-print').show();
+
+
         });
 
+        $('.btn-print').click(function() {
+            window.print();
+        });
     </script>
 </body>
 </html>
