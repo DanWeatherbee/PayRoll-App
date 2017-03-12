@@ -157,10 +157,18 @@ This is because the viewport width is in pixels and does not change with the fon
                     <option>Dan</option>
                     <option>Tina</option>
                   </select>
+
+                  <label for="sel-8">Select Rate:</label>
+                  <select class="form-control" id="sel-8">
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                  </select>
+
             </div>
             <div class="row">
-                <div class="col-sm-12" id="total-container">
-                    <h2 id="total"></h2>
+                <div class="col-sm-12 shadow" id="total-container">
+                    <h4 id="total"></h4>
                 </div>
             </div>
             <div class="row">
@@ -172,17 +180,20 @@ This is because the viewport width is in pixels and does not change with the fon
     </div>
     <script>
         var count = 0;
+        var grossPay = 0;
         $('.btn-print').hide();
+        $('#total-container').hide();
         $('.btn-add').click(function() {
             var data_job = $('#sel-1 option:selected').text();
             var data_day = $('#sel-2 option:selected').text();
             var data_month = $('#sel-3 option:selected').text();
             var data_year = $('#sel-4 option:selected').text();
             var data_hours = Number($('#sel-5 option:selected').text());
-            count = count + data_hours;
-            $('#total').html("Total : " + count + " hours.");
+            count = count + data_hours; 
+            
             var data_date = $('#sel-6 option:selected').text();
             var data_employee = $('#sel-7 option:selected').text();
+            var data_rate = Number($('#sel-8 option:selected').text());
             var dataHtml = '<table class="data-table"><thead><tr><th>Employee<th>Year<th>Month<th>' +
             'Day<th>Date<th>Hours<th>Job<tbody><tr><td>' + data_employee + '<td>' + data_year +
             '<td>' + data_month + '<td>' + data_date +
@@ -190,8 +201,12 @@ This is because the viewport width is in pixels and does not change with the fon
               '<td>' + data_job + '</table>Entry Date: ' + Date();
             console.log(dataHtml);
             count + Number(data_hours);
+            grossPay = count * data_rate;
+            
+            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars.");
             $('#data-container').append('<hr>' + dataHtml);
-            $('.btn-print').show();
+            $('.btn-print').fadeIn();
+            $('#total-container').fadeIn();
         });
 
         $('.btn-print').click(function() {
