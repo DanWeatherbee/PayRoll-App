@@ -211,9 +211,10 @@ This is because the viewport width is in pixels and does not change with the fon
             var afterDeductions = grossPay - totalDeductions;
             var result = deductions(grossPay);
             var totalDeductions = result * 0.25;
-            var afterDeductions = grossPay - totalDeductions;            
+            var afterDeductions = grossPay - totalDeductions;
+            var projYearlyTotalDed = totalDeductions * 26;           
 
-            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars. - $372.00 = " + result + " times 25% = Deduct this amount --> " + totalDeductions + " dollars. After deductions = Payout: " +afterDeductions + " dollars.");
+            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars. - $372.00 = " + result + " times 25% = Deduct this amount --> " + totalDeductions + " dollars. After deductions = Payout: " +afterDeductions + " dollars. Projected Yearly Total Deductions: $" + projYearlyTotalDed);
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').fadeIn();
             $('#total-container').fadeIn();
