@@ -185,6 +185,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
         var count = 0;
         var grossPay = 0;
+        var totalDays = 0;
         $('.new-sheet').hide();        
         $('.btn-print').hide();
         $('#total-container').hide();
@@ -196,7 +197,6 @@ This is because the viewport width is in pixels and does not change with the fon
             var data_year = $('#sel-4 option:selected').text();
             var data_hours = Number($('#sel-5 option:selected').text());
             count = count + data_hours; 
-            
             var data_date = $('#sel-6 option:selected').text();
             var data_employee = $('#sel-7 option:selected').text();
             var data_rate = Number($('#sel-8 option:selected').text());
@@ -208,8 +208,12 @@ This is because the viewport width is in pixels and does not change with the fon
             console.log(dataHtml);
             count + Number(data_hours);
             grossPay = count * data_rate;
-            
-            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars.");
+            var afterDeductions = grossPay - totalDeductions;
+            var result = deductions(grossPay);
+            var totalDeductions = result * 0.25;
+            var afterDeductions = grossPay - totalDeductions;            
+
+            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars. - $372.00 = " + result + " times 25% = Deduct this amount --> " + totalDeductions + " dollars. After deductions = Payout: " +afterDeductions + " dollars.");
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').fadeIn();
             $('#total-container').fadeIn();
@@ -245,7 +249,19 @@ This is because the viewport width is in pixels and does not change with the fon
         var reload =  function() {
             location.reload();
         };
+
+        var deductions = function (pay) {
+            pay = grossPay;
+            if (pay > 770.0) {
+                netPay = grossPay - 372.00;
+                alert("Over 774 but not more than 1812 tax bracket = net pay --> " + netPay);
+                return netPay;
+            }
+        };
     </script>
     <a href="http://www.cra-arc.gc.ca/E/pub/tg/t4127-jan/t4127-jan-17e.html">Canadian Payroll Deductions for Programs</a>
+    <br>
+    <a href="https://www.irs.gov/pub/irs-pdf/p15a.pdf">Tax Table(go to pg 31)</a>
+    Over $774.00 but not over $1,812.00 subtract $372.00. Multiply result by 25%.    
 </body>
 </html>
