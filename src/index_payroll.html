@@ -168,9 +168,8 @@ This is because the viewport width is in pixels and does not change with the fon
 
             </div>
             <section class="col-sm-12 tax-panel">
-
-                <div class="col-sm-12 shadow" id="tax-container">
-
+                <div class="col-sm-12 shadow tax-container">
+                    <p class="transactions">Total Days:</p>
                     <p class="fed">Fed Tax:</p>
                     <p class="pro">Pro Tax:</p>
                     <p class="total-tax">Total Tax:</p>
@@ -181,7 +180,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <p class="vac-pay">Vacation Pay:</p>
                     <p class="gross-pay">Gross Pay:</p>
                     <p class="net-pay">Net Pay:</p>
-
+                    <p class="net-vac-pay">Net/Vac Total:</p>
                 </div>
 
                 <nav>
@@ -207,6 +206,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
 
         // Cache jQuery elements for performance.
+        var $elTransactions = $('.transactions');
         var $elFed = $('.fed');
         var $elPro = $('.pro');
         var $elTotalTax = $('.total-tax');
@@ -218,8 +218,11 @@ This is because the viewport width is in pixels and does not change with the fon
         var $elVacPay = $('.vac-pay');
         var $elNetPay = $('.net-pay');
         var $elGrossPay = $('.gross-pay');
+        var $elNetVacPay = $('.net-vac-pay');
+        var $elTaxContainer = $('.tax-container');
         var DEFAULT = " $0.00";
 
+        $elTransactions.append(DEFAULT);
         $elFed.append(DEFAULT);
         $elPro.append(DEFAULT);
         $elTotalTax.append(DEFAULT);
@@ -231,14 +234,18 @@ This is because the viewport width is in pixels and does not change with the fon
         $elVacPay.append(DEFAULT);
         $elGrossPay.append(DEFAULT);
         $elNetPay.append(DEFAULT);
+        $elNetVacPay.append(DEFAULT);
         var count = 0;
         var grossPay = 0;
         var totalDays = 0;
+        var vacPay = 0;
+        var netVacPay = 0;
 
 
         $('.new-sheet').hide();        
         $('.btn-print').hide();
-        $('#total-container').hide();
+        $elTaxContainer.hide();
+
         $('.btn-add').click(function() {
             $('.new-sheet').fadeIn();
             var data_job = $('#sel-1 option:selected').text();
@@ -258,13 +265,16 @@ This is because the viewport width is in pixels and does not change with the fon
             console.log(dataHtml);
             count + Number(data_hours);
             grossPay = count * data_rate;
+            vacPay = grossPay * .04;
             var totalDeductions = deductions(grossPay);
             var netPay = grossPay - totalDeductions;
             console.log("Net Pay: " + netPay);
-            var projYearlyTotalNetPay = netPay * 26; 
-            $('#data-container').append('<hr>' + dataHtml);
+            var projYearlyTotalNetPay = netPay * 26;
+            
+            $('#data-container').prepend('<hr>' + dataHtml);
             $('.btn-print').fadeIn();
             $('#total-container').fadeIn();
+            $elTaxContainer.fadeIn();
         });
 
         $('.btn-print').click(function() {
@@ -302,7 +312,7 @@ This is because the viewport width is in pixels and does not change with the fon
         var deductions = function (pay) {
 
             pay = grossPay;
-            if (pay > 774.0) {
+            if (pay > 0) {
 
             var fed = grossPay * 0.014;
             console.log(fed);
@@ -318,18 +328,20 @@ This is because the viewport width is in pixels and does not change with the fon
             console.log(totalUIplusCPP);            
             var totalAllDeductions = totalTaxDeductions + totalUIplusCPP;
             var netPay = grossPay - totalAllDeductions;
-
-            $elFed.html("Fed: " + fed);
-            $elPro.html("Pro: " + pro);
-            $elTotalTax.html("Total Tax: " + totalTaxDeductions);
-            $elCPP.html("CPP: " + cpp);
-            $elUI.html("UI: " + ui);
+            netVacPay = netPay + vacPay;
+            $elTransactions.html("Total Days: " + count);
+            $elFed.html("Fed: " + fed + " @ 1.4 %");
+            $elPro.html("Pro: " + pro + " @ 1.8 %");
+            $elTotalTax.html("Total Tax: " + totalTaxDeductions + " @ 4 %");
+            $elCPP.html("CPP: " + cpp + " @ 4.95 %");
+            $elUI.html("UI: " + ui + " @ 1.63 %");
             $elTotalCPPUI.html("CPP/UI: " + totalUIplusCPP);
             $elTotalDed.html("Total Deductions: " + totalAllDeductions);
             
-            $elVacPay.html(DEFAULT);
+            $elVacPay.html("Vacation Pay: " + vacPay + " @ 4 %");
             $elGrossPay.html("Gross Pay: $" + grossPay);
             $elNetPay.html("Net Pay: $" + netPay);
+            $elNetVacPay.html("Net/Vac Total: $" + netVacPay);
                 return netPay;
             }
         };
