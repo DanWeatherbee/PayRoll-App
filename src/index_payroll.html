@@ -209,12 +209,12 @@ This is because the viewport width is in pixels and does not change with the fon
             count + Number(data_hours);
             grossPay = count * data_rate;
             var afterDeductions = grossPay - totalDeductions;
-            var result = deductions(grossPay);
-            var totalDeductions = result * 0.25;
+            var totalDeductions = deductions(grossPay);
             var afterDeductions = grossPay - totalDeductions;
+            console.log("totalDeductions line 214 " + totalDeductions);
             var projYearlyTotalDed = totalDeductions * 26;           
 
-            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars. - $372.00 = " + result + " times 25% = Deduct this amount --> " + totalDeductions + " dollars. After deductions = Payout: " +afterDeductions + " dollars. Projected Yearly Total Deductions: $" + projYearlyTotalDed);
+            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars. Deduct this amount --> " + totalDeductions + " dollars. After deductions = Payout: " + afterDeductions + " dollars. Projected Yearly Total Deductions: $" + projYearlyTotalDed);
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').fadeIn();
             $('#total-container').fadeIn();
@@ -252,10 +252,28 @@ This is because the viewport width is in pixels and does not change with the fon
         };
 
         var deductions = function (pay) {
+
+
             pay = grossPay;
-            if (pay > 770.0) {
-                netPay = grossPay - 372.00;
-                alert("Over 774 but not more than 1812 tax bracket = net pay --> " + netPay);
+            if (pay > 774.0) {
+
+            var fed = grossPay * 0.014;
+            console.log(fed);
+            var prov = grossPay * 0.018;
+            console.log(prov);
+            var totalTaxDeductions = fed + prov;
+            console.log(totalTaxDeductions);
+            var cpp = grossPay * 0.0495;
+            console.log(cpp);
+            var ui = grossPay * 0.0163;
+            console.log(ui);            
+            var totalUIplusCPP = cpp + ui;
+            console.log(totalUIplusCPP);            
+            totalAllDeductions = totalTaxDeductions + totalUIplusCPP;
+
+
+
+                netPay = grossPay - totalAllDeductions;
                 return netPay;
             }
         };
