@@ -167,25 +167,75 @@ This is because the viewport width is in pixels and does not change with the fon
                   </select>
 
             </div>
-            <div class="row">
-                <div class="col-sm-12 shadow" id="total-container">
-                    <h4 id="total"></h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12" id="data-container">
-                    <button class="btn btn-primary btn-add">Add data</button>
-                    
+            <section class="col-sm-12 tax-panel">
 
-                    <button class="btn btn-primary btn-print">Save to PDF</button>
+                <div class="col-sm-12 shadow" id="tax-container">
+
+                    <p class="fed">Fed Tax:</p>
+                    <p class="pro">Pro Tax:</p>
+                    <p class="total-tax">Total Tax:</p>
+                    <p class="cpp">CPP:</p>
+                    <p class="ui">UI:</p>
+                    <p class="total-cppui">Total CPP/UI:</p>
+                    <p class="total-deductions">Total Tax + CPP/UI:</p>
+                    <p class="vac-pay">Vacation Pay:</p>
+                    <p class="gross-pay">Gross Pay:</p>
+                    <p class="net-pay">Net Pay:</p>
+
                 </div>
-            </div>
+
+                <nav>
+                    <div class="col-sm-12" id="data-container">
+                        
+                        <button class="btn btn-primary btn-add">Add data</button>
+                        <button class="btn btn-primary btn-print">Save to PDF</button>
+
+
+                    </div>
+                </nav>
+
+            </section>
+            <footer>
+                <h3 class="performance">
+
+                </h3>
+            </footer>
     </div>
     <script>
+        var t0 = performance.now();
 
+
+
+        // Cache jQuery elements for performance.
+        var $elFed = $('.fed');
+        var $elPro = $('.pro');
+        var $elTotalTax = $('.total-tax');
+        var $elCPP = $('.cpp');
+        var $elUI = $('.ui');
+        var $elTotalCPPUI = $('.total-cppui');
+        var $elTotalDed = $('.total-deductions');
+        var $elPerformance = $('.performance');
+        var $elVacPay = $('.vac-pay');
+        var $elNetPay = $('.net-pay');
+        var $elGrossPay = $('.gross-pay');
+        var DEFAULT = " $0.00";
+
+        $elFed.append(DEFAULT);
+        $elPro.append(DEFAULT);
+        $elTotalTax.append(DEFAULT);
+        $elCPP.append(DEFAULT);
+        $elUI.append(DEFAULT);
+        $elTotalCPPUI.append(DEFAULT);
+        $elTotalDed.append(DEFAULT);
+        $elPerformance.append(DEFAULT);
+        $elVacPay.append(DEFAULT);
+        $elGrossPay.append(DEFAULT);
+        $elNetPay.append(DEFAULT);
         var count = 0;
         var grossPay = 0;
         var totalDays = 0;
+
+
         $('.new-sheet').hide();        
         $('.btn-print').hide();
         $('#total-container').hide();
@@ -208,13 +258,10 @@ This is because the viewport width is in pixels and does not change with the fon
             console.log(dataHtml);
             count + Number(data_hours);
             grossPay = count * data_rate;
-            var afterDeductions = grossPay - totalDeductions;
             var totalDeductions = deductions(grossPay);
-            var afterDeductions = grossPay - totalDeductions;
-            console.log("totalDeductions line 214 " + totalDeductions);
-            var projYearlyTotalDed = totalDeductions * 26;           
-
-            $('#total').html("Employee: " + data_employee + " Rate: " + data_rate + " Hours : " + count + " Total = " + grossPay + " dollars. Deduct this amount --> " + totalDeductions + " dollars. After deductions = Payout: " + afterDeductions + " dollars. Projected Yearly Total Deductions: $" + projYearlyTotalDed);
+            var netPay = grossPay - totalDeductions;
+            console.log("Net Pay: " + netPay);
+            var projYearlyTotalNetPay = netPay * 26; 
             $('#data-container').append('<hr>' + dataHtml);
             $('.btn-print').fadeIn();
             $('#total-container').fadeIn();
@@ -242,6 +289,7 @@ This is because the viewport width is in pixels and does not change with the fon
         var totalHours = function () {
             console.log("totalHours function initialized.");
 
+
             $('.option-panel').hide();
             $('.btn-print').hide();
             $('.btn-add').hide();
@@ -253,15 +301,14 @@ This is because the viewport width is in pixels and does not change with the fon
 
         var deductions = function (pay) {
 
-
             pay = grossPay;
             if (pay > 774.0) {
 
             var fed = grossPay * 0.014;
             console.log(fed);
-            var prov = grossPay * 0.018;
-            console.log(prov);
-            var totalTaxDeductions = fed + prov;
+            var pro = grossPay * 0.018;
+            console.log(pro);
+            var totalTaxDeductions = fed + pro;
             console.log(totalTaxDeductions);
             var cpp = grossPay * 0.0495;
             console.log(cpp);
@@ -269,14 +316,41 @@ This is because the viewport width is in pixels and does not change with the fon
             console.log(ui);            
             var totalUIplusCPP = cpp + ui;
             console.log(totalUIplusCPP);            
-            totalAllDeductions = totalTaxDeductions + totalUIplusCPP;
+            var totalAllDeductions = totalTaxDeductions + totalUIplusCPP;
+            var netPay = grossPay - totalAllDeductions;
 
-
-
-                netPay = grossPay - totalAllDeductions;
+            $elFed.html("Fed: " + fed);
+            $elPro.html("Pro: " + pro);
+            $elTotalTax.html("Total Tax: " + totalTaxDeductions);
+            $elCPP.html("CPP: " + cpp);
+            $elUI.html("UI: " + ui);
+            $elTotalCPPUI.html("CPP/UI: " + totalUIplusCPP);
+            $elTotalDed.html("Total Deductions: " + totalAllDeductions);
+            
+            $elVacPay.html(DEFAULT);
+            $elGrossPay.html("Gross Pay: $" + grossPay);
+            $elNetPay.html("Net Pay: $" + netPay);
                 return netPay;
             }
         };
+        var performanceTest = function (t0, t1) {
+
+            console.log("performanceTest result: " + (t1 - t0) + " milliseconds.");
+            var subTotal = t1 - t0;
+            var seconds = subTotal / 1000;
+            $elPerformance.html("Performance Test, time in milliseconds: " +
+             subTotal + " | seconds: " + seconds);
+
+            return subTotal;
+
+
+        };
+
+        var t1 = performance.now();
+
+
+        $elPerformance.append(performanceTest(t0, t1));
+        
     </script>
     <a href="http://www.cra-arc.gc.ca/E/pub/tg/t4127-jan/t4127-jan-17e.html">Canadian Payroll Deductions for Programs</a>
     <br>
