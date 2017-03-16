@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8 /" content="Dans app">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Cache-control" content="description">
+    <meta http-equiv="Set-Cookie" content="name, date">
+    <meta name="description" content="Dan Weatherbee's Payroll in Backbone">
+    <meta name="web_author" content="Dan Weatherbee Web Developer">
+    <meta name="keywords" content="web developement,front end developement,front end web developement,danweatherbee,dan weatherbee,portfolio,dan weatherbee developer,danweatherby,dan weatherby,dan weatherbee web developer,dan weatherbee programmer,backbone.js">
+    <meta name="author" content="Dan Weatherbee">
+    <meta name="copyright" content="Dan Weatherbee">
+    <meta name="contact" content="dan@jedi-clan.us">
+    <meta name="reply-to" content="dan@jedi-clan.us">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#db5945">
+    <meta name="msapplication-square310x310logo" content="favicon.ico">
+  <title>Dan Weatherbee's payroll App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
+  <link rel="stylesheet" href="assets/index_payroll_version_2.css">
+
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- https://mdbootstrap.com/css/animations/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+
+<!--  While Bootstrap uses ems or rems for defining most sizes,
+pxs are used for grid breakpoints and container widths.
+This is because the viewport width is in pixels and does not change with the font size. -->
+
+
+    <section class="container" id="main"></section>
+        <img id="img-temp" src="template.png"></img>
+        <!-- Backbone Template===========================> -->
+
+        <script type="text/template" id="item-list-template">
+
+        <p>Earnings and Hours</p>
+        <hr>
+        <table>
+          <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Rate</th>
+              <th>Current</th>
+              <th>Vac</th>
+              <th>Gross</th>
+            </tr>
+          </thead>
+          <tbody>
+
+              <tr>
+                <td>
+                <select class="form-control" id="sel-qty">
+
+                </select>
+                  </td>
+                <td>
+                  <select class="form-control" id="sel-rate">
+
+                  </select>
+                </td>
+                <td><%= this.cur.toFixed(2) %></td>
+                <td><%= this.vac.toFixed(2) %></td>
+                <td><%= this.gross.toFixed(2) %></td>
+              </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary btn-add" data-test= "">Add data</button>
+        <button class="btn btn-primary btn-print">Save to PDF</button>
+        </script>
+
+        <!-- ================================================> -->
+    </div>
+
+    <script>
+        // Global Constants
+        var TIME = new Date();
+        var D = TIME.getDay();
+        var M = TIME.getMonth();
+        var Y = TIME.getFullYear();
+
+        // Define Model
+
+        var App = Backbone.Model.extend({
+
+
+        });
+
+
+        // Define App View
+        var App = Backbone.View.extend({
+            date: D,
+            month: M,
+            year: Y,
+            qty: 4,
+            rate: 15,
+            cur: 60,
+            vac: (60 * .04),
+            gross: (60 * .04) + 60,
+            template: _.template($('#item-list-template').html()),
+            events: {
+                'click [data-test]': 'addData'
+
+            },
+            el: $('.container'),
+
+            init: function () {
+
+                this.render();
+            },
+
+            render: function () {
+
+                this.populate();
+
+            },
+            day: function () {
+
+                switch (D) {
+                    case 0:
+                        d = "Sunday";
+                        break;
+                    case 1:
+                        d = "Monday";
+                        break;
+                    case 2:
+                        d = "Tuesday";
+                        break;
+                    case 3:
+                        d = "Wednesday";
+                        break;
+                    case 4:
+                        d = "Thursday";
+                        break;
+                    case 5:
+                        d = "Friday";
+                        break;
+                    case 6:
+                        d = "Saturday";
+
+
+                }
+                return d;
+
+            },
+            month: function () {
+
+                switch (M) {
+                    case 0:
+                        m = "Jan";
+                        break;
+                    case 1:
+                        m = "Feb";
+                        break;
+                    case 2:
+                        m = "Mar";
+                        break;
+                    case 3:
+                        m = "Apr";
+                        break;
+                    case 4:
+                        m = "May";
+                        break;
+                    case 5:
+                        m = "Jun";
+                        break;
+                    case 6:
+                        m = "Jul";
+                        break;
+                    case 7:
+                        m = "Aug";
+                        break;
+                    case 8:
+                        m = "Sep";
+                        break;
+                    case 9:
+                        m = "Oct";
+                        break;
+                    case 10:
+                        m = "Nov";
+                        break;
+                    case 11:
+                        m = "Dec";
+
+
+                }
+                return m;
+
+            },
+            addData: function () {
+
+
+                this.qty = Number($('#sel-qty option:selected').text());
+                this.rate = Number($('#sel-rate option:selected').text());
+
+
+                this.cur = this.qty * this.rate;
+                this.vac = this.cur * .06;
+
+                this.gross = this.cur + this.vac;
+
+                this.init();
+                console.log("addData initialized.")
+
+            },
+            populate: function () {
+                $('#main').html(this.template());
+
+                for (var i = 1; i < 201; i++) {
+                    $('#sel-qty').append('<option>' + i + '<option>');
+
+                }
+                for (var i = 15; i < 30; i++) {
+
+                    $('#sel-rate').append('<option>' + i + '<option>');
+
+                    $('#sel-rate').append('<option>' + (i + .5) + '<option>');
+                }
+
+
+            }
+
+        });
+        app = new App();
+        app.init();
+
+
+    </script>
+</body>
+</html>

@@ -179,6 +179,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     <p class="total-deductions">Total Tax + CPP/UI:</p>
                     <p class="vac-pay">Vacation Pay:</p>
                     <p class="gross-pay">Gross Pay:</p>
+                    <p class="gross-vac-pay">Gross/Vac Total Pay:</p>
                     <p class="net-pay">Net Pay:</p>
                     <p class="net-vac-pay">Net/Vac Total:</p>
                 </div>
@@ -202,7 +203,20 @@ This is because the viewport width is in pixels and does not change with the fon
     </div>
     <script>
         var t0 = performance.now();
+          /*
+             getMonth bug http://stackoverflow.com/questions/18624326/
+             getmonth-in-javascript-gives-last-month
 
+             Fix
+             var d = new Date();
+             b.getMonth() + 1;
+            */
+
+        // Created a Date Object
+        var calender = new Date();
+        var M = calender.getMonth() + 1;
+        var Y = calender.getFullYear();
+        var D = calender.getDay();
 
 
         // Cache jQuery elements for performance.
@@ -218,6 +232,7 @@ This is because the viewport width is in pixels and does not change with the fon
         var $elVacPay = $('.vac-pay');
         var $elNetPay = $('.net-pay');
         var $elGrossPay = $('.gross-pay');
+        var $elGrossVacPay = $('.gross-vac-pay');
         var $elNetVacPay = $('.net-vac-pay');
         var $elTaxContainer = $('.tax-container');
         var DEFAULT = " $0.00";
@@ -233,6 +248,7 @@ This is because the viewport width is in pixels and does not change with the fon
         $elPerformance.append(DEFAULT);
         $elVacPay.append(DEFAULT);
         $elGrossPay.append(DEFAULT);
+        $elGrossVacPay.append(DEFAULT);
         $elNetPay.append(DEFAULT);
         $elNetVacPay.append(DEFAULT);
         var count = 0;
@@ -240,18 +256,42 @@ This is because the viewport width is in pixels and does not change with the fon
         var totalDays = 0;
         var vacPay = 0;
         var netVacPay = 0;
-
+        var days = 0;
 
         $('.new-sheet').hide();        
         $('.btn-print').hide();
         $elTaxContainer.hide();
 
         $('.btn-add').click(function() {
+            days++;
             $('.new-sheet').fadeIn();
             var data_job = $('#sel-1 option:selected').text();
-            var data_day = $('#sel-2 option:selected').text();
-            var data_month = $('#sel-3 option:selected').text();
-            var data_year = $('#sel-4 option:selected').text();
+            
+            switch (D) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+            }
+            var data_day = $('#sel-2 option:selected').html(day);
+            var data_month = $('#sel-3 option:selected').html(M);
+            var data_year = $('#sel-4 option:selected').html(Y);
             var data_hours = Number($('#sel-5 option:selected').text());
             count = count + data_hours; 
             var data_date = $('#sel-6 option:selected').text();
@@ -266,12 +306,13 @@ This is because the viewport width is in pixels and does not change with the fon
             count + Number(data_hours);
             grossPay = count * data_rate;
             vacPay = grossPay * .04;
+            var grossVacPay = grossPay + vacPay;
             var totalDeductions = deductions(grossPay);
-            var netPay = grossPay - totalDeductions;
-            console.log("Net Pay: " + netPay);
+            var netPay = grossVacPay - totalDeductions;
+
             var projYearlyTotalNetPay = netPay * 26;
             
-            $('#data-container').prepend('<hr>' + dataHtml);
+            $('#data-container').prepend('<hr>' + dataHtml + "Estimated year end: " + projYearlyTotalNetPay);
             $('.btn-print').fadeIn();
             $('#total-container').fadeIn();
             $elTaxContainer.fadeIn();
@@ -310,26 +351,27 @@ This is because the viewport width is in pixels and does not change with the fon
         };
 
         var deductions = function (pay) {
-
-            pay = grossPay;
+            var grossVacPay = grossPay * 0.04;
+            pay = grossVacPay;
             if (pay > 0) {
 
-            var fed = grossPay * 0.014;
+            var fed = pay * 0.014;
             console.log(fed);
-            var pro = grossPay * 0.018;
+            var pro = pay * 0.018;
             console.log(pro);
             var totalTaxDeductions = fed + pro;
             console.log(totalTaxDeductions);
-            var cpp = grossPay * 0.0495;
+            var cpp = pay * 0.0495;
             console.log(cpp);
-            var ui = grossPay * 0.0163;
+            var ui = pay * 0.0163;
             console.log(ui);            
             var totalUIplusCPP = cpp + ui;
             console.log(totalUIplusCPP);            
             var totalAllDeductions = totalTaxDeductions + totalUIplusCPP;
-            var netPay = grossPay - totalAllDeductions;
-            netVacPay = netPay + vacPay;
-            $elTransactions.html("Total Days: " + count);
+            var netPay = pay - totalAllDeductions;
+  
+
+            $elTransactions.html("Total Days: " + days);
             $elFed.html("Fed: " + fed + " @ 1.4 %");
             $elPro.html("Pro: " + pro + " @ 1.8 %");
             $elTotalTax.html("Total Tax: " + totalTaxDeductions + " @ 4 %");
@@ -340,6 +382,7 @@ This is because the viewport width is in pixels and does not change with the fon
             
             $elVacPay.html("Vacation Pay: " + vacPay + " @ 4 %");
             $elGrossPay.html("Gross Pay: $" + grossPay);
+            $elGrossVacPay.html("Gross/Vac Total Pay: " + grossVacPay);
             $elNetPay.html("Net Pay: $" + netPay);
             $elNetVacPay.html("Net/Vac Total: $" + netVacPay);
                 return netPay;
