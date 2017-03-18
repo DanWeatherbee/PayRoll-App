@@ -87,23 +87,31 @@ This is because the viewport width is in pixels and does not change with the fon
         var Y = TIME.getFullYear();
 
         // Define Model
+                var defaultModel = {
+                    qty: 0,
+                    rate: 0,
+                    cur: 0,
+                    vac: 0,
+                    gross: 0
+                };
 
-        var App = Backbone.Model.extend({
-
-
+        Model = Backbone.Model.extend(defaultModel);
+        Collections = Backbone.Collection.extend({
+            model: Model,
+            localStorage: new Backbone.LocalStorage("database")
         });
-
+        var collection = new Collections();
 
         // Define App View
         var App = Backbone.View.extend({
             date: D,
             month: M,
             year: Y,
-            qty: 4,
-            rate: 15,
-            cur: 60,
-            vac: (60 * .04),
-            gross: (60 * .04) + 60,
+            qty: 0,
+            rate: 0,
+            cur: 0,
+            vac: 0,
+            gross: 0,
             template: _.template($('#item-list-template').html()),
             events: {
                 'click [data-test]': 'addData'
@@ -208,6 +216,22 @@ This is because the viewport width is in pixels and does not change with the fon
 
                 this.init();
                 console.log("addData initialized.")
+
+                var foo = new Model({
+                    qty: this.qty,
+                    rate: this.rate,
+                    cur: this.cur,
+                    vac: this.vac,
+                    gross: this.gross
+                });
+                collection.add(foo);
+
+                foo.save();
+                this.el.append("Qty: " + collection.models[0].attributes.qty +
+                 " | Rate: " + collection.models[0].attributes.rate +
+                  " | Cur : " + collection.models[0].attributes.cur.toFixed(2) +
+                   " | Vac: " + collection.models[0].attributes.vac.toFixed(2) +
+                    " | Gross: " + collection.models[0].attributes.gross.toFixed(2));
 
             },
             populate: function () {
