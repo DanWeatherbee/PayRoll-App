@@ -36,10 +36,10 @@ This is because the viewport width is in pixels and does not change with the fon
 
 
     <section class="container" id="main"></section>
-        <img id="img-temp" src="template.png"></img>
+        <!-- <img id="img-temp" src="template.png"></img> -->
         <!-- Backbone Template===========================> -->
 
-        <script type="text/template" id="item-list-template">
+        <script type="text/template" id="app-template">
 
         <p>Earnings and Hours</p>
         <hr>
@@ -58,26 +58,28 @@ This is because the viewport width is in pixels and does not change with the fon
               <tr>
                 <td>
                 <select class="form-control" id="sel-qty">
-
+                <option>56</option>
                 </select>
                   </td>
                 <td>
                   <select class="form-control" id="sel-rate">
-
+                <option>15</option>
                   </select>
                 </td>
-                <td><%= this.cur.toFixed(2) %></td>
-                <td><%= this.vac.toFixed(2) %></td>
-                <td><%= this.gross.toFixed(2) %></td>
+                <td><%= "this.cur.toFixed(2)" %></td>
+                <td><%= "this.vac.toFixed(2)" %></td>
+                <td><%= "this.gross.toFixed(2)" %></td>
               </tr>
           </tbody>
         </table>
-        <button class="btn btn-primary btn-add" data-test= "">Add data</button>
+
         <button class="btn btn-primary btn-print">Save to PDF</button>
         </script>
-
+        <button class="btn btn-primary btn-add" data-test= "">Add data</button>
         <!-- ================================================> -->
     </div>
+
+    <div id="transactions"></div>
 
     <script>
         // Global Constants
@@ -86,175 +88,87 @@ This is because the viewport width is in pixels and does not change with the fon
         var M = TIME.getMonth();
         var Y = TIME.getFullYear();
 
-        // Define Model
-                var defaultModel = {
-                    qty: 0,
-                    rate: 0,
-                    cur: 0,
-                    vac: 0,
-                    gross: 0
-                };
+        /*global $ */
+        /*jshint unused:false */
+        var app = app || {};
+        var ENTER_KEY = 13;
+        var ESC_KEY = 27;
 
-        Model = Backbone.Model.extend(defaultModel);
-        Collections = Backbone.Collection.extend({
+
+
+
+        Model = Backbone.Model.extend({qty: 15});
+
+
+        Collection = Backbone.Collection.extend({
             model: Model,
-            localStorage: new Backbone.LocalStorage("database")
+            localStorage: new Backbone.LocalStorage('payroll')
+
+
         });
-        var collection = new Collections();
 
-        // Define App View
-        var App = Backbone.View.extend({
-            date: D,
-            month: M,
-            year: Y,
-            qty: 0,
-            rate: 0,
-            cur: 0,
-            vac: 0,
-            gross: 0,
-            template: _.template($('#item-list-template').html()),
-            events: {
-                'click [data-test]': 'addData'
+        collection = new Collection();
 
-            },
-            el: $('.container'),
 
-            init: function () {
+        AppView = Backbone.View.extend({
+            el: '.container',
+            appTemplate: _.template($('#app-template').html()),
+            initialize: function () {
 
-                this.render();
-            },
+            // this.listenTo(app.todos, 'all', this.render);
 
+            // Suppresses 'add' events with {reset: true} and prevents the app view
+            // from being re-rendered for every model. Only renders when the 'reset'
+            // event is triggered at the end of the fetch.
+            // app.todos.fetch({reset: true});
+
+            this.render();
+        },
+
+            // Re-rendering the App just means refreshing the statistics -- the rest
+            // of the app doesn't change.
             render: function () {
 
-                this.populate();
-
-            },
-            day: function () {
-
-                switch (D) {
-                    case 0:
-                        d = "Sunday";
-                        break;
-                    case 1:
-                        d = "Monday";
-                        break;
-                    case 2:
-                        d = "Tuesday";
-                        break;
-                    case 3:
-                        d = "Wednesday";
-                        break;
-                    case 4:
-                        d = "Thursday";
-                        break;
-                    case 5:
-                        d = "Friday";
-                        break;
-                    case 6:
-                        d = "Saturday";
+                this.$el.append(this.appTemplate);
 
 
-                }
-                return d;
-
-            },
-            month: function () {
-
-                switch (M) {
-                    case 0:
-                        m = "Jan";
-                        break;
-                    case 1:
-                        m = "Feb";
-                        break;
-                    case 2:
-                        m = "Mar";
-                        break;
-                    case 3:
-                        m = "Apr";
-                        break;
-                    case 4:
-                        m = "May";
-                        break;
-                    case 5:
-                        m = "Jun";
-                        break;
-                    case 6:
-                        m = "Jul";
-                        break;
-                    case 7:
-                        m = "Aug";
-                        break;
-                    case 8:
-                        m = "Sep";
-                        break;
-                    case 9:
-                        m = "Oct";
-                        break;
-                    case 10:
-                        m = "Nov";
-                        break;
-                    case 11:
-                        m = "Dec";
-
-
-                }
-                return m;
-
-            },
-            addData: function () {
-
-
-                this.qty = Number($('#sel-qty option:selected').text());
-                this.rate = Number($('#sel-rate option:selected').text());
-
-
-                this.cur = this.qty * this.rate;
-                this.vac = this.cur * .06;
-
-                this.gross = this.cur + this.vac;
-
-                this.init();
-                console.log("addData initialized.")
-
-                var foo = new Model({
-                    qty: this.qty,
-                    rate: this.rate,
-                    cur: this.cur,
-                    vac: this.vac,
-                    gross: this.gross
-                });
-                collection.add(foo);
-
-                foo.save();
-                this.el.append("Qty: " + collection.models[0].attributes.qty +
-                 " | Rate: " + collection.models[0].attributes.rate +
-                  " | Cur : " + collection.models[0].attributes.cur.toFixed(2) +
-                   " | Vac: " + collection.models[0].attributes.vac.toFixed(2) +
-                    " | Gross: " + collection.models[0].attributes.gross.toFixed(2));
-
-            },
-            populate: function () {
-                $('#main').html(this.template());
-
-                for (var i = 1; i < 201; i++) {
-                    $('#sel-qty').append('<option>' + i + '<option>');
-
-                }
-                for (var i = 15; i < 30; i++) {
-
-                    $('#sel-rate').append('<option>' + i + '<option>');
-
-                    $('#sel-rate').append('<option>' + (i + .5) + '<option>');
-                }
-
-
-            }
+        }
 
         });
-        app = new App();
-        app.init();
 
+
+        var app = new AppView();
+
+
+        var bob = new Model({
+            qty: 0
+        });
+
+
+
+
+        collection.add(bob);
+
+        bob.save();
+
+
+        PayrollView = Backbone.View.extend({
+
+            collection: Collection,
+
+            el: '#transactions',
+
+
+            initialize: function() {
+
+                console.log(this.collection);
+
+
+        }
+
+        });
+
+        var pay = new PayrollView();
 
     </script>
 </body>
