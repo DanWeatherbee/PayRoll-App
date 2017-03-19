@@ -22,13 +22,25 @@
 
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <script src="js/lib/jquery-3.1.1.min.js"></script>
+
+
     <!-- https://mdbootstrap.com/css/animations/ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+
+    <script src="js/lib/underscore-min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script> -->
+
+    <script src="js/lib/backbone-min.js"></script>
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script> -->
+
+    <script src="js/lib/backbone-localstorage.min.js"></script>
 
 <!--  While Bootstrap uses ems or rems for defining most sizes,
 pxs are used for grid breakpoints and container widths.
@@ -141,7 +153,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
 
         var bob = new Model({
-            qty: 0
+            qty: 1000
         });
 
 
@@ -154,14 +166,18 @@ This is because the viewport width is in pixels and does not change with the fon
 
         PayrollView = Backbone.View.extend({
 
-            collection: Collection,
+
 
             el: '#transactions',
 
 
             initialize: function() {
+                collection.fetch();
 
-                console.log(this.collection);
+                for (var i = 0;i < collection.models.length; i++) {
+
+                this.$el.append(collection.models[i].attributes.qty);
+                }
 
 
         }
