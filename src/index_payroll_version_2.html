@@ -252,6 +252,10 @@ This is because the viewport width is in pixels and does not change with the fon
 
             el: '.container',
             transTemplate: _.template($('#trans-template').html()),
+            events: {
+                'click [data-test]': 'reload'
+
+            },
 
 
             initialize: function() {
@@ -265,6 +269,9 @@ This is because the viewport width is in pixels and does not change with the fon
         render: function () {
             this.$el.append(this.transTemplate);
             collection.populate();
+        },
+        reload: function () {
+            location.reload();
         }
 
         });
