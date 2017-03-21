@@ -1,13 +1,4 @@
-body {
-        padding-bottom: 15%;
-        padding-top: 10%;
-}
 
-.view {
-	height: 3em;
-	background-color: ghostwhite;
-	color: blue;
-}
 table {
         width: 100%;
         text-align: center;

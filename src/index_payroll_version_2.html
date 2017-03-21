@@ -47,76 +47,179 @@ pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
 
 
-    <section class="container" id="main"></section>
-        <!-- <img id="img-temp" src="template.png"></img> -->
+    <section class="container" id="main">
+
         <!-- Backbone Template===========================> -->
 
         <script type="text/template" id="app-template">
+            <section class="sel-panel col-sm-12">
+                <hr>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Qty</th>
+                      <th>Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-        <p>Earnings and Hours</p>
-        <hr>
-        <table>
-          <thead>
-            <tr>
-              <th>Qty</th>
-              <th>Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-
-              <tr>
-                <td>
-                <select class="form-control" id="sel-qty">
-                    <option>55</option>
-                    <option>56</option>
-                    <option>57</option>
-                </select>
-                  </td>
-                <td>
-                  <select class="form-control" id="sel-rate">
-                    <option>14</option>
-                    <option>15</option>
-                    <option>16</option>
-                  </select>
-                </td>
-              </tr>
-          </tbody>
-        </table>
-
-        <button class="btn btn-primary btn-print">Save to PDF</button>
+                      <tr>
+                        <td>
+                        <select class="form-control" id="sel-qty">
+                            <option>55</option>
+                            <option>56</option>
+                            <option>57</option>
+                        </select>
+                          </td>
+                        <td>
+                          <select class="form-control" id="sel-rate">
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                          </select>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+                <button class="btn btn-primary btn-print">Save to PDF</button>
+            </section>
         </script>
+<!-- Backbone Template===========================> -->
+        <!-- // <script type="text/template" id="pay-stub-template"> -->
+            <section class="stub-panel col-sm-12">
 
+                <h3>Employee</h3>
+                <hr>
+                <h4 id="employee">Dan</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Earnings & Hours</th>
+                      <th>Qty</th>
+                      <th>Rate</th>
+                      <th>Current</th>
+                      <th>YTD Amount Estimate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>Hourly Rate</td>
+                        <td id="qty-hr-stub"></td>
+                        <td id="rate-hr-stub"></td>
+                        <td id="cur-hr-stub"></td>
+                        <td id="ytd-hr-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>Over Time</td>
+                        <td id="qty-ot-stub"></td>
+                        <td id="rate-ot-stub"></td>
+                        <td id="cur-ot-stub"></td>
+                        <td id="ytd-ot-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>VacPay Pay Out</td>
+                        <td id="qty-vac-stub"></td>
+                        <td id="rate-vac-stub"></td>
+                        <td id="cur-vac-stub"></td>
+                        <td id="ytd-vac-stub"></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td id="qty-vacP-stub"></td>
+                        <td id="rate-vacP-stub"></td>
+                        <td id="cur-vacP-stub"></td>
+                        <td id="ytd-vacP-stub"></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <hr>
+               <table>
+                  <thead>
+                    <tr>
+                      <th>Withholdings</th>
+                      <th>Current</th>
+                      <th>YTD Amount Estimate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>CPP-Employee</td>
+                        <td id="cur-cpp-stub"></td>
+                        <td id="ytd-cpp-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>EI-Employee</td>
+                        <td id="cur-ei-stub"></td>
+                        <td id="ytd-ei-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>Federal Income Tax</td>
+                        <td id="cur-fed-stub"></td>
+                        <td id="ytd-fed-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>Provincial Income Tax</td>
+                        <td id="cur-pro-stub"></td>
+                        <td id="ytd-pro-stub"></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td id="cur-tot-stub"></td>
+                        <td id="ytd-tot-stub"></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <hr>
+               <table>
+                  <thead>
+                    <tr>
 
+                      <th>Net Pay</th>
+                      <th>Current</th>
+                      <th>YTD Amount Estimate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td></td>
+                        <td id="cur-netPay-stub"></td>
+                        <td id="ytd-netPay-stub"></td>
+                      </tr>
+                  </tbody>
+                </table>
+            </section>
+<!--         </script> -->
+<!-- Backbone Template===========================> -->
         <script type="text/template" id="trans-template">
-
-
-        <hr>
-        <h3 id="total-models"></h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Qty</th>
-              <th>Rate</th>
-              <th>Current</th>
-              <th>Vac</th>
-              <th>Gross</th>
-            </tr>
-          </thead>
-          <tbody>
-
-              <tr>
-                <td id="qty">test</td>
-                <td id="rate"><%= "this.gross.toFixed(2)" %></td>
-                <td id="cur"><%= "this.cur.toFixed(2)" %></td>
-                <td id="vac"><%= "this.vac.toFixed(2)" %></td>
-                <td id="gross"><%= "this.gross.toFixed(2)" %></td>
-              </tr>
-          </tbody>
-        </table>
-        <button class="btn btn-primary btn-add" data-test= "">Add data</button>
-
+            <section class="sel-panel col-sm-12">
+                <hr>
+                <h3 id="total-models"></h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Qty</th>
+                      <th>Rate</th>
+                      <th>Current</th>
+                      <th>Vac</th>
+                      <th>Gross</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td id="qty"></td>
+                        <td id="rate"></td>
+                        <td id="cur"></td>
+                        <td id="vac"></td>
+                        <td id="gross"></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <button class="btn btn-primary btn-add" data-test= "">Add data</button>
+            </section>
         </script>
+     <!--    <img id="img-temp" src="template.png"></img> -->
 
+    </section>
 
 
 
@@ -150,9 +253,12 @@ This is because the viewport width is in pixels and does not change with the fon
             localStorage: new Backbone.LocalStorage('payroll'),
             populate: function () {
 
-
+                var count = 0;
 
                 for (var i = 0;i < collection.models.length; i++) {
+
+                    count = count + collection.models[i].attributes.qty
+
 
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
 
@@ -163,7 +269,8 @@ This is because the viewport width is in pixels and does not change with the fon
                     $('#gross').prepend('<p>' + collection.models[i].attributes.gross + '</p><hr>');
 
                 }
-                $('#total-models').append("Total Transactions in collection: " + collection.models.length)
+                $('#total-models').append("Total Transactions in collection: " + collection.models.length);
+                $('#qty-hr-stub').html(count);
 
             }
         });
@@ -234,7 +341,7 @@ This is because the viewport width is in pixels and does not change with the fon
             render: function () {
 
 
-                this.$el.append(this.appTemplate);
+                this.$el.prepend(this.appTemplate);
 
 
 
