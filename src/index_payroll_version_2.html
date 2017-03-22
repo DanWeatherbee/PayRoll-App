@@ -57,8 +57,9 @@ This is because the viewport width is in pixels and does not change with the fon
                 <table>
                   <thead>
                     <tr>
-                      <th>Qty</th>
+                      <th>Qty(hours)</th>
                       <th>Rate</th>
+                      <th>OT(hours)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -66,9 +67,10 @@ This is because the viewport width is in pixels and does not change with the fon
                       <tr>
                         <td>
                         <select class="form-control" id="sel-qty">
-                            <option>55</option>
+                            <option>2</option>
+                            <option>4</option>
                             <option>56</option>
-                            <option>57</option>
+                            <option>58</option>
                         </select>
                           </td>
                         <td>
@@ -76,6 +78,15 @@ This is because the viewport width is in pixels and does not change with the fon
 
                             <option>15</option>
                             <option>16</option>
+
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-control" id="sel-ot">
+                            <option>0</option>
+                            <option>2</option>
+                            <option>4</option>
+
                           </select>
                         </td>
                       </tr>
@@ -217,7 +228,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <button class="btn btn-primary btn-add" data-test= "">Add data</button>
             </section>
         </script>
-     <!--    <img id="img-temp" src="template.png"></img> -->
+        <img id="img-temp" src="template.png"></img>
 
     </section>
 
@@ -239,8 +250,20 @@ This is because the viewport width is in pixels and does not change with the fon
         var ENTER_KEY = 13;
         var ESC_KEY = 27;
 
+        var totalQty = 0;
+        var totalYtd = 0;
+        var totalVac = 0;
+        var totalCur = 0;
 
-
+        var pay;
+        var fed;
+        var pro;
+        var totalTax;
+        var cpp;
+        var ui;
+        var totalUIplusCPP;
+        var totalAllDeductions;
+        var netPay;
 
         Model = Backbone.Model.extend({
             qty: 15
@@ -253,14 +276,12 @@ This is because the viewport width is in pixels and does not change with the fon
             localStorage: new Backbone.LocalStorage('payroll'),
             populate: function () {
 
-                var count = 0;
-                var ytd = 0;
-
                 for (var i = 0;i < collection.models.length; i++) {
 
-                    count = count + collection.models[i].attributes.qty
-                    ytd = ytd + collection.models[0].attributes.cur
-
+                    totalQty = totalQty + collection.models[i].attributes.qty;
+                    totalYtd = totalYtd + collection.models[i].attributes.cur;
+                    totalVac = totalVac + collection.models[i].attributes.vac;
+                    totalCur = totalCur + collection.models[i].attributes.cur;
 
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
 
@@ -272,10 +293,37 @@ This is because the viewport width is in pixels and does not change with the fon
 
                 }
                 $('#total-models').append("Total Transactions in collection: " + collection.models.length);
-                $('#qty-hr-stub').html(count);
+                $('#qty-hr-stub').html(totalQty);
                 $('#rate-hr-stub').html(collection.models[collection.models.length - 1].attributes.rate);
-                $('#cur-hr-stub').html(collection.models[0].attributes.cur);
-                $('#ytd-hr-stub').html(ytd);
+                $('#cur-hr-stub').html(totalCur);
+                $('#cur-vac-stub').html(totalVac);
+                $('#ytd-hr-stub').html(totalYtd);
+                $('#ytd-vac-stub').html(totalVac);
+                $('#cur-vacP-stub').html(totalCur + totalVac);
+                $('#ytd-vacP-stub').html(totalCur + totalVac);
+
+                pay = totalCur + totalVac;
+
+                if (pay > 0) {
+
+                  fed = pay * 0.014;
+
+                  pro = pay * 0.018;
+
+                  totalTax = fed + pro;
+
+                  cpp = pay * 0.0495;
+
+                  ui = pay * 0.0163;
+
+                  totalUIplusCPP = cpp + ui;
+
+                  totalAllDeductions = totalTax + totalUIplusCPP;
+                  netPay = pay - totalAllDeductions;
+                  console.log(netPay);
+                  $('#cur-netPay-stub').html(netPay);
+                  $('#ytd-netPay-stub').html(netPay);
+                }
             }
         });
 
@@ -389,7 +437,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
         });
 
-        var pay = new PayrollView();
+        var payRoll = new PayrollView();
 
 /*
 Events is a module that can be mixed in to any object, giving the object the ability to bind and trigger custom named events. Events do not have to be declared before they are bound, and may take passed arguments. For example:

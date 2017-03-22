@@ -1,4 +1,6 @@
-
+.container {
+        padding-top: 15%;
+}
 table {
         width: 100%;
         text-align: center;
