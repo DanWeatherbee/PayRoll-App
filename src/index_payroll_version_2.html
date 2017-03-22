@@ -73,7 +73,7 @@ This is because the viewport width is in pixels and does not change with the fon
                           </td>
                         <td>
                           <select class="form-control" id="sel-rate">
-                            <option>14</option>
+
                             <option>15</option>
                             <option>16</option>
                           </select>
@@ -254,10 +254,12 @@ This is because the viewport width is in pixels and does not change with the fon
             populate: function () {
 
                 var count = 0;
+                var ytd = 0;
 
                 for (var i = 0;i < collection.models.length; i++) {
 
                     count = count + collection.models[i].attributes.qty
+                    ytd = ytd + collection.models[0].attributes.cur
 
 
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
@@ -271,7 +273,9 @@ This is because the viewport width is in pixels and does not change with the fon
                 }
                 $('#total-models').append("Total Transactions in collection: " + collection.models.length);
                 $('#qty-hr-stub').html(count);
-
+                $('#rate-hr-stub').html(collection.models[collection.models.length - 1].attributes.rate);
+                $('#cur-hr-stub').html(collection.models[0].attributes.cur);
+                $('#ytd-hr-stub').html(ytd);
             }
         });
 
@@ -304,6 +308,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
                 var QTY = Number($('#sel-qty option:selected').text());
                 var RATE = Number($('#sel-rate option:selected').text());
+
                 var CUR = QTY * RATE;
 
                 var VAC = CUR * .04;
@@ -312,7 +317,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
 
 
-                var Fred = {
+                var TransModel = {
                     qty: QTY,
                     rate: RATE,
                     cur: CUR,
@@ -322,12 +327,12 @@ This is because the viewport width is in pixels and does not change with the fon
 
 
 
-                var fred = new Model(Fred);
+                var newTrans = new Model(TransModel);
 
 
-                collection.add(fred);
+                collection.add(newTrans);
 
-                fred.save();
+                newTrans.save();
 
 
 
@@ -379,13 +384,26 @@ This is because the viewport width is in pixels and does not change with the fon
         },
         reload: function () {
             location.reload();
+
         }
 
         });
 
         var pay = new PayrollView();
 
+/*
+Events is a module that can be mixed in to any object, giving the object the ability to bind and trigger custom named events. Events do not have to be declared before they are bound, and may take passed arguments. For example:
 
+var object = {};
+
+_.extend(object, Backbone.Events);
+
+object.on("alert", function(msg) {
+  alert("Triggered " + msg);
+});
+
+object.trigger("alert", "an event")
+*/
     </script>
 </body>
 </html>
