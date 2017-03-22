@@ -78,6 +78,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
                             <option>15</option>
                             <option>16</option>
+                            <option>22.50</option>
 
                           </select>
                         </td>
@@ -159,9 +160,9 @@ This is because the viewport width is in pixels and does not change with the fon
                         <td id="ytd-cpp-stub"></td>
                       </tr>
                       <tr>
-                        <td>EI-Employee</td>
-                        <td id="cur-ei-stub"></td>
-                        <td id="ytd-ei-stub"></td>
+                        <td>UI-Employee</td>
+                        <td id="cur-ui-stub"></td>
+                        <td id="ytd-ui-stub"></td>
                       </tr>
                       <tr>
                         <td>Federal Income Tax</td>
@@ -296,9 +297,9 @@ This is because the viewport width is in pixels and does not change with the fon
                 $('#qty-hr-stub').html(totalQty);
                 $('#rate-hr-stub').html(collection.models[collection.models.length - 1].attributes.rate);
                 $('#cur-hr-stub').html(totalCur);
-                $('#cur-vac-stub').html(totalVac);
+                $('#cur-vac-stub').html(totalVac.toFixed(2));
                 $('#ytd-hr-stub').html(totalYtd);
-                $('#ytd-vac-stub').html(totalVac);
+                $('#ytd-vac-stub').html(totalVac.toFixed(2));
                 $('#cur-vacP-stub').html(totalCur + totalVac);
                 $('#ytd-vacP-stub').html(totalCur + totalVac);
 
@@ -307,6 +308,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 if (pay > 0) {
 
                   fed = pay * 0.014;
+
 
                   pro = pay * 0.018;
 
@@ -320,9 +322,20 @@ This is because the viewport width is in pixels and does not change with the fon
 
                   totalAllDeductions = totalTax + totalUIplusCPP;
                   netPay = pay - totalAllDeductions;
-                  console.log(netPay);
-                  $('#cur-netPay-stub').html(netPay);
-                  $('#ytd-netPay-stub').html(netPay);
+
+                  $('#cur-netPay-stub').html(netPay.toFixed(2));
+                  $('#ytd-netPay-stub').html(netPay.toFixed(2));
+                  $('#cur-cpp-stub').html('- ' + cpp.toFixed(2));
+                  $('#cur-ui-stub').html('- ' + ui.toFixed(2));
+                  $('#cur-fed-stub').html('- ' + fed.toFixed(2));
+                  $('#cur-pro-stub').html('- ' + pro.toFixed(2));
+                  $('#cur-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+                  $('#ytd-cpp-stub').html('- ' + cpp.toFixed(2));
+                  $('#ytd-ui-stub').html('- ' + ui.toFixed(2));
+                  $('#ytd-fed-stub').html('- ' + fed.toFixed(2));
+                  $('#ytd-pro-stub').html('- ' + pro.toFixed(2));
+                  $('#ytd-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+
                 }
             }
         });
@@ -360,6 +373,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 var CUR = QTY * RATE;
 
                 var VAC = CUR * .04;
+
 
                 var GROSS = CUR + VAC;
 
