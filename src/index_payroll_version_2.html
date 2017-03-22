@@ -169,11 +169,7 @@ This is because the viewport width is in pixels and does not change with the fon
                         <td id="cur-fed-stub"></td>
                         <td id="ytd-fed-stub"></td>
                       </tr>
-                      <tr>
-                        <td>Provincial Income Tax</td>
-                        <td id="cur-pro-stub"></td>
-                        <td id="ytd-pro-stub"></td>
-                      </tr>
+
                       <tr>
                         <td></td>
                         <td id="cur-tot-stub"></td>
@@ -230,6 +226,7 @@ This is because the viewport width is in pixels and does not change with the fon
             </section>
         </script>
         <img id="img-temp" src="template.png"></img>
+        <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html">Canada Revenue Calculations</a>
 
     </section>
 
@@ -258,7 +255,7 @@ This is because the viewport width is in pixels and does not change with the fon
 
         var pay;
         var fed;
-        var pro;
+
         var totalTax;
         var cpp;
         var ui;
@@ -310,9 +307,7 @@ This is because the viewport width is in pixels and does not change with the fon
                   fed = pay * 0.014;
 
 
-                  pro = pay * 0.018;
-
-                  totalTax = fed + pro;
+                  totalTax = fed
 
                   cpp = pay * 0.0495;
 
@@ -328,12 +323,12 @@ This is because the viewport width is in pixels and does not change with the fon
                   $('#cur-cpp-stub').html('- ' + cpp.toFixed(2));
                   $('#cur-ui-stub').html('- ' + ui.toFixed(2));
                   $('#cur-fed-stub').html('- ' + fed.toFixed(2));
-                  $('#cur-pro-stub').html('- ' + pro.toFixed(2));
+
                   $('#cur-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
                   $('#ytd-cpp-stub').html('- ' + cpp.toFixed(2));
                   $('#ytd-ui-stub').html('- ' + ui.toFixed(2));
                   $('#ytd-fed-stub').html('- ' + fed.toFixed(2));
-                  $('#ytd-pro-stub').html('- ' + pro.toFixed(2));
+
                   $('#ytd-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
 
                 }
