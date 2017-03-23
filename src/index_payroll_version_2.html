@@ -25,6 +25,8 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
     <script src="js/lib/jquery-3.1.1.min.js"></script>
 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- https://mdbootstrap.com/css/animations/ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
@@ -49,6 +51,13 @@ This is because the viewport width is in pixels and does not change with the fon
 
     <section class="container" id="main">
 
+        <h3>Pay Period</h3>
+        <hr>
+        <label for="from">From</label>
+        <input type="text" id="from" name="from">
+        <label for="to">to</label>
+        <input type="text" id="to" name="to">
+        <hr>
         <!-- Backbone Template===========================> -->
 
         <script type="text/template" id="app-template">
@@ -103,6 +112,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <h3>Employee</h3>
                 <hr>
                 <h4 id="employee">Dan</h4>
+                <hr>
                 <table>
                   <thead>
                     <tr>
@@ -262,6 +272,42 @@ This is because the viewport width is in pixels and does not change with the fon
         var totalUIplusCPP;
         var totalAllDeductions;
         var netPay;
+
+
+        $( function() {
+          var dateFormat = "mm/dd/yy",
+            from = $( "#from" )
+              .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 2
+              })
+              .on( "change", function() {
+                to.datepicker( "option", "minDate", getDate( this ) );
+              }),
+            to = $( "#to" ).datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 2
+            })
+            .on( "change", function() {
+              from.datepicker( "option", "maxDate", getDate( this ) );
+            });
+
+          function getDate( element ) {
+            var date;
+            try {
+              date = $.datepicker.parseDate( dateFormat, element.value );
+            } catch( error ) {
+              date = null;
+            }
+
+            return date;
+          }
+        } );
+
+
+
 
         Model = Backbone.Model.extend({
             qty: 15

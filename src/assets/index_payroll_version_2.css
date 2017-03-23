@@ -58,3 +58,22 @@ tr {
         max-width: 400px;
         max-height: 400px;
 }
+
+#ui-datepicker-div {
+        background-color: midnightblue;
+
+}
+.ui-datepicker-year,
+.ui-icon {
+        color: white;
+}
+.ui-icon:hover {
+
+        border: .1em solid;
+        color: lawngreen;
+}
+.ui-datepicker-month {
+        color: black;
+        background-color: white;
+}
+
