@@ -49,7 +49,7 @@ pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
     <div class="container" id="main">
       <section class="last-trans-panel col-sm-12">
-        <h3>Last Trans</h3>
+        <h3 id="last-tran-header">Last Trans</h3>
           <table>
             <thead>
               <tr>
@@ -76,7 +76,7 @@ This is because the viewport width is in pixels and does not change with the fon
           </table>
         <section>
         <section class="pay-period-panel col-sm-12">
-          <h3>Pay Period</h3>
+          <h3 id="pay-per-header">Pay Period Panel:</h3>
           <hr>
           <label for="from">From</label>
           <input type="text" id="from" name="from" placeholder="Calender">
@@ -144,6 +144,7 @@ This is because the viewport width is in pixels and does not change with the fon
                   </tbody>
                 </table>
                 <button class="btn btn-primary btn-print">Save to PDF</button>
+
             </section>
         </script>
 <!-- Backbone Template===========================> -->
@@ -310,6 +311,8 @@ This is because the viewport width is in pixels and does not change with the fon
         var totalUIplusCPP;
         var totalAllDeductions;
         var netPay;
+        var payStart;
+        var payEnd;
 
         $( function() {
           var dateFormat = "mm/dd/yy",
@@ -374,7 +377,70 @@ This is because the viewport width is in pixels and does not change with the fon
                     $('#gross').prepend('<p>' + collection.models[i].attributes.gross + '</p><hr>');
                     $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '</p><hr>');
                 }
+                payStart = collection.models[collection.models.length - 1].attributes.periodB;
+                payEnd = collection.models[collection.models.length - 1].attributes.periodE;
+                switch (D) {
+                    case 0:
+                        day = "Sunday";
+                        break;
+                    case 1:
+                        day = "Monday";
+                        break;
+                    case 2:
+                        day = "Tuesday";
+                        break;
+                    case 3:
+                        day = "Wednesday";
+                        break;
+                    case 4:
+                        day = "Thursday";
+                        break;
+                    case 5:
+                        day = "Friday";
+                        break;
+                    case 6:
+                        day = "Saturday";
+                }
+                switch (M) {
+                    case 0:
+                        month = "Jan";
+                        break;
+                    case 1:
+                        month = "Feb";
+                        break;
+                    case 2:
+                        month = "Mar";
+                        break;
+                    case 3:
+                        month = "Apr";
+                        break;
+                    case 4:
+                        month = "May";
+                        break;
+                    case 5:
+                        month = "June";
+                        break;
+                    case 6:
+                        month = "Jul";
+                        break;
+                    case 7:
+                        month = "Aug";
+                        break;
+                    case 8:
+                        month = "Sep";
+                        break;
+                    case 9:
+                        month = "Oct";
+                         break;
+                    case 10:
+                        month = "Nov";
+                        break;
+                    case 11:
+                        month = "Dec";
+                }
 
+                $('#pay-per-header').append(" Today is " + day + " " + month + " " + Y + " Choose a pay period below.");
+                $('#last-tran-header').html(" Period start: " + payStart + " Period end: " + payEnd);
                 $('#total-models').append("Total Transactions in collection: " + collection.models.length);
                 $('#qty-hr-stub').html(totalQty);
                 $('#rate-hr-stub').html(collection.models[collection.models.length - 1].attributes.rate);
@@ -440,8 +506,8 @@ This is because the viewport width is in pixels and does not change with the fon
             addData: function () {
 
                 // Grab data from Date Elements.
-                var DATE_PERIOD_BEGIN = $('#datepicker')[0].value;
-                var DATE_PERIOD_END = $('#datepicker')[0].value;
+                var DATE_PERIOD_BEGIN = $('#from')[0].value;
+                var DATE_PERIOD_END = $('#to')[0].value;
                 var DATE = $('#datepicker')[0].value;
 
 
@@ -467,7 +533,9 @@ This is because the viewport width is in pixels and does not change with the fon
                     cur: CUR,
                     vac: VAC,
                     gross: GROSS,
-                    stat: STAT
+                    stat: STAT,
+                    periodB: DATE_PERIOD_BEGIN,
+                    periodE: DATE_PERIOD_END
                     };
 
                 var newTrans = new Model(TransModel);
