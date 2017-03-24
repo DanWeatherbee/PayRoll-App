@@ -47,10 +47,7 @@
 <!--  While Bootstrap uses ems or rems for defining most sizes,
 pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
-
-
     <div class="container" id="main">
-
       <section class="last-trans-panel col-sm-12">
         <h3>Last Trans</h3>
           <table>
@@ -78,10 +75,7 @@ This is because the viewport width is in pixels and does not change with the fon
             </tbody>
           </table>
         <section>
-
-
         <section class="pay-period-panel col-sm-12">
-
           <h3>Pay Period</h3>
           <hr>
           <label for="from">From</label>
@@ -89,11 +83,8 @@ This is because the viewport width is in pixels and does not change with the fon
           <label for="to">to</label>
           <input type="text" id="to" name="to" placeholder="Calender">
           <hr>
-
-
         </section>
         <!-- Backbone Template===========================> -->
-
         <script type="text/template" id="app-template">
             <section class="sel-panel col-sm-12">
                 <hr>
@@ -108,10 +99,10 @@ This is because the viewport width is in pixels and does not change with the fon
                     </tr>
                   </thead>
                   <tbody>
-
                       <tr>
                         <td>
                           <input type="text" id="datepicker" placeholder="Calender">
+
                         </td>
                         <td>
                         <select class="form-control" id="sel-qty">
@@ -158,7 +149,6 @@ This is because the viewport width is in pixels and does not change with the fon
 <!-- Backbone Template===========================> -->
         <!-- // <script type="text/template" id="pay-stub-template"> -->
             <section class="stub-panel col-sm-12">
-
                 <h3>Employee</h3>
                 <hr>
                 <select class="form-control" id="sel-emp">
@@ -296,12 +286,6 @@ This is because the viewport width is in pixels and does not change with the fon
         <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html">Canada Revenue Calculations</a>
 
     </div>
-
-
-
-
-
-
     <script>
         // Global Constants
         var TIME = new Date();
@@ -314,23 +298,18 @@ This is because the viewport width is in pixels and does not change with the fon
         var app = app || {};
         var ENTER_KEY = 13;
         var ESC_KEY = 27;
-        var DATE = "unassigned";
-
         var totalQty = 0;
         var totalYtd = 0;
         var totalVac = 0;
         var totalCur = 0;
-
         var pay;
         var fed;
-
         var totalTax;
         var cpp;
         var ui;
         var totalUIplusCPP;
         var totalAllDeductions;
         var netPay;
-
 
         $( function() {
           var dateFormat = "mm/dd/yy",
@@ -362,21 +341,21 @@ This is because the viewport width is in pixels and does not change with the fon
             }
             return DATE;
           };
-
         } );
-
-
-
 
         Model = Backbone.Model.extend({
             qty: 15
-
         });
 
 
         Collection = Backbone.Collection.extend({
             model: Model,
             localStorage: new Backbone.LocalStorage('payroll'),
+
+            /*
+             Grab all the data from collections saved in local storage.
+             Populate the DOM with the retrieved information.
+             */
             populate: function () {
 
                 for (var i = 0;i < collection.models.length; i++) {
@@ -387,17 +366,14 @@ This is because the viewport width is in pixels and does not change with the fon
                     totalCur = totalCur + collection.models[i].attributes.cur;
 
                     $('#dte').prepend('<p>' + collection.models[i].attributes.dte + '</p><hr>');
-
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
-
                     $('#rate').prepend('<p>' + collection.models[i].attributes.rate + '</p><hr>');
                     $('#cur').prepend('<p>' + collection.models[i].attributes.cur + '</p><hr>');
-
-                    $('#vac').prepend('<p>' + collection.models[i].attributes.vac + '</p><hr>');
+                    var vac_2DIGITS = collection.models[i].attributes.vac;
+                    $('#vac').prepend('<p>' + vac_2DIGITS.toFixed(2) + '</p><hr>');
                     $('#gross').prepend('<p>' + collection.models[i].attributes.gross + '</p><hr>');
                     $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '</p><hr>');
                 }
-
 
                 $('#total-models').append("Total Transactions in collection: " + collection.models.length);
                 $('#qty-hr-stub').html(totalQty);
@@ -412,47 +388,40 @@ This is because the viewport width is in pixels and does not change with the fon
                 $('#qty-l').html(collection.models[collection.models.length - 1].attributes.qty);
                 $('#rate-l').html(collection.models[collection.models.length - 1].attributes.rate);
                 $('#cur-l').html(collection.models[collection.models.length - 1].attributes.cur);
-                $('#vac-l').html(collection.models[collection.models.length - 1].attributes.vac);
+                var VAC_2DIGITS = collection.models[collection.models.length - 1].attributes.vac;
+                $('#vac-l').html(VAC_2DIGITS.toFixed(2));
                 $('#gross-l').html(collection.models[collection.models.length - 1].attributes.gross);
                 $('#stat-l').html(collection.models[collection.models.length - 1].attributes.stat);
 
                 pay = totalCur + totalVac;
 
+                // 2017 Tax Calculations.
                 if (pay > 0) {
 
                   fed = pay * 0.014;
-
-
                   totalTax = fed
-
                   cpp = pay * 0.0495;
-
                   ui = pay * 0.0163;
-
                   totalUIplusCPP = cpp + ui;
-
                   totalAllDeductions = totalTax + totalUIplusCPP;
                   netPay = pay - totalAllDeductions;
 
+                  // Append Calculated Data received from collections.
                   $('#cur-netPay-stub').html(netPay.toFixed(2));
                   $('#ytd-netPay-stub').html(netPay.toFixed(2));
                   $('#cur-cpp-stub').html('- ' + cpp.toFixed(2));
                   $('#cur-ui-stub').html('- ' + ui.toFixed(2));
                   $('#cur-fed-stub').html('- ' + fed.toFixed(2));
-
                   $('#cur-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
                   $('#ytd-cpp-stub').html('- ' + cpp.toFixed(2));
                   $('#ytd-ui-stub').html('- ' + ui.toFixed(2));
                   $('#ytd-fed-stub').html('- ' + fed.toFixed(2));
-
                   $('#ytd-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
-
                 }
             }
         });
 
         collection = new Collection();
-
 
         AppView = Backbone.View.extend({
             el: '.container',
@@ -464,38 +433,33 @@ This is because the viewport width is in pixels and does not change with the fon
 
                 collection.fetch();
 
-
-
             this.listenTo(collection, 'populate', this.addData);
-
-            // Suppresses 'add' events with {reset: true} and prevents the app view
-            // from being re-rendered for every model. Only renders when the 'reset'
-            // event is triggered at the end of the fetch.
-            // app.todos.fetch({reset: true});
-
             this.render();
             },
 
             addData: function () {
 
+                // Grab data from Date Elements.
+                var DATE_PERIOD_BEGIN = $('#datepicker')[0].value;
+                var DATE_PERIOD_END = $('#datepicker')[0].value;
+                var DATE = $('#datepicker')[0].value;
 
 
-                DATE = $('#datepicker')[0].value;
+                // Make sure Date Element is not empty.
+                if (DATE == "") {
+                  alert("please enter a date.")
+                  return;
+                }
 
+                // Grab values from options selected.
                 var QTY = Number($('#sel-qty option:selected').text());
                 var RATE = Number($('#sel-rate option:selected').text());
-
                 var CUR = QTY * RATE;
-
                 var VAC = CUR * .04;
-
-
                 var GROSS = CUR + VAC;
-
                 var STAT = $('#sel-stat option:selected').text();
 
-
-
+                // Transaction Model.
                 var TransModel = {
                     dte: DATE,
                     qty: QTY,
@@ -506,57 +470,41 @@ This is because the viewport width is in pixels and does not change with the fon
                     stat: STAT
                     };
 
-
-
                 var newTrans = new Model(TransModel);
-
 
                 collection.add(newTrans);
 
+                // Save the new transaction, views will rely on collections for data.
                 newTrans.save();
-
-
-
-
-
-
             },
 
             // Re-rendering the App just means refreshing the statistics -- the rest
             // of the app doesn't change.
             render: function () {
-
-
                 this.$el.prepend(this.appTemplate);
-
-
 
             }
 
         });
 
-
         var app = new AppView();
 
-
         PayrollView = Backbone.View.extend({
-
-
 
             el: '.container',
             transTemplate: _.template($('#trans-template').html()),
             events: {
                 'click [data-test]': 'reload'
-
             },
-
 
             initialize: function() {
 
-                $( "#datepicker" ).datepicker();
+                $('#datepicker').datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 2
+            });
                 collection.fetch();
-
-
                 this.render();
         },
         render: function () {
@@ -565,7 +513,6 @@ This is because the viewport width is in pixels and does not change with the fon
         },
         reload: function () {
             location.reload();
-
         }
 
         });
@@ -576,7 +523,6 @@ This is because the viewport width is in pixels and does not change with the fon
             $('.option-panel').hide();
             $('.btn-print').hide();
             $('.btn-add').hide();
-
 
             var sign = prompt("What's your username?");
 
@@ -592,7 +538,6 @@ This is because the viewport width is in pixels and does not change with the fon
              alert("Sorry I don't know you.");
              reload();
             }
-
         });
 
 /*
