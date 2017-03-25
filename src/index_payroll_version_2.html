@@ -115,56 +115,29 @@ This is because the viewport width is in pixels and does not change with the fon
 
                         <td>
                         <select class="form-control" id="sel-qty">
-                            <option>.5</option>
-                            <option>1</option>
-                            <option>1.5</option>
-                            <option>2</option>
-                            <option>2.5</option>
-                            <option>3</option>
-                            <option>3.5</option>
-                            <option>4</option>
-                            <option>4.5</option>
-                            <option>5</option>
-                            <option>5.5</option>
-                            <option>6</option>
-                            <option>6.5</option>
-                            <option>7</option>
-
-                            <option>7.5</option>
-                            <option>8</option>
-                            <option>8.5</option>
-                            <option>9</option>
-                            <option>9.5</option>
-                            <option>10</option>
-                            <option>10.5</option>
-
                         </select>
                         </td>
                         <td>
                           <select class="form-control" id="sel-rate">
-
-                            <option>15</option>
-                            <option>16</option>
-                            <option>22.50</option>
-
                           </select>
                         </td>
                         <td>
                           <select class="form-control" id="sel-ot">
-                            <option>0</option>
-                            <option>2</option>
-                            <option>4</option>
-
                           </select>
                         </td>
                         <td>
                           <select class="form-control" id="sel-stat">
-
                             <option>No Stat</option>
-                            <option>BC Day</option>
-                            <option>Victoria Day</option>
+                            <option>New Years Day</option>
                             <option>Family Day</option>
-
+                            <option>Good Friday Day</option>
+                            <option>Victoria Day</option>
+                            <option>Canada Day</option>
+                            <option>BC Day</option>
+                            <option>Labour Day</option>
+                            <option>Thanksgiving Day</option>
+                            <option>Remembrance Day</option>
+                            <option>Christmas Day</option>
                           </select>
                         </td>
                       </tr>
@@ -284,7 +257,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <hr>
                 <h3 id="total-models"></h3>
                 <table>
-                  <thead>
+                  <thead id="trans-table-head">
                     <tr>
                       <th>Job</th>
                       <th>Date</th>
@@ -314,7 +287,7 @@ This is because the viewport width is in pixels and does not change with the fon
         </script>
         <button class="btn btn-primary btn-del">Delete data</button>
         <!-- <img id="img-temp" src="template.png"></img> -->
-        <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html">Canada Revenue Calculations</a>
+        <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
 
     </div>
     <script>
@@ -364,6 +337,7 @@ This is because the viewport width is in pixels and does not change with the fon
             })
             .on( "change", function() {
               from.datepicker( "option", "maxDate", getDate( this ) );
+
             });
 
           function getDate( element ) {
@@ -393,13 +367,24 @@ This is because the viewport width is in pixels and does not change with the fon
              */
             populate: function () {
 
+
+                for (var i = 0;i < 200; i++) {
+                    $('#sel-qty').append('<option>' + i + '</option>');
+                    $('#sel-qty').append('<option>' + (i + .5) + '</option>');
+                    $('#sel-rate').append('<option>' + i + '</option>');
+                    $('#sel-rate').append('<option>' + (i + .5) + '</option>');
+                    $('#sel-ot').append('<option>' + i + '</option>');
+                    $('#sel-ot').append('<option>' + (i + .5) + '</option>');
+                }
+
                 for (var i = 0;i < collection.models.length; i++) {
+                    $('#sel-qty').append('<option>' + i + '</option>');
 
                     totalQty = totalQty + collection.models[i].attributes.qty;
                     totalYtd = totalYtd + collection.models[i].attributes.cur;
                     totalVac = totalVac + collection.models[i].attributes.vac;
                     totalCur = totalCur + collection.models[i].attributes.cur;
-                    $('#job').prepend('<p>' + collection.models[collection.models.length - 1].attributes.job + '</p><hr>');
+                    $('#job').prepend('<p>' + collection.models[i].attributes.job + '</p><hr>');
                     $('#dte').prepend('<p>' + collection.models[i].attributes.dte + '</p><hr>');
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
                     $('#rate').prepend('<p>' + collection.models[i].attributes.rate + '</p><hr>');
@@ -437,6 +422,16 @@ This is because the viewport width is in pixels and does not change with the fon
                 $('#stat-l').html(collection.models[collection.models.length - 1].attributes.stat);
                 $('#job-l').html(collection.models[collection.models.length - 1].attributes.job);
                 $('#job-opt')[0].value = collection.models[collection.models.length - 1].attributes.job;
+
+                $('#sel-qty').prepend('<option>' +
+                  collection.models[collection.models.length - 1].attributes.qty + '</option>');
+                $('#sel-rate').prepend('<option>' +
+                  collection.models[collection.models.length - 1].attributes.rate + '</option>');
+                $('#sel-ot').prepend('<option>' +
+                  collection.models[collection.models.length - 1].attributes.ot + '</option>');
+                $('#sel-stat').prepend('<option>' +
+                  collection.models[collection.models.length - 1].attributes.stat + '</option>');
+
                 pay = totalCur + totalVac;
 
                 // 2017 Tax Calculations.
@@ -461,8 +456,13 @@ This is because the viewport width is in pixels and does not change with the fon
                   $('#ytd-ui-stub').html('- ' + ui.toFixed(2));
                   $('#ytd-fed-stub').html('- ' + fed.toFixed(2));
                   $('#ytd-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+
+
                 }
+
+
             }
+
         });
 
         collection = new Collection();
@@ -482,7 +482,7 @@ This is because the viewport width is in pixels and does not change with the fon
             },
 
             addData: function () {
-
+   $('#job').append('<p>' + collection.models[collection.models.length - 1].attributes.job + '</p><hr>');
                 // Grab data from Date Elements.
                 var DATE_PERIOD_BEGIN = $('#from')[0].value;
                 var DATE_PERIOD_END = $('#to')[0].value;
@@ -590,8 +590,25 @@ This is because the viewport width is in pixels and does not change with the fon
             $('.option-panel').hide();
             $('.btn-print').hide();
             $('.btn-add').hide();
+            $('.btn-del').hide();
             $('.sel-panel').hide();
             $('.last-trans-panel').hide();
+            $('.stub-panel').hide();
+            $('#link-canada').hide();
+
+            $('#trans-table-head').hide();
+            // $('#job').hide();
+            // $('#dte').hide();
+            // $('#qty').hide();
+            $('#rate').hide();
+            $('#cur').hide();
+
+            $('#vac').hide();
+            $('#gross').hide();
+            // $('#stat').hide();
+
+
+
             var sign = prompt("What's your username?");
 
             if (sign.toLowerCase() == "tina") {
