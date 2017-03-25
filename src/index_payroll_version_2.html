@@ -49,10 +49,11 @@ pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
     <div class="container" id="main">
       <section class="last-trans-panel col-sm-12">
-        <h3 id="last-tran-header">Last Trans</h3>
+        <h3 id="last-tran-header">Last Transaction:</h3>
           <table>
             <thead>
               <tr>
+                <th>Job</th>
                 <th>Date</th>
                 <th>Qty</th>
                 <th>Rate</th>
@@ -64,6 +65,7 @@ This is because the viewport width is in pixels and does not change with the fon
             </thead>
             <tbody>
                 <tr>
+                  <td id="job-l"></td>
                   <td id="dte-l"></td>
                   <td id="qty-l"></td>
                   <td id="rate-l"></td>
@@ -74,8 +76,10 @@ This is because the viewport width is in pixels and does not change with the fon
                 </tr>
             </tbody>
           </table>
-        <section>
-        <section class="pay-period-panel col-sm-12">
+      </section>
+
+
+      <section class="pay-period-panel col-sm-12">
           <h3 id="pay-per-header">Pay Period Panel:</h3>
           <hr>
           <label for="from">From</label>
@@ -83,7 +87,8 @@ This is because the viewport width is in pixels and does not change with the fon
           <label for="to">to</label>
           <input type="text" id="to" name="to" placeholder="Calender">
           <hr>
-        </section>
+      </section>
+
         <!-- Backbone Template===========================> -->
         <script type="text/template" id="app-template">
             <section class="sel-panel col-sm-12">
@@ -91,6 +96,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <table>
                   <thead>
                     <tr>
+                      <th>Job</th>
                       <th>Date</th>
                       <th>Qty(hours)</th>
                       <th>Rate</th>
@@ -101,16 +107,37 @@ This is because the viewport width is in pixels and does not change with the fon
                   <tbody>
                       <tr>
                         <td>
-                          <input type="text" id="datepicker" placeholder="Calender">
-
+                            <input type="text" id="job-opt" placeholder="Enter Job">
                         </td>
                         <td>
+                          <input type="text" id="datepicker" placeholder="Calender">
+                        </td>
+
+                        <td>
                         <select class="form-control" id="sel-qty">
+                            <option>.5</option>
+                            <option>1</option>
+                            <option>1.5</option>
                             <option>2</option>
+                            <option>2.5</option>
+                            <option>3</option>
+                            <option>3.5</option>
                             <option>4</option>
-                            <option>56</option>
-                            <option>58</option>
-                            <option>89</option>
+                            <option>4.5</option>
+                            <option>5</option>
+                            <option>5.5</option>
+                            <option>6</option>
+                            <option>6.5</option>
+                            <option>7</option>
+
+                            <option>7.5</option>
+                            <option>8</option>
+                            <option>8.5</option>
+                            <option>9</option>
+                            <option>9.5</option>
+                            <option>10</option>
+                            <option>10.5</option>
+
                         </select>
                         </td>
                         <td>
@@ -150,7 +177,7 @@ This is because the viewport width is in pixels and does not change with the fon
 <!-- Backbone Template===========================> -->
         <!-- // <script type="text/template" id="pay-stub-template"> -->
             <section class="stub-panel col-sm-12">
-                <h3>Employee</h3>
+                <h3 id="employee-h">Employee</h3>
                 <hr>
                 <select class="form-control" id="sel-emp">
                       <option>Dan</option>
@@ -253,12 +280,13 @@ This is because the viewport width is in pixels and does not change with the fon
 <!--         </script> -->
 <!-- Backbone Template===========================> -->
         <script type="text/template" id="trans-template">
-            <section class="sel-panel col-sm-12">
+            <section class="sel-panel-tran col-sm-12">
                 <hr>
                 <h3 id="total-models"></h3>
                 <table>
                   <thead>
                     <tr>
+                      <th>Job</th>
                       <th>Date</th>
                       <th>Qty</th>
                       <th>Rate</th>
@@ -270,6 +298,7 @@ This is because the viewport width is in pixels and does not change with the fon
                   </thead>
                   <tbody>
                       <tr>
+                        <td id="job"></td>
                         <td id="dte"></td>
                         <td id="qty"></td>
                         <td id="rate"></td>
@@ -283,6 +312,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <button class="btn btn-primary btn-add" data-test= "">Add data</button>
             </section>
         </script>
+        <button class="btn btn-primary btn-del">Delete data</button>
         <!-- <img id="img-temp" src="template.png"></img> -->
         <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html">Canada Revenue Calculations</a>
 
@@ -314,7 +344,9 @@ This is because the viewport width is in pixels and does not change with the fon
         var payStart;
         var payEnd;
 
+
         $( function() {
+          $('#pay-per-header').append(" " + '<span style="color: red;">Please enter a pay period.</span>')
           var dateFormat = "mm/dd/yy",
             from = $( "#from" )
               .datepicker({
@@ -367,7 +399,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     totalYtd = totalYtd + collection.models[i].attributes.cur;
                     totalVac = totalVac + collection.models[i].attributes.vac;
                     totalCur = totalCur + collection.models[i].attributes.cur;
-
+                    $('#job').prepend('<p>' + collection.models[collection.models.length - 1].attributes.job + '</p><hr>');
                     $('#dte').prepend('<p>' + collection.models[i].attributes.dte + '</p><hr>');
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
                     $('#rate').prepend('<p>' + collection.models[i].attributes.rate + '</p><hr>');
@@ -377,70 +409,15 @@ This is because the viewport width is in pixels and does not change with the fon
                     $('#gross').prepend('<p>' + collection.models[i].attributes.gross + '</p><hr>');
                     $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '</p><hr>');
                 }
-                payStart = collection.models[collection.models.length - 1].attributes.periodB;
-                payEnd = collection.models[collection.models.length - 1].attributes.periodE;
-                switch (D) {
-                    case 0:
-                        day = "Sunday";
-                        break;
-                    case 1:
-                        day = "Monday";
-                        break;
-                    case 2:
-                        day = "Tuesday";
-                        break;
-                    case 3:
-                        day = "Wednesday";
-                        break;
-                    case 4:
-                        day = "Thursday";
-                        break;
-                    case 5:
-                        day = "Friday";
-                        break;
-                    case 6:
-                        day = "Saturday";
-                }
-                switch (M) {
-                    case 0:
-                        month = "Jan";
-                        break;
-                    case 1:
-                        month = "Feb";
-                        break;
-                    case 2:
-                        month = "Mar";
-                        break;
-                    case 3:
-                        month = "Apr";
-                        break;
-                    case 4:
-                        month = "May";
-                        break;
-                    case 5:
-                        month = "June";
-                        break;
-                    case 6:
-                        month = "Jul";
-                        break;
-                    case 7:
-                        month = "Aug";
-                        break;
-                    case 8:
-                        month = "Sep";
-                        break;
-                    case 9:
-                        month = "Oct";
-                         break;
-                    case 10:
-                        month = "Nov";
-                        break;
-                    case 11:
-                        month = "Dec";
-                }
 
-                $('#pay-per-header').append(" Today is " + day + " " + month + " " + Y + " Choose a pay period below.");
-                $('#last-tran-header').html(" Period start: " + payStart + " Period end: " + payEnd);
+                payStart = collection.models[0].attributes.periodB;
+
+                payEnd = collection.models[0].attributes.periodE;
+                $('.pay-period-panel').fadeOut();
+
+                var dateNow = Date();
+                $('#pay-per-header').append(" Today is " + dateNow + " Choose a pay period below.");
+                $('#employee-h').html(" Period start: " + payStart + " Period end: " + payEnd);
                 $('#total-models').append("Total Transactions in collection: " + collection.models.length);
                 $('#qty-hr-stub').html(totalQty);
                 $('#rate-hr-stub').html(collection.models[collection.models.length - 1].attributes.rate);
@@ -458,7 +435,8 @@ This is because the viewport width is in pixels and does not change with the fon
                 $('#vac-l').html(VAC_2DIGITS.toFixed(2));
                 $('#gross-l').html(collection.models[collection.models.length - 1].attributes.gross);
                 $('#stat-l').html(collection.models[collection.models.length - 1].attributes.stat);
-
+                $('#job-l').html(collection.models[collection.models.length - 1].attributes.job);
+                $('#job-opt')[0].value = collection.models[collection.models.length - 1].attributes.job;
                 pay = totalCur + totalVac;
 
                 // 2017 Tax Calculations.
@@ -497,10 +475,10 @@ This is because the viewport width is in pixels and does not change with the fon
             },
             initialize: function () {
 
-                collection.fetch();
+              collection.fetch();
 
-            this.listenTo(collection, 'populate', this.addData);
-            this.render();
+              this.listenTo(collection, 'populate', this.addData);
+              this.render();
             },
 
             addData: function () {
@@ -509,14 +487,26 @@ This is because the viewport width is in pixels and does not change with the fon
                 var DATE_PERIOD_BEGIN = $('#from')[0].value;
                 var DATE_PERIOD_END = $('#to')[0].value;
                 var DATE = $('#datepicker')[0].value;
+                var JOB = $('#job-opt')[0].value;
 
 
                 // Make sure Date Element is not empty.
-                if (DATE == "") {
-                  alert("please enter a date.")
+                if (JOB == "") {
+                  alert("please enter a job and date.")
                   return;
                 }
+                if (DATE == "") {
+                  alert("please enter a job and date.")
+                  return;
+                }
+                if (!DATE_PERIOD_BEGIN == "") {
+                  $('#pay-per-header').html("Pay Period Panel: ");
 
+                }
+                if (!DATE_PERIOD_END == "") {
+                  $('#pay-per-header').html("Pay Period Panel: ");
+
+                }
                 // Grab values from options selected.
                 var QTY = Number($('#sel-qty option:selected').text());
                 var RATE = Number($('#sel-rate option:selected').text());
@@ -535,7 +525,8 @@ This is because the viewport width is in pixels and does not change with the fon
                     gross: GROSS,
                     stat: STAT,
                     periodB: DATE_PERIOD_BEGIN,
-                    periodE: DATE_PERIOD_END
+                    periodE: DATE_PERIOD_END,
+                    job: JOB
                     };
 
                 var newTrans = new Model(TransModel);
@@ -544,6 +535,12 @@ This is because the viewport width is in pixels and does not change with the fon
 
                 // Save the new transaction, views will rely on collections for data.
                 newTrans.save();
+            },
+            clear: function () {
+              collection.each(function(model) {
+              model.destroy();
+              });
+
             },
 
             // Re-rendering the App just means refreshing the statistics -- the rest
@@ -577,6 +574,7 @@ This is because the viewport width is in pixels and does not change with the fon
         },
         render: function () {
             this.$el.append(this.transTemplate);
+
             collection.populate();
         },
         reload: function () {
@@ -588,26 +586,38 @@ This is because the viewport width is in pixels and does not change with the fon
         var payRoll = new PayrollView();
 
         $('.btn-print').click(function() {
+
             $('.option-panel').hide();
             $('.btn-print').hide();
             $('.btn-add').hide();
-
+            $('.sel-panel').hide();
+            $('.last-trans-panel').hide();
             var sign = prompt("What's your username?");
 
             if (sign.toLowerCase() == "tina") {
               alert("He Beh beh's wuz up!");
+
               window.print();
             }
             else if (sign.toLowerCase() == "dan") {
               alert("Hi Master I love you!");
+
               window.print();
+
             }
             else {
              alert("Sorry I don't know you.");
              reload();
             }
-        });
 
+
+        });
+        $('.btn-del').click(function() {
+
+            app.clear();
+            location.reload();
+
+        });
 /*
 Events is a module that can be mixed in to any object, giving the object the ability to bind and trigger custom named events. Events do not have to be declared before they are bound, and may take passed arguments. For example:
 
