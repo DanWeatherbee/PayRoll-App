@@ -323,7 +323,7 @@ This is because the viewport width is in pixels and does not change with the fon
           var dateFormat = "mm/dd/yy",
             from = $( "#from" )
               .datepicker({
-                defaultDate: "+1w",
+                defaultDate: TIME,
                 changeMonth: true,
                 numberOfMonths: 2
               })
@@ -331,7 +331,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 to.datepicker( "option", "minDate", getDate( this ) );
               }),
             to = $( "#to" ).datepicker({
-              defaultDate: "+1w",
+              defaultDate: TIME,
               changeMonth: true,
               numberOfMonths: 2
             })
@@ -565,7 +565,7 @@ This is because the viewport width is in pixels and does not change with the fon
             initialize: function() {
 
                 $('#datepicker').datepicker({
-              defaultDate: "+1w",
+              defaultDate: TIME,
               changeMonth: true,
               numberOfMonths: 2
             });
