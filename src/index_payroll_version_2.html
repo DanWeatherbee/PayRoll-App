@@ -104,6 +104,7 @@ This is because the viewport width is in pixels and does not change with the fon
                       <th>Date</th>
                       <th>Qty(hours)</th>
                       <th>Rate</th>
+                      // TODO hook up ot not yet configured.
                       <th>OT(hours)</th>
                       <th>Stat</th>
                     </tr>
@@ -148,9 +149,26 @@ This is because the viewport width is in pixels and does not change with the fon
                   </tbody>
                 </table>
                 <button class="btn btn-primary btn-print">Save to PDF</button>
+                // TODO create a replicate button.
 
             </section>
         </script>
+
+/*
+  TODO LIST:
+
+      Refactor code
+      Check CSS Validate and Beautify
+      Check JS Validate and Beautify
+      Spelling and syntax check
+      Code Best practices guideline check
+      Use as much Backbone as possible to enhance learning
+*/
+
+
+
+
+
 <!-- Backbone Template===========================> -->
         <!-- // <script type="text/template" id="pay-stub-template"> -->
             <section class="stub-panel col-sm-12">
@@ -371,7 +389,10 @@ This is because the viewport width is in pixels and does not change with the fon
              */
             populate: function () {
 
-
+                /*
+                 TODO start wrapping all these jquery element methods in variables.
+                instead of calling them in a for loop.
+                */
                 for (var i = 0;i < 200; i++) {
                     $('#sel-qty').append('<option>' + i + '</option>');
                     $('#sel-qty').append('<option>' + (i + .5) + '</option>');
