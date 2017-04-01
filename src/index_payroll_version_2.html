@@ -417,7 +417,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     var vac_2DIGITS = collection.models[i].attributes.vac;
                     $('#vac').prepend('<p>' + vac_2DIGITS.toFixed(2) + '</p><hr>');
                     $('#gross').prepend('<p>' + collection.models[i].attributes.gross + '</p><hr>');
-                    $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '</p><hr>');
+                    $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '<button>Delete</button></p><hr>');
                 }
 
                 payStart = collection.models[0].attributes.periodB;
