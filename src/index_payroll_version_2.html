@@ -61,6 +61,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <th>Date</th>
                 <th>Qty</th>
                 <th>Rate</th>
+                <th>OT</th>
                 <th>Current</th>
                 <th>Vac</th>
                 <th>Gross</th>
@@ -73,6 +74,7 @@ This is because the viewport width is in pixels and does not change with the fon
                   <td id="dte-l"></td>
                   <td id="qty-l"></td>
                   <td id="rate-l"></td>
+                  <td id="ot-l"></td>
                   <td id="cur-l"></td>
                   <td id="vac-l"></td>
                   <td id="gross-l"></td>
@@ -104,8 +106,7 @@ This is because the viewport width is in pixels and does not change with the fon
                       <th>Date</th>
                       <th>Qty(hours)</th>
                       <th>Rate</th>
-                      // TODO hook up ot not yet configured.
-                      <th>OT(hours)</th>
+                      <th>OT</th>
                       <th>Stat</th>
                     </tr>
                   </thead>
@@ -128,6 +129,8 @@ This is because the viewport width is in pixels and does not change with the fon
                         </td>
                         <td>
                           <select class="form-control" id="sel-ot">
+                            <option>No</option>
+                            <option>Yes</option>
                           </select>
                         </td>
                         <td>
@@ -149,14 +152,14 @@ This is because the viewport width is in pixels and does not change with the fon
                   </tbody>
                 </table>
                 <button class="btn btn-primary btn-print">Save to PDF</button>
-                // TODO create a replicate button.
+
 
             </section>
         </script>
 
 /*
   TODO LIST:
-
+      Create a replicate button.
       Refactor code
       Check CSS Validate and Beautify
       Check JS Validate and Beautify
@@ -198,13 +201,6 @@ This is because the viewport width is in pixels and does not change with the fon
                         <td id="ytd-hr-stub"></td>
                       </tr>
                       <tr>
-                        <td>Over Time</td>
-                        <td id="qty-ot-stub"></td>
-                        <td id="rate-ot-stub"></td>
-                        <td id="cur-ot-stub"></td>
-                        <td id="ytd-ot-stub"></td>
-                      </tr>
-                      <tr>
                         <td>VacPay Pay Out</td>
                         <td id="qty-vac-stub"></td>
                         <td id="rate-vac-stub"></td>
@@ -212,7 +208,7 @@ This is because the viewport width is in pixels and does not change with the fon
                         <td id="ytd-vac-stub"></td>
                       </tr>
                       <tr>
-                        <td></td>
+                        <td>Totals</td>
                         <td id="qty-vacP-stub"></td>
                         <td id="rate-vacP-stub"></td>
                         <td id="cur-vacP-stub"></td>
@@ -247,7 +243,7 @@ This is because the viewport width is in pixels and does not change with the fon
                       </tr>
 
                       <tr>
-                        <td></td>
+                        <td>Totals</td>
                         <td id="cur-tot-stub"></td>
                         <td id="ytd-tot-stub"></td>
                       </tr>
@@ -265,7 +261,7 @@ This is because the viewport width is in pixels and does not change with the fon
                   </thead>
                   <tbody>
                       <tr>
-                        <td></td>
+                        <td>Totals</td>
                         <td id="cur-netPay-stub"></td>
                         <td id="ytd-netPay-stub"></td>
                       </tr>
@@ -285,6 +281,7 @@ This is because the viewport width is in pixels and does not change with the fon
                       <th>Date</th>
                       <th>Qty</th>
                       <th>Rate</th>
+                      <th>OT</th>
                       <th>Current</th>
                       <th>Vac</th>
                       <th>Gross</th>
@@ -297,6 +294,7 @@ This is because the viewport width is in pixels and does not change with the fon
                         <td id="dte"></td>
                         <td id="qty"></td>
                         <td id="rate"></td>
+                        <td id="ot"></td>
                         <td id="cur"></td>
                         <td id="vac"></td>
                         <td id="gross"></td>
@@ -308,7 +306,6 @@ This is because the viewport width is in pixels and does not change with the fon
             </section>
         </script>
         <button class="btn btn-primary btn-del">Delete last record</button>
-        <!-- <img id="img-temp" src="template.png"></img> -->
         <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
 
     </div>
@@ -398,8 +395,6 @@ This is because the viewport width is in pixels and does not change with the fon
                     $('#sel-qty').append('<option>' + (i + .5) + '</option>');
                     $('#sel-rate').append('<option>' + i + '</option>');
                     $('#sel-rate').append('<option>' + (i + .5) + '</option>');
-                    $('#sel-ot').append('<option>' + i + '</option>');
-                    $('#sel-ot').append('<option>' + (i + .5) + '</option>');
                 }
 
                 for (var i = 0;i < collection.models.length; i++) {
@@ -413,6 +408,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     $('#dte').prepend('<p>' + collection.models[i].attributes.dte + '</p><hr>');
                     $('#qty').prepend('<p>' + collection.models[i].attributes.qty + '</p><hr>');
                     $('#rate').prepend('<p>' + collection.models[i].attributes.rate + '</p><hr>');
+                    $('#ot').prepend('<p>' + collection.models[i].attributes.ot + '</p><hr>');
                     $('#cur').prepend('<p>' + collection.models[i].attributes.cur + '</p><hr>');
                     var vac_2DIGITS = collection.models[i].attributes.vac;
                     $('#vac').prepend('<p>' + vac_2DIGITS.toFixed(2) + '</p><hr>');
@@ -440,6 +436,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 $('#dte-l').html(collection.models[collection.models.length - 1].attributes.dte);
                 $('#qty-l').html(collection.models[collection.models.length - 1].attributes.qty);
                 $('#rate-l').html(collection.models[collection.models.length - 1].attributes.rate);
+                $('#ot-l').html(collection.models[collection.models.length - 1].attributes.ot);
                 $('#cur-l').html(collection.models[collection.models.length - 1].attributes.cur);
                 var VAC_2DIGITS = collection.models[collection.models.length - 1].attributes.vac;
                 $('#vac-l').html(VAC_2DIGITS.toFixed(2));
@@ -452,8 +449,6 @@ This is because the viewport width is in pixels and does not change with the fon
                   collection.models[collection.models.length - 1].attributes.qty + '</option>');
                 $('#sel-rate').prepend('<option>' +
                   collection.models[collection.models.length - 1].attributes.rate + '</option>');
-                $('#sel-ot').prepend('<option>' +
-                  collection.models[collection.models.length - 1].attributes.ot + '</option>');
                 $('#sel-stat').prepend('<option>' +
                   collection.models[collection.models.length - 1].attributes.stat + '</option>');
 
@@ -539,11 +534,13 @@ This is because the viewport width is in pixels and does not change with the fon
                 var VAC = CUR * .04;
                 var GROSS = CUR + VAC;
                 var STAT = $('#sel-stat option:selected').text();
+                var OT = $('#sel-ot option:selected').text();
 
                 // Transaction Model.
                 var TransModel = {
                     dte: DATE,
                     qty: QTY,
+                    ot: OT,
                     rate: RATE,
                     cur: CUR,
                     vac: VAC,
