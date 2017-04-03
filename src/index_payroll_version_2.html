@@ -307,7 +307,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <button class="btn btn-primary btn-add" data-test= "">Add data</button>
             </section>
         </script>
-        <button class="btn btn-primary btn-del">Delete data</button>
+        <button class="btn btn-primary btn-del">Delete last record</button>
         <!-- <img id="img-temp" src="template.png"></img> -->
         <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
 
@@ -417,7 +417,7 @@ This is because the viewport width is in pixels and does not change with the fon
                     var vac_2DIGITS = collection.models[i].attributes.vac;
                     $('#vac').prepend('<p>' + vac_2DIGITS.toFixed(2) + '</p><hr>');
                     $('#gross').prepend('<p>' + collection.models[i].attributes.gross + '</p><hr>');
-                    $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '<button>Delete</button></p><hr>');
+                    $('#stat').prepend('<p>' + collection.models[i].attributes.stat + '</p><hr>');
                 }
 
                 payStart = collection.models[0].attributes.periodB;
@@ -562,9 +562,14 @@ This is because the viewport width is in pixels and does not change with the fon
                 newTrans.save();
             },
             clear: function () {
-              collection.each(function(model) {
-              model.destroy();
-              });
+              var arrayLength = collection.models.length - 1;
+              if (arrayLength > 0) {
+                collection.models[arrayLength].destroy();
+              } else {
+
+                collection.models[0].destroy();
+                alert("All records are deleted.");
+              }
 
             },
 
