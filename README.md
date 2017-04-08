@@ -1,4 +1,4 @@
-### Backbone Concept
+### Backbone Concept Payroll App
 
 
 ## Developing a new website using backbone.
@@ -8,4 +8,8 @@
 
 * Create simple frame work.
 
-"# todo"
+* Build the app.
+
+* Refine code.
+
+* Spit and Polish.
