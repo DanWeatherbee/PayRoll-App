@@ -255,11 +255,11 @@ This is because the viewport width is in pixels and does not change with the fon
                       <th>Date</th>
                       <th>Qty</th>
                       <th>Rate</th>
-                      <th>OT</th>
-                      <th>Current</th>
-                      <th>Vac</th>
-                      <th>Gross</th>
-                      <th>Stat</th>
+                      <th id="ot-table-head">OT</th>
+                      <th id="cur-table-head">Current</th>
+                      <th id="vac-table-head">Vac</th>
+                      <th id="gro-table-head">Gross</th>
+                      <th id="sta-table-head">Stat</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -453,13 +453,8 @@ This is because the viewport width is in pixels and does not change with the fon
                   $('#ytd-ui-stub').html('- ' + ui.toFixed(2));
                   $('#ytd-fed-stub').html('- ' + fed.toFixed(2));
                   $('#ytd-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
-
-
                 }
-
-
             }
-
         });
 
         collection = new Collection();
@@ -590,6 +585,8 @@ This is because the viewport width is in pixels and does not change with the fon
 
         var payRoll = new PayrollView();
 
+        // Todo create a print hide show function and Panel.
+
         $('.btn-print').click(function() {
 
             $('.option-panel').hide();
@@ -598,21 +595,6 @@ This is because the viewport width is in pixels and does not change with the fon
             $('.btn-del').hide();
             $('.sel-panel').hide();
             $('.last-trans-panel').hide();
-            $('.stub-panel').hide();
-            $('#link-canada').hide();
-
-            $('#trans-table-head').hide();
-            // $('#job').hide();
-            // $('#dte').hide();
-            // $('#qty').hide();
-            $('#rate').hide();
-            $('#cur').hide();
-
-            $('#vac').hide();
-            $('#gross').hide();
-            // $('#stat').hide();
-
-
 
             var sign = prompt("What's your username?");
 
