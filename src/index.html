@@ -346,7 +346,17 @@ This is because the viewport width is in pixels and does not change with the fon
         } );
 
         Model = Backbone.Model.extend({
-            qty: 15
+                    dte: TIME,
+                    qty: 0,
+                    ot: "NULL",
+                    rate: 0,
+                    cur: 0,
+                    vac: 0,
+                    gross: 0,
+                    stat: "NULL",
+                    periodB: "NULL",
+                    periodE: "NULL",
+                    job: "NULL"
         });
 
 
@@ -480,6 +490,9 @@ This is because the viewport width is in pixels and does not change with the fon
                 var DATE = $('#datepicker')[0].value;
                 var JOB = $('#job-opt')[0].value;
 
+                // Run Error method to check if empty.
+                DATE_PERIOD_BEGIN = this.errorCheck(DATE_PERIOD_BEGIN);
+                DATE_PERIOD_END = this.errorCheck(DATE_PERIOD_END);
 
                 // Make sure Date Element is not empty.
                 if (JOB == "") {
@@ -490,14 +503,8 @@ This is because the viewport width is in pixels and does not change with the fon
                   alert("please enter a job and date.")
                   return;
                 }
-                if (!DATE_PERIOD_BEGIN == "") {
-                  $('#pay-per-header').html("Pay Period Panel: ");
-
-                }
-                if (!DATE_PERIOD_END == "") {
-                  $('#pay-per-header').html("Pay Period Panel: ");
-
-                }
+                  $('#pay-per-header').html("Pay Period Panel: " + DATE_PERIOD_BEGIN);
+                  $('#pay-per-header').html("Pay Period Panel: " + DATE_PERIOD_END);
                 // Grab values from options selected.
                 var QTY = Number($('#sel-qty option:selected').text());
                 var RATE = Number($('#sel-rate option:selected').text());
@@ -507,7 +514,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 var STAT = $('#sel-stat option:selected').text();
                 var OT = $('#sel-ot option:selected').text();
 
-                // Transaction Model.
+                // New Transaction.
                 var TransModel = {
                     dte: DATE,
                     qty: QTY,
@@ -540,6 +547,17 @@ This is because the viewport width is in pixels and does not change with the fon
                 alert("All records are deleted.");
               }
 
+            },
+            errorCheck: function (ifEmpty) {
+              alert("Error Checking is running.")
+              if (ifEmpty == "") {
+                console.log("String is Empty");
+                console.log(ifEmpty);
+                ifEmpty = "No Date";
+                console.log("Empty-string, Checking is complete.");
+                return ifEmpty;
+              };
+              console.log("Error Checking is complete.");
             },
 
             // Re-rendering the App just means refreshing the statistics -- the rest
