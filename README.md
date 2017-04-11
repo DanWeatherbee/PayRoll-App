@@ -2,7 +2,7 @@
 
 
 ### Developing a new website using backbone.
-[The App](https://github.com/DanWeatherbee/PayRoll-App/src/
+[The App](https://github.com/DanWeatherbee/PayRoll-App/src/)
 
 Looking for constructive input;
 Hello everyone, I hope you are having a great day :)
