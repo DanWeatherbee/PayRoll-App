@@ -1,4 +1,15 @@
-Model = Backbone.Model.extend({
+
+var TIME = new Date();
+var D = TIME.getDay();
+var M = TIME.getMonth();
+var Y = TIME.getFullYear();
+
+
+
+Trans_model = Backbone.Model.extend({
+            d: D,
+            m: M,
+            y: Y,
             dte: TIME,
             qty: 0,
             ot: "NULL",
@@ -11,3 +22,4 @@ Model = Backbone.Model.extend({
             periodE: "NULL",
             job: "NULL"
 });
+var transModel = new Trans_model();

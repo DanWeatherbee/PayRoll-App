@@ -97,12 +97,10 @@ input,
 #myProgress {
   width: 100%;
   background-color: #ddd;
-  border: 2px solid;
-  border-color: red;
 }
 
 #myBar {
   width: 1%;
-  height: 30px;
+  height: 10px;
   background-color: #4CAF50;
 }

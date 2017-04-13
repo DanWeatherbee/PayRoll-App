@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8 /" content="Dans app">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Cache-control" content="description">
+    <meta http-equiv="Set-Cookie" content="name, date">
+    <meta name="description" content="Dan Weatherbee's Payroll in Backbone">
+    <meta name="web_author" content="Dan Weatherbee Web Developer">
+    <meta name="keywords" content="web developement,front end developement,front end web developement,danweatherbee,dan weatherbee,portfolio,dan weatherbee developer,danweatherby,dan weatherby,dan weatherbee web developer,dan weatherbee programmer,backbone.js">
+    <meta name="author" content="Dan Weatherbee">
+    <meta name="copyright" content="Dan Weatherbee">
+    <meta name="contact" content="dan@jedi-clan.us">
+    <meta name="reply-to" content="dan@jedi-clan.us">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#db5945">
+    <meta name="msapplication-square310x310logo" content="favicon.ico">
+  <title>Dan Weatherbee's payroll App</title>
+  <link rel="stylesheet" href="assets/mdb.css">
+  <link rel="stylesheet" href="assets/index_payroll_version_2.css">
+
+</head>
+<body>
+    <script src="js/lib/jquery-3.1.1.min.js"></script>
+    <script src="js/lib/jquery-ui.min.js"></script>
+    <script src="js/lib/mdb.js"></script>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/backbone-min.js"></script>
+    <script src="js/lib/backbone-localstorage.min.js"></script>
+
+<!--  While Bootstrap uses ems or rems for defining most sizes,
+pxs are used for grid breakpoints and container widths.
+This is because the viewport width is in pixels and does not change with the font size. -->
+      <div class="container" id="main">
+      <section class="last-trans-panel col-sm-12">
+        <h3 id="last-tran-header">Last Transaction:</h3>
+          <div id="myProgress">
+            <div id="myBar"></div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Job</th>
+                <th>Date</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>OT</th>
+                <th>Current</th>
+                <th>Vac</th>
+                <th>Gross</th>
+                <th>Stat</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td id="job-l"></td>
+                  <td id="dte-l"></td>
+                  <td id="qty-l"></td>
+                  <td id="rate-l"></td>
+                  <td id="ot-l"></td>
+                  <td id="cur-l"></td>
+                  <td id="vac-l"></td>
+                  <td id="gross-l"></td>
+                  <td id="stat-l"></td>
+                </tr>
+            </tbody>
+          </table>
+      </section>
+
+
+      <section class="pay-period-panel col-sm-12">
+          <h3 id="pay-per-header">Pay Period Panel:</h3>
+          <hr>
+          <label for="from">From</label>
+          <input type="text" id="from" name="from" placeholder="Calender">
+          <label for="to">to</label>
+          <input type="text" id="to" name="to" placeholder="Calender">
+          <hr>
+      </section>
+
+            <section class="sel-panel col-sm-12">
+                <hr>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Job</th>
+                      <th>Date</th>
+                      <th>Qty(hours)</th>
+                      <th>Rate</th>
+                      <th>OT</th>
+                      <th>Stat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>
+                            <input type="text" id="job-opt" placeholder="Enter Job">
+                        </td>
+                        <td>
+                          <input type="text" id="datepicker" placeholder="Calender">
+                        </td>
+
+                        <td>
+                        <select class="form-control" id="sel-qty">
+                        </select>
+                        </td>
+                        <td>
+                          <select class="form-control" id="sel-rate">
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-control" id="sel-ot">
+                            <option>No</option>
+                            <option>Yes</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-control" id="sel-stat">
+                            <option>No Stat</option>
+                            <option>New Years Day</option>
+                            <option>Family Day</option>
+                            <option>Good Friday Day</option>
+                            <option>Victoria Day</option>
+                            <option>Canada Day</option>
+                            <option>BC Day</option>
+                            <option>Labour Day</option>
+                            <option>Thanksgiving Day</option>
+                            <option>Remembrance Day</option>
+                            <option>Christmas Day</option>
+                          </select>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+                <button class="btn btn-primary btn-print">Save to PDF</button>
+
+
+            </section>
+
+        <textarea>  TODO LIST:
+          Create a replicate button.
+          Refactor code
+          Check CSS Validate and Beautify
+          Check JS Validate and Beautify
+          Spelling and syntax check
+          Code Best practices guideline check
+          Use as much Backbone as possible to enhance learning
+        </textarea>
+            <section class="stub-panel col-sm-12">
+                <h3 id="employee-h">Employee</h3>
+                <hr>
+                <select class="form-control" id="sel-emp">
+                      <option>Dan</option>
+                      <option>Tina</option>
+                </select>
+                <hr>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Earnings & Hours</th>
+                      <th>Qty</th>
+                      <th>Rate</th>
+                      <th>Current</th>
+                      <th>YTD Amount Estimate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>Hourly Rate</td>
+                        <td id="qty-hr-stub"></td>
+                        <td id="rate-hr-stub"></td>
+                        <td id="cur-hr-stub"></td>
+                        <td id="ytd-hr-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>VacPay Pay Out</td>
+                        <td id="qty-vac-stub"></td>
+                        <td id="rate-vac-stub"></td>
+                        <td id="cur-vac-stub"></td>
+                        <td id="ytd-vac-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>Totals</td>
+                        <td id="qty-vacP-stub"></td>
+                        <td id="rate-vacP-stub"></td>
+                        <td id="cur-vacP-stub"></td>
+                        <td id="ytd-vacP-stub"></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <hr>
+               <table>
+                  <thead>
+                    <tr>
+                      <th>Withholdings</th>
+                      <th>Current</th>
+                      <th>YTD Amount Estimate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>CPP-Employee</td>
+                        <td id="cur-cpp-stub"></td>
+                        <td id="ytd-cpp-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>UI-Employee</td>
+                        <td id="cur-ui-stub"></td>
+                        <td id="ytd-ui-stub"></td>
+                      </tr>
+                      <tr>
+                        <td>Federal Income Tax</td>
+                        <td id="cur-fed-stub"></td>
+                        <td id="ytd-fed-stub"></td>
+                      </tr>
+
+                      <tr>
+                        <td>Totals</td>
+                        <td id="cur-tot-stub"></td>
+                        <td id="ytd-tot-stub"></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <hr>
+               <table>
+                  <thead>
+                    <tr>
+
+                      <th>Net Pay</th>
+                      <th>Current</th>
+                      <th>YTD Amount Estimate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>Totals</td>
+                        <td id="cur-netPay-stub"></td>
+                        <td id="ytd-netPay-stub"></td>
+                      </tr>
+                  </tbody>
+                </table>
+            </section>
+
+            <section class="sel-panel-tran col-sm-12">
+                <hr>
+                <h3 id="total-models"></h3>
+                <table>
+                  <thead id="trans-table-head">
+                    <tr>
+                      <th>Job</th>
+                      <th>Date</th>
+                      <th>Qty</th>
+                      <th>Rate</th>
+                      <th id="ot-table-head">OT</th>
+                      <th id="cur-table-head">Current</th>
+                      <th id="vac-table-head">Vac</th>
+                      <th id="gro-table-head">Gross</th>
+                      <th id="sta-table-head">Stat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td id="job"></td>
+                        <td id="dte"></td>
+                        <td id="qty"></td>
+                        <td id="rate"></td>
+                        <td id="ot"></td>
+                        <td id="cur"></td>
+                        <td id="vac"></td>
+                        <td id="gross"></td>
+                        <td id="stat"></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <button class="btn btn-primary btn-add" data-test= "">Add data</button>
+            </section>
+
+        <button class="btn btn-primary btn-del">Delete last record</button>
+        <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
+
+    </div>
+    <script type="text/javascript" src="js/models/trans-model.js"></script>
+    <script type="text/javascript" src="js/models/app-model.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
