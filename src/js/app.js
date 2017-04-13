@@ -18,37 +18,59 @@ var payEnd;
 
 
 
-// Class
-var Start = function () {
+// Class's
 
-	var self = this;
-	self.init();
-	self.progress();
+// Load Methods and Launch APP.
+var Start = function() {
+
+    var self = this;
+    self.init();
+    self.records();
 };
 
-
-Start.prototype.init = function () {
-	this.transaction = transModel
-	this.application = appModel
-	console.log(this.application.dev);
-	console.log(this.transaction.rate);
+// Instantiate the APP
+Start.prototype.init = function() {
+    this.transaction = transModel // Backbone Class Trans_Model
+    this.application = appModel // Backbone Class Trans_Model
+    var devElem = $("#dev");
+    devElem.append(this.application.project + '<br>');
+    devElem.append(this.application.dev + ": " + '<br>');
+    devElem.append(this.application.name + '<br>');
+    devElem.append("Version: " + '<br>');
+    devElem.append(this.application.version + '<br>');
+    console.log("Project: " + this.application.project);
+    console.log(this.application.dev);
+    console.log(this.application.name);
+    console.log("Version: " + this.application.version);
+    new AppView();
 };
 
-Start.prototype.progress = function () {
-	  var elem = $("#myBar");
-	  var width = 1;
-	  var id = setInterval(frame, 1);
-	  function frame() {
-	    if (width >= 100) {
+// Reusable progress bar class.
+Start.prototype.progress = function() {
+    var elem = $("#myBar");
+    var elemContainer = $("#myProgress");
+    elemContainer.show();
+    var width = 1;
+    var id = setInterval(frame, 1);
 
-	      clearInterval(id);
-	    } else {
-	      width++;
-	      elem.css({width: width + '%'});
-	    }
-	  }
+    function frame() {
+        if (width >= 100) {
+
+            clearInterval(id);
+            elem.html('<br>Transaction Saved to Collection.');
+        } else {
+            width++;
+            elem.css({ width: width + '%' });
+            elem.html("");
+        }
+    }
+
 };
 
+Start.prototype.records = function() {
+    this.records = new Collection();
+    console.log("Transactions in collection: " + this.records.length);
+};
 var app = new Start();
 
 // app.start = function () {
@@ -134,6 +156,3 @@ var app = new Start();
 // 	var appStart = new AppView();
 
 // };
-
-
-

@@ -1,106 +1,103 @@
-.container {
-        padding-top: 2em;
+body {
+    padding-top: 3em;
+    background-color: aquamarine;
 }
-table {
-        width: 100%;
 
+table {
+    width: 100%;
 }
-th {
-        background-color: lightblue;
-}
-td {
-        background-color: lightgrey;
-        font-weight: 900;
-}
-tr {
-        padding: 20%;
-        background-color: black;
-        height: 3em;
-}
-#total-container {
-        background-color: ghostwhite;
-        border: .1em solid;
-        padding: 1em;
+
+#sel-stat,
+#sel-ot,
+#datepicker,
+#job-opt,
+.select-panel {
+    width: 98%;
 }
 
 .shadow {
-        -webkit-box-shadow: 10px 11px 5px -1px rgba(0,0,0,0.26);
-        -moz-box-shadow: 10px 11px 5px -1px rgba(0,0,0,0.26);
-        box-shadow: 10px 11px 5px -1px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
 }
 
 .btn-add,
 .btn-print {
-        top: 0;
-        position: fixed;
-        opacity: .7;
+    top: 0;
+    position: fixed;
+    opacity: .7;
 }
 
 .btn-add:hover,
-.btn-print:hover {
-        opacity: .9;
-        border: .1em solid;
-        border-color: red;
+.btn-print:hover,
+#sel-qty:hover,
+#sel-rate:hover,
+#sel-stat:hover,
+#sel-ot:hover,
+#datepicker:hover,
+#job-opt:hover {
+    opacity: .9;
+    border: .1em solid;
+    border-color: red;
+    -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
 }
 
 .btn-add {
-
-        left: 0;
+    left: 1%;
 }
+
 .btn-print {
-
-        right: 0;
-}
-
-#img-temp {
-        width: 100%;
-        height: 80%;
-        max-width: 400px;
-        max-height: 400px;
+    right: 1%;
 }
 
 #ui-datepicker-div {
-        background-color: midnightblue;
-
+    background-color: midnightblue;
 }
 
 .ui-datepicker-year,
 .ui-icon {
-        color: white;
+    color: white;
 }
 
 .ui-icon:hover,
 input:hover {
-
-        border: .1em solid;
-        background-color: ghostwhite;
-        color: red;
-        -webkit-box-shadow: 10px 11px 5px -1px rgba(0,0,0,0.26);
-        -moz-box-shadow: 10px 11px 5px -1px rgba(0,0,0,0.26);
-        box-shadow: 10px 11px 5px -1px rgba(0,0,0,0.26);
-
+    border: .1em solid;
+    background-color: ghostwhite;
+    color: red;
+    -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
 }
+
 input,
 table,
 tr,
 td {
-      text-align: center;
+    text-align: center;
 }
+
 input,
-
-
 .ui-datepicker-month {
-        color: black;
-        background-color: white;
+    color: black;
+    background-color: white;
 }
 
 #myProgress {
-  width: 100%;
-  background-color: #ddd;
+    width: 88%;
+    background-color: #ddd;
+    margin: 5%;
+    display: none;
+    margin-bottom: 10%;
 }
 
 #myBar {
-  width: 1%;
-  height: 10px;
-  background-color: #4CAF50;
+    width: 1%;
+    height: 5px;
+    background-color: #4CAF50;
+}
+
+#dev {
+    background-color: turquoise;
 }
