@@ -27,6 +27,15 @@
 pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
     <div class="container" id="main">
+        <section class="pay-period-panel col-sm-12">
+            <h3 id="pay-per-header">Pay Period Panel:</h3>
+            <hr>
+            <label for="from">From</label>
+            <input type="text" id="from" name="from" placeholder="Calender">
+            <label for="to">to</label>
+            <input type="text" id="to" name="to" placeholder="Calender">
+            <hr>
+        </section>
         <label id="dev" class="shadow"></label>
         <div id="myProgress">
             <div id="myBar">New Transaction</div>
@@ -34,7 +43,8 @@ This is because the viewport width is in pixels and does not change with the fon
         <section class="select-panel col-sm-12 shadow">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="app-template">
-                <hr>
+            <h3 id="select-panel-header">Select Panel:</h3>
+            <hr>
                 <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
                 <button class="btn btn-primary btn-print">Save</button>
                 <table>
@@ -54,7 +64,7 @@ This is because the viewport width is in pixels and does not change with the fon
                                 <input type="text" id="job-opt" placeholder="Enter Job">
                             </td>
                             <td>
-                                <input type="text" id="datepicker" placeholder="Calender">
+                                <input type="text" id="select-date" placeholder="Calender">
                             </td>
                             <td>
                                 <select class="form-control" id="sel-qty">
@@ -103,5 +113,4 @@ This is because the viewport width is in pixels and does not change with the fon
     <script type="text/javascript" src="js/views/app-view.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
-
 </html>
