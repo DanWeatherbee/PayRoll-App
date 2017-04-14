@@ -1,5 +1,24 @@
 // Global Constants
-
+var TIME = new Date(),
+    D = TIME.getDay(),
+    M = TIME.getMonth(),
+    Y = TIME.getFullYear(),
+    ENTER_KEY = 13,
+    ESC_KEY = 27,
+    totalQty = 0,
+    totalYtd = 0,
+    totalVac = 0,
+    totalCur = 0,
+    pay,
+    fed,
+    totalTax,
+    cpp,
+    ui,
+    totalUIplusCPP,
+    totalAllDeductions,
+    netPay,
+    payStart,
+    payEnd;
 
 // Class's
 
@@ -26,8 +45,11 @@ Start.prototype.init = function () {
         this.application.library + ' CSS: ' +
         this.application.cssframework);
     var appV = new AppView(),
-        transView = new LastTransView(),
-        earningsView = new EarningsView();
+        transV = new LastTransView(),
+        earningsV = new EarningsView(),
+        withHoldV = new WithHoldingsView(),
+        netPayV = new NetPayView(),
+        transV = new TransactionView();
 };
 
 // Reusable progress bar class.
@@ -38,6 +60,7 @@ Start.prototype.progress = function () {
     elemContainer.show();
     var width = 1,
         id = setInterval(frame, 1);
+
     function frame() {
         if (width >= 100) {
 
