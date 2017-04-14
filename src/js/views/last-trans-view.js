@@ -13,5 +13,3 @@ LastTransView = Backbone.View.extend({
     }
 
 });
-
-

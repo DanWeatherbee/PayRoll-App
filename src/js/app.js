@@ -25,19 +25,18 @@ Start.prototype.init = function () {
         this.application.framework + ' Library: ' +
         this.application.library + ' CSS: ' +
         this.application.cssframework);
-    var appV = new AppView();
-    var transView = new LastTransView();
+    var appV = new AppView(),
+        transView = new LastTransView();
 };
 
 // Reusable progress bar class.
 Start.prototype.progress = function () {
     'use strict';
-    var elem = $("#myBar");
-    var elemContainer = $("#myProgress");
+    var elem = $("#myBar"),
+        elemContainer = $("#myProgress");
     elemContainer.show();
-    var width = 1;
-    var id = setInterval(frame, 1);
-
+    var width = 1,
+        id = setInterval(frame, 1);
     function frame() {
         if (width >= 100) {
 
@@ -49,7 +48,6 @@ Start.prototype.progress = function () {
             elem.html("");
         }
     }
-
 };
 
 Start.prototype.records = function () {
@@ -60,35 +58,26 @@ Start.prototype.records = function () {
 
 Start.prototype.calender = function () {
     'use strict';
-    var self = this;
+    var self = this,
+        pickerObj = {
+            defaultDate: TIME,
+            changeMonth: true,
+            numberOfMonths: 2
+        };
     var dateFormat = "mm/dd/yy",
         selDate = $("#select-date")
-        .datepicker({
-            defaultDate: TIME,
-            changeMonth: true,
-            numberOfMonths: 2
-        })
+        .datepicker(pickerObj)
         .on("change", function () {
             to.datepicker("option", "minDate", self.getDate(this));
         }),
-
         from = $("#from")
-        .datepicker({
-            defaultDate: TIME,
-            changeMonth: true,
-            numberOfMonths: 2
-        })
+        .datepicker(pickerObj)
         .on("change", function () {
             to.datepicker("option", "minDate", self.getDate(this));
         }),
-        to = $("#to").datepicker({
-            defaultDate: TIME,
-            changeMonth: true,
-            numberOfMonths: 2
-        })
+        to = $("#to").datepicker(pickerObj)
         .on("change", function () {
             from.datepicker("option", "maxDate", self.getDate(this));
-
         });
 };
 
@@ -101,12 +90,12 @@ Start.prototype.getDate = function (element) {
         var DATE = null;
     }
     return DATE;
-
 };
 
 Start.prototype.save = function () {
     'use strict';
     this.records.fetch();
+    // Create model to save to collections.
     console.log("Transactions in collection: " + this.records.length);
 };
 

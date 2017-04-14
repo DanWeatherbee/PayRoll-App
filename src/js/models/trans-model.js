@@ -1,8 +1,8 @@
 // Globals Date and Time.
-var TIME = new Date();
-var D = TIME.getDay();
-var M = TIME.getMonth();
-var Y = TIME.getFullYear();
+var TIME = new Date(),
+    D = TIME.getDay(),
+    M = TIME.getMonth(),
+    Y = TIME.getFullYear();
 
 Trans_Model = Backbone.Model.extend({
     d: D,
