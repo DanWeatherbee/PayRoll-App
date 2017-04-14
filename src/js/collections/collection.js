@@ -6,7 +6,7 @@ Collection = Backbone.Collection.extend({
      Grab all the data from collections saved in local storage.
      Populate the DOM with the retrieved information.
      */
-    populate: function() {
+    populate: function () {
 
         /*
          TODO start wrapping all these jquery element methods in variables.

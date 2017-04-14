@@ -43,8 +43,8 @@ This is because the viewport width is in pixels and does not change with the fon
         <section class="select-panel col-sm-12 shadow">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="app-template">
-            <h3 id="select-panel-header">Select Panel:</h3>
-            <hr>
+                <h3 id="select-panel-header">Select Panel:</h3>
+                <hr>
                 <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
                 <button class="btn btn-primary btn-print">Save</button>
                 <table>
@@ -100,6 +100,40 @@ This is because the viewport width is in pixels and does not change with the fon
                 </table>
             </script>
         </section>
+        <section class="last-trans-panel col-sm-12">
+            <!-- Backbone Template===========================> -->
+            <script type="text/template" id="last-trans-template">
+                <h3 id="last-tran-header">Last Transaction:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Job</th>
+                            <th>Date</th>
+                            <th>Qty</th>
+                            <th>Rate</th>
+                            <th>OT</th>
+                            <th>Current</th>
+                            <th>Vac</th>
+                            <th>Gross</th>
+                            <th>Stat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="job-l"></td>
+                            <td id="dte-l"></td>
+                            <td id="qty-l"></td>
+                            <td id="rate-l"></td>
+                            <td id="ot-l"></td>
+                            <td id="cur-l"></td>
+                            <td id="vac-l"></td>
+                            <td id="gross-l"></td>
+                            <td id="stat-l"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </script>
+        </section>
     </div>
     <script src="js/lib/jquery-3.1.1.min.js"></script>
     <script src="js/lib/jquery-ui.min.js"></script>
@@ -111,6 +145,8 @@ This is because the viewport width is in pixels and does not change with the fon
     <script type="text/javascript" src="js/models/app-model.js"></script>
     <script type="text/javascript" src="js/collections/collection.js"></script>
     <script type="text/javascript" src="js/views/app-view.js"></script>
+    <script type="text/javascript" src="js/views/last-trans-view.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
+
 </html>

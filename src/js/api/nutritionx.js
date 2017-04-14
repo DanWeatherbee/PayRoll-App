@@ -15,7 +15,7 @@ var GetJsonData;
 var itemModel;
 
 
-GetJsonData = function(keyWord) {
+GetJsonData = function (keyWord) {
     "use strict";
     $('#search-result').html("");
     KEY = "b9914a3ffda1ac8218e155c05cb52409";
@@ -32,14 +32,14 @@ GetJsonData = function(keyWord) {
         API_STR_KEY +
         KEY;
 
-    $.getJSON(API, function(data, status) {
+    $.getJSON(API, function (data, status) {
         searchResults = data.hits;
         totalHits = data.total_hits;
         status = status;
         var tracker = $('#search-result');
         var i = 0;
         var foodArray = [];
-        searchResults.forEach(function(iterator) {
+        searchResults.forEach(function (iterator) {
             // Model
             itemModel = {
                 title: searchResults[i].fields.item_name,
