@@ -26,7 +26,8 @@ Start.prototype.init = function () {
         this.application.library + ' CSS: ' +
         this.application.cssframework);
     var appV = new AppView(),
-        transView = new LastTransView();
+        transView = new LastTransView(),
+        earningsView = new EarningsView();
 };
 
 // Reusable progress bar class.

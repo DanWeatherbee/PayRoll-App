@@ -40,6 +40,49 @@ This is because the viewport width is in pixels and does not change with the fon
         <div id="myProgress">
             <div id="myBar">New Transaction</div>
         </div>
+        <section class="earnings-panel col-sm-12">
+            <!-- Backbone Template===========================> -->
+            <script type="text/template" id="earnings-template">
+                <h3 id="employee-h">Employee:</h3>
+                <hr>
+                <input type="text" id="select-emp" placeholder="Enter">
+                <hr>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Earnings & Hours</th>
+                            <th>Qty</th>
+                            <th>Rate</th>
+                            <th>Current</th>
+                            <th>YTD Amount Estimate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hourly Rate</td>
+                            <td id="qty-hr-stub"></td>
+                            <td id="rate-hr-stub"></td>
+                            <td id="cur-hr-stub"></td>
+                            <td id="ytd-hr-stub"></td>
+                        </tr>
+                        <tr>
+                            <td>VacPay Pay Out</td>
+                            <td id="qty-vac-stub"></td>
+                            <td id="rate-vac-stub"></td>
+                            <td id="cur-vac-stub"></td>
+                            <td id="ytd-vac-stub"></td>
+                        </tr>
+                        <tr>
+                            <td>Totals</td>
+                            <td id="qty-vacP-stub"></td>
+                            <td id="rate-vacP-stub"></td>
+                            <td id="cur-vacP-stub"></td>
+                            <td id="ytd-vacP-stub"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </script>
+        </section>
         <section class="select-panel col-sm-12 shadow">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="app-template">
@@ -146,6 +189,7 @@ This is because the viewport width is in pixels and does not change with the fon
     <script type="text/javascript" src="js/collections/collection.js"></script>
     <script type="text/javascript" src="js/views/app-view.js"></script>
     <script type="text/javascript" src="js/views/last-trans-view.js"></script>
+    <script type="text/javascript" src="js/views/earnings-view.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 
