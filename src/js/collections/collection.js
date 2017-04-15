@@ -3,6 +3,8 @@ Collection = Backbone.Collection.extend({
     localStorage: new Backbone.LocalStorage('payroll'),
     initialize: function () {
         console.log("collection has been initialized.");
+        this.fetch();
+        console.log(this.models);
     }
 
 });

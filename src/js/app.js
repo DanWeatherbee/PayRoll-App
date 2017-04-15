@@ -34,7 +34,6 @@ var Start = function () {
 // Instantiate the APP
 Start.prototype.init = function () {
     'use strict';
-    this.transaction = transModel; // Backbone Class Trans_Model
     this.application = appModel; // Backbone Class Trans_Model
     var devElem = $("#dev");
     devElem.append(this.application.project + ' -- ' +
@@ -55,6 +54,27 @@ Start.prototype.init = function () {
 // Reusable progress bar class.
 Start.prototype.progress = function () {
     'use strict';
+    //TODO query ui to build this object literal.
+    var addtrans = {
+        d: D,
+        m: M,
+        y: Y,
+        dte: TIME,
+        qty: 0,
+        ot: "NULL",
+        rate: 0,
+        cur: 0,
+        vac: 0,
+        gross: 0,
+        stat: "NULL",
+        periodB: "NULL",
+        periodE: "NULL",
+        job: "NULL"
+    };
+    //Save the object as new model an add to collections
+    this.save(addtrans);
+    var elTotalModels = $('#total-models');
+    elTotalModels.html("Total Transactions in collection: " + this.records.length);
     var elem = $("#myBar"),
         elemContainer = $("#myProgress");
     elemContainer.show();
@@ -63,7 +83,6 @@ Start.prototype.progress = function () {
 
     function frame() {
         if (width >= 100) {
-
             clearInterval(id);
             elem.html('<br>Transaction Saved to Collection.');
         } else {
@@ -78,6 +97,7 @@ Start.prototype.records = function () {
     'use strict';
     this.records = new Collection();
     console.log("Transactions in collection: " + this.records.length);
+
 };
 
 Start.prototype.calender = function () {
@@ -116,11 +136,18 @@ Start.prototype.getDate = function (element) {
     return DATE;
 };
 
-Start.prototype.save = function () {
+Start.prototype.save = function (addtrans) {
     'use strict';
     this.records.fetch();
-    // Create model to save to collections.
+    // Add new model
+    var entry = new Trans_Model(addtrans);
+
+    // Save Model to collections.
+    this.records.add(entry);
+    entry.save();
     console.log("Transactions in collection: " + this.records.length);
+
+
 };
 
 var app = new Start();
