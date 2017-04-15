@@ -73,6 +73,7 @@ Start.prototype.progress = function () {
     };
     //Save the object as new model an add to collections
     this.save(addtrans);
+    this.records.getData();
     var elTotalModels = $('#total-models');
     elTotalModels.html("Total Transactions in collection: " + this.records.length);
     var elem = $("#myBar"),
