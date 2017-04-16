@@ -168,4 +168,25 @@ Start.prototype.delLastRecord = function () {
     };
 };
 
+Start.prototype.delAllRecords = function () {
+    'use strict';
+    if (this.records.length == 0) {
+        return alert("There are no Transactions.");
+
+    } else {
+        if (confirm('Are you sure you want delete them all?')) {
+
+            // Delete all!
+            alert("not hooked up");
+
+        } else {
+            // Do nothing!
+            alert("Delete canceled.");
+        }
+
+        alert("All Transactions are deleted.");
+
+    };
+};
+
 var app = new Start();
