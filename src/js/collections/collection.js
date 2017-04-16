@@ -16,6 +16,7 @@ Collection = Backbone.Collection.extend({
         var elVac = $('#vac');
         var elGross = $('#gross');
         var elStat = $('#stat');
+        var vac_2DIGITS;
         // Clear the elements.
         elJob.html('');
         elDte.html('');
@@ -30,15 +31,17 @@ Collection = Backbone.Collection.extend({
         for (var i = 0; i < this.length; i++) {
 
             // Repopulate elements.
-            elJob.append(this.models[i].get('job') + '</p><hr>');
-            elDte.append(this.models[i].get('dte') + '</p><hr>');
-            elQty.append(this.models[i].get('qty') + '</p><hr>');
-            elRate.append(this.models[i].get('rate') + '</p><hr>');
-            elOt.append(this.models[i].get('ot') + '</p><hr>');
-            elCur.append(this.models[i].get('cur') + '</p><hr>');
-            elVac.append(this.models[i].get('vac') + '</p><hr>');
-            elGross.append(this.models[i].get('gross') + '</p><hr>');
-            elStat.append(this.models[i].get('stat') + '</p><hr>');
+            elJob.append(this.models[i].get('job') + '<br><hr>');
+            elDte.append(this.models[i].get('dte') + '<br><hr>');
+            elQty.append(this.models[i].get('qty') + '<br><hr>');
+            elRate.append(this.models[i].get('rate') + '<br><hr>');
+            elOt.append(this.models[i].get('ot') + '<br><hr>');
+            elCur.append(this.models[i].get('cur') + '<br><hr>');
+            vac_2DIGITS = this.models[i].get('vac');
+
+            elVac.append(vac_2DIGITS.toFixed(2) + '<br><hr>');
+            elGross.append(this.models[i].get('gross') + '<br><hr>');
+            elStat.append(this.models[i].get('stat') + '<br><hr>');
 
         };
 

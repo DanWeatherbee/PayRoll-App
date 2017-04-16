@@ -151,4 +151,21 @@ Start.prototype.save = function (addtrans) {
 
 };
 
+Start.prototype.delLastRecord = function () {
+    'use strict';
+    if (this.records.length == 0) {
+        return alert("All records are deleted.");
+
+    } else {
+        this.records.remove(this.records.models[0].destroy());
+
+        console.log("Delete last Trans was used.")
+        console.log(this.records.length);
+        this.records.getData();
+        var elTotalModels = $('#total-models');
+        elTotalModels.html("Total Transactions in collection: " + this.records.length);
+
+    };
+};
+
 var app = new Start();
