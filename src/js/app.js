@@ -4,21 +4,7 @@ var TIME = new Date(),
     M = TIME.getMonth(),
     Y = TIME.getFullYear(),
     ENTER_KEY = 13,
-    ESC_KEY = 27,
-    totalQty = 0,
-    totalYtd = 0,
-    totalVac = 0,
-    totalCur = 0,
-    pay,
-    fed,
-    totalTax,
-    cpp,
-    ui,
-    totalUIplusCPP,
-    totalAllDeductions,
-    netPay,
-    payStart,
-    payEnd;
+    ESC_KEY = 27;
 
 // Class's
 
@@ -54,28 +40,7 @@ Start.prototype.init = function () {
 // Reusable progress bar class.
 Start.prototype.progress = function () {
     'use strict';
-    //TODO query ui to build this object literal.
-    var addtrans = {
-        d: D,
-        m: M,
-        y: Y,
-        dte: TIME,
-        qty: 0,
-        ot: "NULL",
-        rate: 0,
-        cur: 0,
-        vac: 0,
-        gross: 0,
-        stat: "NULL",
-        periodB: "NULL",
-        periodE: "NULL",
-        job: "NULL"
-    };
-    //Save the object as new model an add to collections
-    this.save(addtrans);
-    this.records.getData();
-    var elTotalModels = $('#total-models');
-    elTotalModels.html("Total Transactions in collection: " + this.records.length);
+    this.addOne();
     var elem = $("#myBar"),
         elemContainer = $("#myProgress");
     elemContainer.show();
@@ -148,6 +113,34 @@ Start.prototype.save = function (addtrans) {
     entry.save();
     console.log("Transactions in collection: " + this.records.length);
 
+
+};
+
+Start.prototype.addOne = function () {
+    'use strict';
+    //TODO query ui to build this object literal.
+    var addtrans = {
+        d: D,
+        m: M,
+        y: Y,
+        dte: TIME,
+        qty: 80,
+        ot: "NULL",
+        rate: 15,
+        cur: 0,
+        vac: 0,
+        gross: 0,
+        stat: "NULL",
+        periodB: "Now",
+        periodE: "Later",
+        job: "The Bay"
+    };
+
+    //Save the object as new model an add to collections
+    this.save(addtrans);
+    this.records.getData();
+    var elTotalModels = $('#total-models');
+    elTotalModels.html("Total Transactions in collection: " + this.records.length);
 
 };
 
