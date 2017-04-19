@@ -30,11 +30,13 @@ Start.prototype.init = function () {
         this.application.library + ' CSS: ' +
         this.application.cssframework);
     var appV = new AppView(),
+        transactionsList = new Collection(),
         transV = new LastTransView(),
         earningsV = new EarningsView(),
         withHoldV = new WithHoldingsView(),
         netPayV = new NetPayView(),
         transV = new TransactionView();
+        console.log(transV);
 };
 
 // Reusable progress bar class.

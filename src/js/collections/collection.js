@@ -52,6 +52,48 @@ Collection = Backbone.Collection.extend({
             elStat = $('#stat'),
             vac_2DIGITS;
 
+        //Last Transaction Elements.
+        var elDteLast = $('#dte-l'),
+            elQtyLast = $('#qty-l'),
+            elRateLast = $('#rate-l'),
+            elOtLast = $('#ot-l'),
+            elCurLast = $('#cur-l'),
+
+            elVacLast = $('#vac-l'),
+            elGrossLast = $('#gross-l'),
+            elStatLast = $('#stat-l'),
+            elJobLast = $('#job-l'),
+
+            prevRecord = this.models.length - 1;
+
+        //Wrap Earnings Template Elements.
+        var elQtyHrStub = $('#qty-hr-stub'),
+            elRateHrStub = $('#rate-hr-stub'),
+            elCurHrStub = $('#cur-hr-stub'),
+            elCurVacStub = $('#cur-vac-stub'),
+            elYtdHrStub = $('#ytd-hr-stub'),
+            elYtdVacStub = $('#ytd-vac-stub'),
+            elCurVacPStub = $('#cur-vacP-stub'),
+            elYtdVacPStub = $('#ytd-vacP-stub');
+
+        //Pay Period Elements.
+        var elPayPerHeader = $('#pay-per-header'),
+            elEmployeeH = $('#employee-h'),
+            eltotalModels = $('#total-models');
+
+
+        // Withholdings Template Elements.
+        var elCurNetPayStub = $('#cur-netPay-stub'),
+            elYtdNetPayStub = $('#ytd-netPay-stub'),
+            elCurCppStub = $('#cur-cpp-stub'),
+            elCurUiStub = $('#cur-ui-stub'),
+            elCurFedStub = $('#cur-fed-stub'),
+            elCurTotStub = $('#cur-tot-stub'),
+            elYtdCppStub = $('#ytd-cpp-stub'),
+            elYtdUiStub = $('#ytd-ui-stub'),
+            elYtdFedStub = $('#ytd-fed-stub'),
+            elYtdTotStub = $('#ytd-tot-stub');
+
         // Clear the Transaction List before repopulating.
         elJob.html('');
         elDte.html('');
@@ -62,6 +104,7 @@ Collection = Backbone.Collection.extend({
         elVac.html('');
         elGross.html('');
         elStat.html('');
+
         //Populate from local storage(collection).
         _.each(this.models, function (item) {
             //Iterate and add values.
@@ -88,32 +131,23 @@ Collection = Backbone.Collection.extend({
 
         payEnd = this.models[0].get('periodE');
 
-        //Last Transaction Elements.
-        var elDteLast = $('#dte-l'),
-            elQtyLast = $('#qty-l'),
-            elRateLast = $('#rate-l'),
-            elOtLast = $('#ot-l'),
-            elCurLast = $('#cur-l'),
 
-            elVacLast = $('#vac-l'),
-            elGrossLast = $('#gross-l'),
-            elStatLast = $('#stat-l'),
-            elJobLast = $('#job-l'),
 
-            prevRecord = this.models.length - 1;
+        //Append and update elements from collection.
+        elPayPerHeader.html(" Today is " + dateNow + " Choose a pay period below.");
+        elEmployeeH.html(" Period start: " + payStart + " Period end: " + payEnd);
+        eltotalModels.append("Total Transactions in this: " + prevRecord + 1);
 
-        $('#pay-per-header').html(" Today is " + dateNow + " Choose a pay period below.");
-        $('#employee-h').html(" Period start: " + payStart + " Period end: " + payEnd);
-        $('#total-models').append("Total Transactions in this: " + prevRecord + 1);
 
-        $('#qty-hr-stub').html(totalQty);
-        $('#rate-hr-stub').html(this.models[prevRecord].get('rate'));
-        $('#cur-hr-stub').html(totalCur);
-        $('#cur-vac-stub').html(totalVac.toFixed(2));
-        $('#ytd-hr-stub').html(totalYtd);
-        $('#ytd-vac-stub').html(totalVac.toFixed(2));
-        $('#cur-vacP-stub').html(totalCur + totalVac);
-        $('#ytd-vacP-stub').html(totalCur + totalVac);
+        //Populate Earnings Template Elements from collection.
+        elQtyHrStub.html(totalQty);
+        elRateHrStub.html(this.models[prevRecord].get('rate'));
+        elCurHrStub.html(totalCur);
+        elCurVacStub.html(totalVac.toFixed(2));
+        elYtdHrStub.html(totalYtd);
+        elYtdVacStub.html(totalVac.toFixed(2));
+        elCurVacPStub.html(totalCur + totalVac);
+        elYtdVacPStub.html(totalCur + totalVac);
 
         //Populate Last Transaction Elements.
         elDteLast.html(this.models[prevRecord].get('dte'));
@@ -140,17 +174,21 @@ Collection = Backbone.Collection.extend({
             totalAllDeductions = totalTax + totalUIplusCPP;
             netPay = pay - totalAllDeductions;
 
-            // Append Calculated Data received from Collections.
-            $('#cur-netPay-stub').html(netPay.toFixed(2));
-            $('#ytd-netPay-stub').html(netPay.toFixed(2));
-            $('#cur-cpp-stub').html('- ' + cpp.toFixed(2));
-            $('#cur-ui-stub').html('- ' + ui.toFixed(2));
-            $('#cur-fed-stub').html('- ' + fed.toFixed(2));
-            $('#cur-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
-            $('#ytd-cpp-stub').html('- ' + cpp.toFixed(2));
-            $('#ytd-ui-stub').html('- ' + ui.toFixed(2));
-            $('#ytd-fed-stub').html('- ' + fed.toFixed(2));
-            $('#ytd-tot-stub').html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+
+            /*
+             Append Calculated Data received from Collections
+              to Withholdings Template Elements.
+             */
+            elCurNetPayStub.html(netPay.toFixed(2));
+            elYtdNetPayStub.html(netPay.toFixed(2));
+            elCurCppStub.html('- ' + cpp.toFixed(2));
+            elCurUiStub.html('- ' + ui.toFixed(2));
+            elCurFedStub.html('- ' + fed.toFixed(2));
+            elCurTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+            elYtdCppStub.html('- ' + cpp.toFixed(2));
+            elYtdUiStub.html('- ' + ui.toFixed(2));
+            elYtdFedStub.html('- ' + fed.toFixed(2));
+            elYtdTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
         }
 
     }
