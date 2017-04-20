@@ -126,15 +126,15 @@ Collection = Backbone.Collection.extend({
             elGross.append(item.get('gross') + '<br><hr>');
             elStat.append(item.get('stat') + '<br><hr>');
         });
+        console.log(this.models[0].collection.length);
+        payStart = this.models[this.models[0].collection.length -1].get('periodB');
 
-        payStart = this.models[0].get('periodB');
-
-        payEnd = this.models[0].get('periodE');
+        payEnd = this.models[this.models[0].collection.length -1].get('periodE');
 
 
 
         //Append and update elements from collection.
-        elPayPerHeader.html(" Today is " + dateNow + " Choose a pay period below.");
+        elPayPerHeader.html(" Date: " + dateNow);
         elEmployeeH.html(" Period start: " + payStart + " Period end: " + payEnd);
         eltotalModels.append("Total Transactions in this: " + prevRecord + 1);
 

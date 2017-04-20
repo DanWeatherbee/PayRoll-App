@@ -33,9 +33,9 @@ This is because the viewport width is in pixels and does not change with the fon
             <hr>
             <input type="text" id="select-emp" placeholder="Enter">
             <hr>
-            <label for="from">From</label>
+            <label class="pay-per-labels" for="from">From</label>
             <input type="text" id="from" name="from" placeholder="Calender">
-            <label for="to">to</label>
+            <label class="pay-per-labels" for="to">to</label>
             <input type="text" id="to" name="to" placeholder="Calender">
             <hr>
         </section>
@@ -243,7 +243,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <hr>
                 <h3 id="total-models"></h3>
                 <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
-                <button class="btn btn-primary btn-del-all" onClick="app.delAllRecords()">Del all</button>
+                <button class="btn btn-primary btn-del-all" onClick="app.delFirstRecord()">Del first</button>
                 <table>
                     <thead id="trans-table-head">
                         <tr>

@@ -15,6 +15,10 @@ var Start = function () {
     self.init();
     self.records();
     this.calender();
+    if (this.records.length > 0) {
+        this.records.getData();
+    }
+    console.log(this.records.length);
 };
 
 // Instantiate the APP
@@ -36,7 +40,7 @@ Start.prototype.init = function () {
         withHoldV = new WithHoldingsView(),
         netPayV = new NetPayView(),
         transV = new TransactionView();
-        console.log(transV);
+
 };
 
 // Reusable progress bar class.
@@ -52,7 +56,7 @@ Start.prototype.progress = function () {
     function frame() {
         if (width >= 100) {
             clearInterval(id);
-            elem.html('<br>Transaction Saved to Collection.');
+            elem.html('<br>Completed your request.');
         } else {
             width++;
             elem.css({ width: width + '%' });
@@ -65,6 +69,7 @@ Start.prototype.records = function () {
     'use strict';
     this.records = new Collection();
     console.log("Transactions in collection: " + this.records.length);
+    return this.records;
 
 };
 
@@ -120,22 +125,47 @@ Start.prototype.save = function (addtrans) {
 
 Start.prototype.addOne = function () {
     'use strict';
-    //TODO query ui to build this object literal.
+
+    var DATE_PERIOD_BEGIN = $('#from').val(),
+        DATE_PERIOD_END = $('#to').val();
+    // Make sure Date Element is not empty.
+    if (DATE_PERIOD_BEGIN == "") {
+        alert("!Please enter an begin date.");
+        return;
+    } else if (DATE_PERIOD_END == "") {
+        alert("!Please enter an end date.");
+        return;
+    }
+    // Retrieve and assign values to Variables from Selection Panel.
+    var QTY = Number($('#sel-qty option:selected').text()),
+        RATE = Number($('#sel-rate option:selected').text()),
+        CUR = QTY * RATE,
+        VAC = CUR * .04,
+        GROSS = CUR + VAC,
+        STAT = $('#sel-stat option:selected').text(),
+        OT = $('#sel-ot option:selected').text(),
+        JOB = $('#job-opt').val(),
+        DATE = $('#select-date').val();
+
+    $('#to').fadeOut();
+    $('#from').fadeOut();
+    $('.pay-per-labels').fadeOut();
+
     var addtrans = {
         d: D,
         m: M,
         y: Y,
-        dte: TIME,
-        qty: 80,
-        ot: "NULL",
-        rate: 15,
-        cur: 0,
-        vac: 0,
-        gross: 0,
-        stat: "NULL",
-        periodB: "Now",
-        periodE: "Later",
-        job: "The Bay"
+        dte: DATE,
+        qty: QTY,
+        ot: OT,
+        rate: RATE,
+        cur: CUR,
+        vac: VAC,
+        gross: GROSS,
+        stat: STAT,
+        periodB: DATE_PERIOD_BEGIN,
+        periodE: DATE_PERIOD_END,
+        job: JOB
     };
 
     //Save the object as new model an add to collections
@@ -149,10 +179,13 @@ Start.prototype.addOne = function () {
 Start.prototype.delLastRecord = function () {
     'use strict';
     if (this.records.length == 0) {
-        return alert("All records are deleted.");
+        alert("All records are deleted.");
+        location.reload();
 
     } else {
-        this.records.remove(this.records.models[0].destroy());
+
+        //Because of the zero based index I used this.records.length - 1 to remove last entry.
+        this.records.remove(this.records.models[this.records.length - 1].destroy());
 
         console.log("Delete last Trans was used.")
         console.log(this.records.length);
@@ -163,24 +196,20 @@ Start.prototype.delLastRecord = function () {
     };
 };
 
-Start.prototype.delAllRecords = function () {
+Start.prototype.delFirstRecord = function () {
     'use strict';
-    if (this.records.length == 0) {
+    if (this.records.length < 0) {
         return alert("There are no Transactions.");
 
     } else {
-        if (confirm('Are you sure you want delete them all?')) {
 
-            // Delete all!
-            alert("not hooked up");
+        this.records.remove(this.records.models[0].destroy());
 
-        } else {
-            // Do nothing!
-            alert("Delete canceled.");
-        }
-
-        alert("All Transactions are deleted.");
-
+        console.log("Delete Prev Trans was used.")
+        console.log(this.records.length);
+        this.records.getData();
+        var elTotalModels = $('#total-models');
+        elTotalModels.html("Total Transactions in collection: " + this.records.length);
     };
 };
 
