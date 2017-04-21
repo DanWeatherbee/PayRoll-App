@@ -26,12 +26,11 @@
     <!--  While Bootstrap uses ems or rems for defining most sizes,
 pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
-    <div class="container" id="main">
-        <section class="print-panel col-sm-12">
+
+        <section class="panels print-panel">
             <script type="text/template" id="print-template">
                 <h3 id="print-header">Print Panel:</h3>
-                <button class="btn btn-primary btn-print-selected" onClick="app.print()">Print</button>
-                <hr>
+                <button class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</button>
                 <table>
                     <thead>
                         <tr>
@@ -84,30 +83,25 @@ This is because the viewport width is in pixels and does not change with the fon
                         </tr>
                     </tbody>
                 </table>
-                <hr>
             </script>
         </section>
-        <section class="pay-period-panel col-sm-12">
+        <section class="panels pay-period-panel">
             <h3 id="pay-per-header">Pay Period Panel:</h3>
             <h3 id="employee-h">Employee:</h3>
-            <hr>
             <input type="text" id="select-emp" placeholder="Enter">
-            <hr>
             <label class="pay-per-labels" for="from">From</label>
             <input type="text" id="from" name="from" placeholder="Calender">
             <label class="pay-per-labels" for="to">to</label>
             <input type="text" id="to" name="to" placeholder="Calender">
-            <hr>
+            <label id="dev"></label>
         </section>
-        <label id="dev" class="shadow"></label>
         <div id="myProgress">
             <div id="myBar">New Transaction</div>
         </div>
-        <section class="select-panel col-sm-12 shadow">
+        <section class="panels select-panel">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="app-template">
                 <h3 id="select-panel-header">Select Panel:</h3>
-                <hr>
                 <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
                 <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
                 <table>
@@ -163,7 +157,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 </table>
             </script>
         </section>
-        <section class="last-trans-panel col-sm-12">
+        <section class="panels last-trans-panel">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="last-trans-template">
                 <h3 id="last-tran-header">Last Transaction:</h3>
@@ -197,8 +191,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 </table>
             </script>
         </section>
-        <hr>
-        <section class="earnings-panel col-sm-12">
+        <section class="panels earnings-panel">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="earnings-template">
                 <table>
@@ -237,8 +230,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 </table>
             </script>
         </section>
-        <hr>
-        <section class="with-holdings-panel col-sm-12">
+        <section class="panels with-holdings-panel">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="with-holdings-template">
                 <table>
@@ -274,8 +266,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 </table>
             </script>
         </section>
-        <hr>
-        <section class="net-pay-panel col-sm-12">
+        <section class="panels net-pay-panel">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="net-pay-template">
                 <table>
@@ -296,11 +287,10 @@ This is because the viewport width is in pixels and does not change with the fon
                 </table>
             </script>
         </section>
-        <hr>
-        <section class="trans-panel col-sm-12">
+        <section class="panels trans-panel
+ col-sm-12">
             <!-- Backbone Template===========================> -->
             <script type="text/template" id="trans-template">
-                <hr>
                 <h3 id="total-models"></h3>
                 <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
                 <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
@@ -312,9 +302,6 @@ This is because the viewport width is in pixels and does not change with the fon
                             <th>Qty</th>
                             <th>Rate</th>
                             <th id="ot-table-head">OT</th>
-                            <th id="cur-table-head">Current</th>
-                            <th id="vac-table-head">Vac</th>
-                            <th id="gro-table-head">Gross</th>
                             <th id="sta-table-head">Stat</th>
                         </tr>
                     </thead>
@@ -325,9 +312,6 @@ This is because the viewport width is in pixels and does not change with the fon
                             <td id="qty"></td>
                             <td id="rate"></td>
                             <td id="ot"></td>
-                            <td id="cur"></td>
-                            <td id="vac"></td>
-                            <td id="gross"></td>
                             <td id="stat"></td>
                         </tr>
                     </tbody>
@@ -335,7 +319,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
         </section>
         </script>
-    </div>
+
     <script src="js/lib/jquery-3.1.1.min.js"></script>
     <script src="js/lib/jquery-ui.min.js"></script>
     <script src="js/lib/mdb.js"></script>

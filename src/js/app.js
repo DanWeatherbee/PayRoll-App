@@ -211,29 +211,85 @@ Start.prototype.delFirstRecord = function () {
 
 Start.prototype.savePDF = function () {
     'use strict';
-    console.log('save PDF function');
-    alert('save PDF function initialized.');
-    var printV = new PrintView();
-    $('.btn-print').fadeOut();
-    $('.btn-add').fadeOut();
-    $('.btn-del-last').fadeOut();
-    $('.btn-del-first').fadeOut();
-    $('.btn-print-selected').fadeIn();
 
-    $('.pay-period-panel').fadeOut();
-    $('.select-panel').fadeOut();
-    $('.last-trans-panel').fadeOut();
-    $('.earnings-panel').fadeOut();
-    $('.with-holdings-panel').fadeOut();
-    $('.net-pay-panel').fadeOut();
-    $('.trans-panel').fadeOut();
+    var printV = new PrintView(),
+
+        // Buttons
+        elBtnPrint = $('.btn-print'),
+        elBtnAdd = $('.btn-add'),
+        elBtnDelLast = $('.btn-del-last'),
+        elBtnDelFirst = $('.btn-del-first'),
+        elBtnPrintSelected = $('.btn-print-selected');
+
+    elBtnPrintSelected.fadeIn();
+    elBtnPrint.fadeOut();
+    elBtnAdd.fadeOut();
+    elBtnDelLast.fadeOut();
+    elBtnDelFirst.fadeOut();
 
 };
 
-Start.prototype.print = function () {
+Start.prototype.printPreView = function () {
     'use strict';
-    $('.print-panel').fadeOut();
-    window.print();
+
+    $('#myProgress').fadeOut();
+    $('#link-canada').fadeOut();
+    // Panels
+    var elPayPeriodPanel = $('.pay-period-panel'),
+        elSelectPanel = $('.select-panel'),
+        elLastTransPanel = $('.last-trans-panel'),
+        elEarningsPanel = $('.earnings-panel'),
+        elWithHoldingsPanel = $('.with-holdings-panel'),
+        elNetPayPanel = $('.net-pay-panel'),
+        elTransPanel = $('.trans-panel');
+
+
+    // Print Select Options Show Hide.
+    var payPeriodPanelText = $('#p-1 option:selected').text(),
+        selectPanelText = $('#p-2 option:selected').text(),
+        lastTransPanelText = $('#p-3 option:selected').text(),
+        earningsPanelText = $('#p-4 option:selected').text(),
+        withHoldingsPanelText = $('#p-5 option:selected').text(),
+        netPayPanelText = $('#p-6 option:selected').text();
+
+    if (payPeriodPanelText == "Show") {
+        elPayPeriodPanel.fadeIn();
+    } else {
+        elPayPeriodPanel.fadeOut()
+    };
+
+    if (selectPanelText == "Show") {
+        elSelectPanel.fadeIn();
+    } else {
+        elSelectPanel.fadeOut();
+    };
+
+    if (lastTransPanelText == "Show") {
+        elLastTransPanel.fadeIn();
+    } else {
+        elLastTransPanel.fadeOut();
+    };
+
+    if (earningsPanelText == "Show") {
+        elEarningsPanel.fadeIn();
+    } else {
+        elEarningsPanel.fadeOut();
+    };
+
+    if (withHoldingsPanelText == "Show") {
+        elWithHoldingsPanel.fadeIn();
+    } else {
+        elWithHoldingsPanel.fadeOut();
+    };
+
+    if (netPayPanelText == "Show") {
+        elNetPayPanel.fadeIn();
+    } else {
+        elNetPayPanel.fadeOut();
+    };
+
+    // $('.print-panel').fadeOut();
+    // window.print();
 
 };
 var app = new Start();

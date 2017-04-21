@@ -8,16 +8,17 @@ Collection = Backbone.Collection.extend({
         console.log(this.models);
     },
     getData: function () {
-        //Last Transaction variables.
+        // Last Transaction variables.
 
         var totalQty = 0,
             totalYtd = 0,
             totalVac = 0,
             totalCur = 0,
-            //Pay Period Variables.
+            // Pay Period Variables.
             payStart,
             payEnd,
             dateNow = Date(),
+            // Tax Variables.
             pay,
             fed,
             totalTax,
@@ -27,7 +28,7 @@ Collection = Backbone.Collection.extend({
             totalAllDeductions,
             netPay;
 
-        //Last Transaction Elements.
+        // Last Transaction Elements.
         var elDteLast = $('#dte-l'),
             elQtyLast = $('#qty-l'),
             elRateLast = $('#rate-l'),
@@ -40,7 +41,7 @@ Collection = Backbone.Collection.extend({
             elJobLast = $('#job-l');
 
 
-        //Transaction List Elements
+        // Transaction List Elements
         var elJob = $('#job'),
             elDte = $('#dte'),
             elQty = $('#qty'),
@@ -52,7 +53,7 @@ Collection = Backbone.Collection.extend({
             elStat = $('#stat'),
             vac_2DIGITS;
 
-        //Last Transaction Elements.
+        // Last Transaction Elements.
         var elDteLast = $('#dte-l'),
             elQtyLast = $('#qty-l'),
             elRateLast = $('#rate-l'),
@@ -66,7 +67,7 @@ Collection = Backbone.Collection.extend({
 
             prevRecord = this.models.length - 1;
 
-        //Wrap Earnings Template Elements.
+        // Wrap Earnings Template Elements.
         var elQtyHrStub = $('#qty-hr-stub'),
             elRateHrStub = $('#rate-hr-stub'),
             elCurHrStub = $('#cur-hr-stub'),
@@ -76,7 +77,7 @@ Collection = Backbone.Collection.extend({
             elCurVacPStub = $('#cur-vacP-stub'),
             elYtdVacPStub = $('#ytd-vacP-stub');
 
-        //Pay Period Elements.
+        // Pay Period Elements.
         var elPayPerHeader = $('#pay-per-header'),
             elEmployeeH = $('#employee-h'),
             eltotalModels = $('#total-models');
@@ -105,26 +106,21 @@ Collection = Backbone.Collection.extend({
         elGross.html('');
         elStat.html('');
 
-        //Populate from local storage(collection).
+        // Populate from local storage(collection).
         _.each(this.models, function (item) {
-            //Iterate and add values.
+            // Iterate and add values.
             totalQty = totalQty + item.get('qty');
             totalYtd = totalYtd + item.get('cur');
             totalVac = totalVac + item.get('vac');
             totalCur = totalCur + item.get('cur');
 
             // Repopulate elements.
-            elJob.append(item.get('job') + '<br><hr>');
-            elDte.append(item.get('dte') + '<br><hr>');
-            elQty.append(item.get('qty') + '<br><hr>');
-            elRate.append(item.get('rate') + '<br><hr>');
-            elOt.append(item.get('ot') + '<br><hr>');
-            elCur.append(item.get('cur') + '<br><hr>');
-            vac_2DIGITS = item.get('vac');
-
-            elVac.append(vac_2DIGITS.toFixed(2) + '<br><hr>');
-            elGross.append(item.get('gross') + '<br><hr>');
-            elStat.append(item.get('stat') + '<br><hr>');
+            elJob.append(item.get('job') + '<br>');
+            elDte.append(item.get('dte') + '<br>');
+            elQty.append(item.get('qty') + '<br>');
+            elRate.append(item.get('rate') + '<br>');
+            elOt.append(item.get('ot') + '<br>');
+            elStat.append(item.get('stat') + '<br>');
         });
         console.log(this.models[0].collection.length);
         payStart = this.models[this.models[0].collection.length - 1].get('periodB');
@@ -133,13 +129,13 @@ Collection = Backbone.Collection.extend({
 
 
 
-        //Append and update elements from collection.
+        // Append and update elements from collection.
         elPayPerHeader.html(" Date: " + dateNow);
         elEmployeeH.html(" Period start: " + payStart + " Period end: " + payEnd);
         eltotalModels.append("Total Transactions in this: " + this.models.length);
 
 
-        //Populate Earnings Template Elements from collection.
+        // Populate Earnings Template Elements from collection.
         elQtyHrStub.html(totalQty);
         elRateHrStub.html(this.models[prevRecord].get('rate'));
         elCurHrStub.html(totalCur);
@@ -149,7 +145,7 @@ Collection = Backbone.Collection.extend({
         elCurVacPStub.html(totalCur + totalVac);
         elYtdVacPStub.html(totalCur + totalVac);
 
-        //Populate Last Transaction Elements.
+        // Populate Last Transaction Elements.
         elDteLast.html(this.models[prevRecord].get('dte'));
         elQtyLast.html(this.models[prevRecord].get('qty'));
         elRateLast.html(this.models[prevRecord].get('rate'));

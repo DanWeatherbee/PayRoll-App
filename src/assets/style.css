@@ -1,18 +1,10 @@
 body {
-    padding-top: 3em;
-    background-color: aquamarine;
+    padding: 1%;
+    background-color: darkslategrey;
 }
 
 table {
     width: 100%;
-}
-
-#sel-stat,
-#sel-ot,
-#datepicker,
-#job-opt,
-.select-panel {
-    width: 98%;
 }
 
 .shadow {
@@ -53,7 +45,7 @@ table {
 }
 
 #ui-datepicker-div {
-    background-color: midnightblue;
+    background-color: ghostwhite;
 }
 
 .ui-datepicker-year,
@@ -86,7 +78,7 @@ input,
 
 #myProgress {
     width: 88%;
-    background-color: #ddd;
+    background-color: darkslategrey;
     margin: 5%;
     display: none;
     margin-bottom: 10%;
@@ -99,6 +91,11 @@ input,
 }
 
 #dev {
-    background-color: turquoise;
     padding: .5%;
 }
+
+.panels {
+    padding-top: 10%;
+    background-color: ghostwhite;
+}
+
