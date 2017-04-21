@@ -27,6 +27,66 @@
 pxs are used for grid breakpoints and container widths.
 This is because the viewport width is in pixels and does not change with the font size. -->
     <div class="container" id="main">
+        <section class="print-panel col-sm-12">
+            <script type="text/template" id="print-template">
+                <h3 id="print-header">Print Panel:</h3>
+                <button class="btn btn-primary btn-print-selected" onClick="app.print()">Print</button>
+                <hr>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Panel 1</th>
+                            <th>Panel 2</th>
+                            <th>Panel 3</th>
+                            <th>Panel 4</th>
+                            <th>Panel 5</th>
+                            <th>Panel 6</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control" id="p-1">
+                                    <option>Show</option>
+                                    <option>Hide</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="p-2">
+                                    <option>Show</option>
+                                    <option>Hide</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="p-3">
+                                    <option>Show</option>
+                                    <option>Hide</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="p-4">
+                                    <option>Show</option>
+                                    <option>Hide</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="p-5">
+                                    <option>Show</option>
+                                    <option>Hide</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="p-6">
+                                    <option>Show</option>
+                                    <option>Hide</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+            </script>
+        </section>
         <section class="pay-period-panel col-sm-12">
             <h3 id="pay-per-header">Pay Period Panel:</h3>
             <h3 id="employee-h">Employee:</h3>
@@ -49,7 +109,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <h3 id="select-panel-header">Select Panel:</h3>
                 <hr>
                 <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
-                <button class="btn btn-primary btn-print">Save</button>
+                <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
                 <table>
                     <thead>
                         <tr>
@@ -243,7 +303,7 @@ This is because the viewport width is in pixels and does not change with the fon
                 <hr>
                 <h3 id="total-models"></h3>
                 <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
-                <button class="btn btn-primary btn-del-all" onClick="app.delFirstRecord()">Del first</button>
+                <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
                 <table>
                     <thead id="trans-table-head">
                         <tr>
@@ -291,6 +351,7 @@ This is because the viewport width is in pixels and does not change with the fon
     <script type="text/javascript" src="js/views/with-holdings-view.js"></script>
     <script type="text/javascript" src="js/views/net-pay-view.js"></script>
     <script type="text/javascript" src="js/views/trans-template-view.js"></script>
+    <script type="text/javascript" src="js/views/print-view.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 

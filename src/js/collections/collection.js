@@ -127,16 +127,16 @@ Collection = Backbone.Collection.extend({
             elStat.append(item.get('stat') + '<br><hr>');
         });
         console.log(this.models[0].collection.length);
-        payStart = this.models[this.models[0].collection.length -1].get('periodB');
+        payStart = this.models[this.models[0].collection.length - 1].get('periodB');
 
-        payEnd = this.models[this.models[0].collection.length -1].get('periodE');
+        payEnd = this.models[this.models[0].collection.length - 1].get('periodE');
 
 
 
         //Append and update elements from collection.
         elPayPerHeader.html(" Date: " + dateNow);
         elEmployeeH.html(" Period start: " + payStart + " Period end: " + payEnd);
-        eltotalModels.append("Total Transactions in this: " + prevRecord + 1);
+        eltotalModels.append("Total Transactions in this: " + this.models.length);
 
 
         //Populate Earnings Template Elements from collection.

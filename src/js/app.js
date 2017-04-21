@@ -1,13 +1,3 @@
-// Global Constants
-var TIME = new Date(),
-    D = TIME.getDay(),
-    M = TIME.getMonth(),
-    Y = TIME.getFullYear(),
-    ENTER_KEY = 13,
-    ESC_KEY = 27;
-
-// Class's
-
 // Load Methods and Launch APP.
 var Start = function () {
     'use strict';
@@ -40,6 +30,7 @@ Start.prototype.init = function () {
         withHoldV = new WithHoldingsView(),
         netPayV = new NetPayView(),
         transV = new TransactionView();
+
 
 };
 
@@ -145,11 +136,16 @@ Start.prototype.addOne = function () {
         STAT = $('#sel-stat option:selected').text(),
         OT = $('#sel-ot option:selected').text(),
         JOB = $('#job-opt').val(),
-        DATE = $('#select-date').val();
+        DATE = $('#select-date').val(),
 
-    $('#to').fadeOut();
-    $('#from').fadeOut();
-    $('.pay-per-labels').fadeOut();
+        // Hide Pay Period elements once input is received.
+        elTo = $('#to'),
+        elFrom = $('#from'),
+        elPayPerLabels = $('.pay-per-labels');
+
+    elTo.fadeOut();
+    elFrom.fadeOut();
+    elPayPerLabels.fadeOut();
 
     var addtrans = {
         d: D,
@@ -213,4 +209,31 @@ Start.prototype.delFirstRecord = function () {
     };
 };
 
+Start.prototype.savePDF = function () {
+    'use strict';
+    console.log('save PDF function');
+    alert('save PDF function initialized.');
+    var printV = new PrintView();
+    $('.btn-print').fadeOut();
+    $('.btn-add').fadeOut();
+    $('.btn-del-last').fadeOut();
+    $('.btn-del-first').fadeOut();
+    $('.btn-print-selected').fadeIn();
+
+    $('.pay-period-panel').fadeOut();
+    $('.select-panel').fadeOut();
+    $('.last-trans-panel').fadeOut();
+    $('.earnings-panel').fadeOut();
+    $('.with-holdings-panel').fadeOut();
+    $('.net-pay-panel').fadeOut();
+    $('.trans-panel').fadeOut();
+
+};
+
+Start.prototype.print = function () {
+    'use strict';
+    $('.print-panel').fadeOut();
+    window.print();
+
+};
 var app = new Start();

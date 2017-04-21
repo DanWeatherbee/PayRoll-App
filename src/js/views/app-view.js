@@ -7,10 +7,11 @@ AppView = Backbone.View.extend({
     initialize: function () {
         // Render the template before quering its elements.
         this.render();
-        var elSelQty = $('#sel-qty');
-        var elselRate = $('#sel-rate');
-        var o = '<option>';
-        var e = '</option>';
+        var elSelQty = $('#sel-qty'),
+            elselRate = $('#sel-rate'),
+            o = '<option>',
+            e = '</option>';
+        // These elements are for looped in because there are hundreds of them.
         for (var i = 0; i < 200; i++) {
             elSelQty.append(o + i + e);
             elSelQty.append(o + (i + .5) + e);
