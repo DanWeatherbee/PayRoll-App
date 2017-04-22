@@ -33,10 +33,6 @@ Collection = Backbone.Collection.extend({
             elQtyLast = $('#qty-l'),
             elRateLast = $('#rate-l'),
             elOtLast = $('#ot-l'),
-            elCurLast = $('#cur-l'),
-
-            elVacLast = $('#vac-l'),
-            elGrossLast = $('#gross-l'),
             elStatLast = $('#stat-l'),
             elJobLast = $('#job-l');
 
@@ -47,25 +43,10 @@ Collection = Backbone.Collection.extend({
             elQty = $('#qty'),
             elRate = $('#rate'),
             elOt = $('#ot'),
-            elCur = $('#cur'),
-            elVac = $('#vac'),
-            elGross = $('#gross'),
-            elStat = $('#stat'),
-            vac_2DIGITS;
+            elStat = $('#stat');
 
-        // Last Transaction Elements.
-        var elDteLast = $('#dte-l'),
-            elQtyLast = $('#qty-l'),
-            elRateLast = $('#rate-l'),
-            elOtLast = $('#ot-l'),
-            elCurLast = $('#cur-l'),
 
-            elVacLast = $('#vac-l'),
-            elGrossLast = $('#gross-l'),
-            elStatLast = $('#stat-l'),
-            elJobLast = $('#job-l'),
-
-            prevRecord = this.models.length - 1;
+        prevRecord = this.models.length - 1;
 
         // Wrap Earnings Template Elements.
         var elQtyHrStub = $('#qty-hr-stub'),
@@ -101,9 +82,6 @@ Collection = Backbone.Collection.extend({
         elQty.html('');
         elRate.html('');
         elOt.html('');
-        elCur.html('');
-        elVac.html('');
-        elGross.html('');
         elStat.html('');
 
         // Populate from local storage(collection).
@@ -150,10 +128,6 @@ Collection = Backbone.Collection.extend({
         elQtyLast.html(this.models[prevRecord].get('qty'));
         elRateLast.html(this.models[prevRecord].get('rate'));
         elOtLast.html(this.models[prevRecord].get('ot'));
-        elCurLast.html(this.models[prevRecord].get('cur'));
-        var VAC_2DIGITS = this.models[prevRecord].get('vac');
-        elVacLast.html(VAC_2DIGITS.toFixed(2));
-        elGrossLast.html(this.models[prevRecord].get('gross'));
         elStatLast.html(this.models[prevRecord].get('stat'));
         elJobLast.html(this.models[prevRecord].get('job'));
 

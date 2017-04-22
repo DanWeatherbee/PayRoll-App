@@ -1,10 +1,8 @@
 body {
     padding: 1%;
     background-color: darkslategrey;
-}
-
-table {
-    width: 100%;
+    max-width: 1000px;
+    padding-top: 25px;
 }
 
 .shadow {
@@ -44,15 +42,6 @@ table {
     right: 1%;
 }
 
-#ui-datepicker-div {
-    background-color: ghostwhite;
-}
-
-.ui-datepicker-year,
-.ui-icon {
-    color: white;
-}
-
 .ui-icon:hover,
 input:hover {
     border: .1em solid;
@@ -61,19 +50,6 @@ input:hover {
     -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
     -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
     box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-}
-
-input,
-table,
-tr,
-td {
-    text-align: center;
-}
-
-input,
-.ui-datepicker-month {
-    color: black;
-    background-color: white;
 }
 
 #myProgress {
@@ -95,7 +71,6 @@ input,
 }
 
 .panels {
-    padding-top: 10%;
     background-color: ghostwhite;
+    padding: 5px;
 }
-
