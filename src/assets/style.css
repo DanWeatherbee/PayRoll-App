@@ -1,14 +1,12 @@
 body {
-    padding: 1%;
     background-color: darkslategrey;
-    max-width: 1000px;
-    padding-top: 25px;
+    color: indianred;
 }
 
 .shadow {
-    -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-    -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-    box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 10px 11px 5px -1px indianred;
+    -moz-box-shadow: 10px 11px 5px -1px indianred;
+    box-shadow: 10px 11px 5px -1px indianred;
 }
 
 .btn-add,
@@ -29,9 +27,9 @@ body {
     opacity: .9;
     border: .1em solid;
     border-color: red;
-    -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-    -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-    box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 10px 11px 5px -1px indianred;
+    -moz-box-shadow: 10px 11px 5px -1px indianred;
+    box-shadow: 10px 11px 5px -1px indianred;
 }
 
 .btn-add {
@@ -45,11 +43,11 @@ body {
 .ui-icon:hover,
 input:hover {
     border: .1em solid;
-    background-color: ghostwhite;
+    background-color: darkslategrey;
     color: red;
-    -webkit-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-    -moz-box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
-    box-shadow: 10px 11px 5px -1px rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 10px 11px 5px -1px indianred;
+    -moz-box-shadow: 10px 11px 5px -1px indianred;
+    box-shadow: 10px 11px 5px -1px indianred;
 }
 
 #myProgress {
@@ -70,7 +68,11 @@ input:hover {
     padding: .5%;
 }
 
-.panels {
-    background-color: ghostwhite;
-    padding: 5px;
+.ui-datepicker {
+    background-color: darkslategrey;
+    font-size: 1.5em;
+}
+
+.ui-state-default {
+    padding: .5em;
 }
