@@ -24,305 +24,345 @@
 
 <body>
     <div class="container">
-        <section class="panels print-panel">
-            <script type="text/template" id="print-template">
-                <h3 id="print-header">Print Panel:</h3>
-                <button class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</button>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Panel 1</th>
-                            <th>Panel 2</th>
-                            <th>Panel 3</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <select class="form-control" id="p-1">
-                                    <option>Show</option>
-                                    <option>Hide</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="p-2">
-                                    <option>Show</option>
-                                    <option>Hide</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="p-3">
-                                    <option>Show</option>
-                                    <option>Hide</option>
-                                </select>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Panel 4</th>
-                            <th>Panel 5</th>
-                            <th>Panel 6</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <select class="form-control" id="p-4">
-                                    <option>Show</option>
-                                    <option>Hide</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="p-5">
-                                    <option>Show</option>
-                                    <option>Hide</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="p-6">
-                                    <option>Show</option>
-                                    <option>Hide</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </script>
-        </section>
-        <section class="panels pay-period-panel">
-            <h3 id="pay-per-header">Pay Period Panel:</h3>
-            <h3 id="employee-h"></h3>
-            <label class="pay-per-labels" for="employee">Employee</label>
-            <input type="text" id="select-emp" name="employee" placeholder="Enter">
-            <label class="pay-per-labels" for="from">From</label>
-            <input type="text" id="from" name="from" placeholder="Calender">
-            <label class="pay-per-labels" for="to">to</label>
-            <input type="text" id="to" name="to" placeholder="Calender">
-            <label id="dev"></label>
-        </section>
-        <div id="myProgress">
-            <div id="myBar">New Transaction</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="dev"></h3>
+            </div>
         </div>
-        <section class="panels select-panel">
-            <!-- Backbone Template===========================> -->
-            <script type="text/template" id="app-template">
-                <h3 id="select-panel-header">Select Panel:</h3>
-                <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
-                <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Job</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="text" id="job-opt" placeholder="Enter Job">
-                            </td>
-                            <td>
-                                <input type="text" id="select-date" placeholder="Calender">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Qty</th>
-                            <th>Rate</th>
-                            <th>OT</th>
-                            <th>Stat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <select class="form-control" id="sel-qty">
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="sel-rate">
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="sel-ot">
-                                    <option>No</option>
-                                    <option>Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" id="sel-stat">
-                                    <option>No</option>
-                                    <option>Yes</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </script>
-        </section>
-        <section class="panels last-trans-panel">
-            <!-- Backbone Template===========================> -->
-            <script type="text/template" id="last-trans-template">
-                <h3 id="last-tran-header">Last Transaction:</h3>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Job</th>
-                            <th>Date</th>
-                            <th>Qty</th>
-                            <th>Rate</th>
-                            <th>OT</th>
-                            <th>Stat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="job-l"></td>
-                            <td id="dte-l"></td>
-                            <td id="qty-l"></td>
-                            <td id="rate-l"></td>
-                            <td id="ot-l"></td>
-                            <td id="stat-l"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </script>
-        </section>
-        <section class="panels earnings-panel">
-            <!-- Backbone Template===========================> -->
-            <script type="text/template" id="earnings-template">
-                <h3 id="earnings-header">Earnings:</h3>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Earnings</th>
-                            <th>Qty</th>
-                            <th>Rate</th>
-                            <th>Current</th>
-                            <th>YTD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Rate</td>
-                            <td id="qty-hr-stub"></td>
-                            <td id="rate-hr-stub"></td>
-                            <td id="cur-hr-stub"></td>
-                            <td id="ytd-hr-stub"></td>
-                        </tr>
-                        <tr>
-                            <td>Vac</td>
-                            <td id="qty-vac-stub"></td>
-                            <td id="rate-vac-stub"></td>
-                            <td id="cur-vac-stub"></td>
-                            <td id="ytd-vac-stub"></td>
-                        </tr>
-                        <tr>
-                            <td>Totals</td>
-                            <td id="qty-vacP-stub"></td>
-                            <td id="rate-vacP-stub"></td>
-                            <td id="cur-vacP-stub"></td>
-                            <td id="ytd-vacP-stub"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </script>
-        </section>
-        <section class="panels with-holdings-panel">
-            <!-- Backbone Template===========================> -->
-            <script type="text/template" id="with-holdings-template">
-                <h3 id="deductions-header">Deductions:</h3>
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Deductions</th>
-                            <th>Current</th>
-                            <th>YTD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CPP-Employee</td>
-                            <td id="cur-cpp-stub"></td>
-                            <td id="ytd-cpp-stub"></td>
-                        </tr>
-                        <tr>
-                            <td>UI-Employee</td>
-                            <td id="cur-ui-stub"></td>
-                            <td id="ytd-ui-stub"></td>
-                        </tr>
-                        <tr>
-                            <td>Federal Income Tax</td>
-                            <td id="cur-fed-stub"></td>
-                            <td id="ytd-fed-stub"></td>
-                        </tr>
-                        <tr>
-                            <td>Totals</td>
-                            <td id="cur-tot-stub"></td>
-                            <td id="ytd-tot-stub"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </script>
-        </section>
-        <section class="panels net-pay-panel">
-            <!-- Backbone Template===========================> -->
-            <script type="text/template" id="net-pay-template">
-                <table class="table table-bordered table-inverse">
-                    <thead>
-                        <tr>
-                            <th>Net</th>
-                            <th>Current</th>
-                            <th>YTD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Totals</td>
-                            <td id="cur-netPay-stub"></td>
-                            <td id="ytd-netPay-stub"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </script>
-        </section>
-        <section class="panels trans-panel
- col-sm-12">
-            <!-- Backbone Template===========================> -->
-            <script type="text/template" id="trans-template">
-                <h3 id="total-models"></h3>
-                <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
-                <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
-                <table class="table table-bordered table-inverse">
-                    <thead id="trans-table-head">
-                        <tr>
-                            <th>Job</th>
-                            <th>Date</th>
-                            <th>Qty</th>
-                            <th>Rate</th>
-                            <th>OT</th>
-                            <th>Stat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="job"></td>
-                            <td id="dte"></td>
-                            <td id="qty"></td>
-                            <td id="rate"></td>
-                            <td id="ot"></td>
-                            <td id="stat"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
-        </section>
-        </script>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels print-panel">
+                    <script type="text/template" id="print-template">
+                        <h3 id="print-header">Print Panel:</h3>
+                        <button class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</button>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Panel 1</th>
+                                    <th>Panel 2</th>
+                                    <th>Panel 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" id="p-1">
+                                            <option>Show</option>
+                                            <option>Hide</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="p-2">
+                                            <option>Show</option>
+                                            <option>Hide</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="p-3">
+                                            <option>Show</option>
+                                            <option>Hide</option>
+                                        </select>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Panel 4</th>
+                                    <th>Panel 5</th>
+                                    <th>Panel 6</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" id="p-4">
+                                            <option>Show</option>
+                                            <option>Hide</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="p-5">
+                                            <option>Show</option>
+                                            <option>Hide</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="p-6">
+                                            <option>Show</option>
+                                            <option>Hide</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels pay-period-panel">
+                    <h3 id="pay-per-header">Pay Period Panel:</h3>
+                    <h3 id="employee-h"></h3>
+                    <label class="pay-per-labels" for="employee">Employee</label>
+                    <input type="text" id="select-emp" name="employee" placeholder="Enter">
+                    <label class="pay-per-labels" for="from">From</label>
+                    <input type="text" id="from" name="from" placeholder="Calender">
+                    <label class="pay-per-labels" for="to">to</label>
+                    <input type="text" id="to" name="to" placeholder="Calender">
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="myProgress">
+                    <div id="myBar">New Transaction</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels select-panel">
+                    <!-- Backbone Template===========================> -->
+                    <script type="text/template" id="app-template">
+                        <h3 id="select-panel-header">Select Panel:</h3>
+                        <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
+                        <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" id="job-opt" placeholder="Enter Job">
+                                    </td>
+                                    <td>
+                                        <input type="text" id="select-date" placeholder="Calender">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Qty</th>
+                                    <th>Rate</th>
+                                    <th>OT</th>
+                                    <th>Stat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" id="sel-qty">
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="sel-rate">
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="sel-ot">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="sel-stat">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels last-trans-panel">
+                    <!-- Backbone Template===========================> -->
+                    <script type="text/template" id="last-trans-template">
+                        <h3 id="last-tran-header">Last Transaction:</h3>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Date</th>
+                                    <th>Qty</th>
+                                    <th>Rate</th>
+                                    <th>OT</th>
+                                    <th>Stat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="job-l"></td>
+                                    <td id="dte-l"></td>
+                                    <td id="qty-l"></td>
+                                    <td id="rate-l"></td>
+                                    <td id="ot-l"></td>
+                                    <td id="stat-l"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels earnings-panel">
+                    <!-- Backbone Template===========================> -->
+                    <script type="text/template" id="earnings-template">
+                        <h3 id="earnings-header">Earnings:</h3>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Earnings</th>
+                                    <th>Qty</th>
+                                    <th>Rate</th>
+                                    <th>Current</th>
+                                    <th>YTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rate</td>
+                                    <td id="qty-hr-stub"></td>
+                                    <td id="rate-hr-stub"></td>
+                                    <td id="cur-hr-stub"></td>
+                                    <td id="ytd-hr-stub"></td>
+                                </tr>
+                                <tr>
+                                    <td>Vac</td>
+                                    <td id="qty-vac-stub"></td>
+                                    <td id="rate-vac-stub"></td>
+                                    <td id="cur-vac-stub"></td>
+                                    <td id="ytd-vac-stub"></td>
+                                </tr>
+                                <tr>
+                                    <td>Totals</td>
+                                    <td id="qty-vacP-stub"></td>
+                                    <td id="rate-vacP-stub"></td>
+                                    <td id="cur-vacP-stub"></td>
+                                    <td id="ytd-vacP-stub"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels with-holdings-panel">
+                    <!-- Backbone Template===========================> -->
+                    <script type="text/template" id="with-holdings-template">
+                        <h3 id="deductions-header">Deductions:</h3>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Deductions</th>
+                                    <th>Current</th>
+                                    <th>YTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CPP-Employee</td>
+                                    <td id="cur-cpp-stub"></td>
+                                    <td id="ytd-cpp-stub"></td>
+                                </tr>
+                                <tr>
+                                    <td>UI-Employee</td>
+                                    <td id="cur-ui-stub"></td>
+                                    <td id="ytd-ui-stub"></td>
+                                </tr>
+                                <tr>
+                                    <td>Federal Income Tax</td>
+                                    <td id="cur-fed-stub"></td>
+                                    <td id="ytd-fed-stub"></td>
+                                </tr>
+                                <tr>
+                                    <td>Totals</td>
+                                    <td id="cur-tot-stub"></td>
+                                    <td id="ytd-tot-stub"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels net-pay-panel">
+                    <!-- Backbone Template===========================> -->
+                    <script type="text/template" id="net-pay-template">
+                        <h3 id="net-pay-header">Net Pay:</h3>
+                        <table class="table table-bordered table-inverse">
+                            <thead>
+                                <tr>
+                                    <th>Net</th>
+                                    <th>Current</th>
+                                    <th>YTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Totals</td>
+                                    <td id="cur-netPay-stub"></td>
+                                    <td id="ytd-netPay-stub"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="panels trans-panel">
+                    <!-- Backbone Template===========================> -->
+                    <script type="text/template" id="trans-template">
+                        <h3 id="total-models"></h3>
+                        <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
+                        <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
+                        <table class="table table-bordered table-inverse">
+                            <thead id="trans-table-head">
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Date</th>
+                                    <th>Qty</th>
+                                    <th>Rate</th>
+                                    <th>OT</th>
+                                    <th>Stat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="job"></td>
+                                    <td id="dte"></td>
+                                    <td id="qty"></td>
+                                    <td id="rate"></td>
+                                    <td id="ot"></td>
+                                    <td id="stat"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
+                    </script>
+                </section>
+            </div>
+        </div>
         <script src="js/lib/jquery-3.1.1.min.js"></script>
         <script src="js/lib/jquery-ui.min.js"></script>
         <script src="js/lib/tether.min.js"></script>

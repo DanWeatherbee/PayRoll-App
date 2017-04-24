@@ -1,6 +1,7 @@
 body {
-    background-color: darkslategrey;
-    color: indianred;
+    color: darkcyan;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
 }
 
 .shadow {
@@ -43,8 +44,7 @@ body {
 .ui-icon:hover,
 input:hover {
     border: .1em solid;
-    background-color: darkslategrey;
-    color: red;
+    color: ghostwhite;
     -webkit-box-shadow: 10px 11px 5px -1px indianred;
     -moz-box-shadow: 10px 11px 5px -1px indianred;
     box-shadow: 10px 11px 5px -1px indianred;
@@ -52,27 +52,62 @@ input:hover {
 
 #myProgress {
     width: 88%;
-    background-color: darkslategrey;
     margin: 5%;
     display: none;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
 }
 
 #myBar {
     width: 1%;
     height: 5px;
-    background-color: #4CAF50;
+    background-color: limegreen;
 }
 
 #dev {
-    padding: .5%;
+    padding-top: 1em;
+    font-size: 1em;
+}
+
+.ui-datepicker,
+#myProgress,
+body {
+    background-color: darkslategrey;
+}
+
+input,
+.form-control {
+    background-color: skyblue;
 }
 
 .ui-datepicker {
-    background-color: darkslategrey;
     font-size: 1.5em;
 }
 
 .ui-state-default {
     padding: .5em;
+}
+
+.row:hover {
+    background-color: midnightblue;
+    -webkit-box-shadow: 10px 5px 5px -1px indianred;
+    -moz-box-shadow: 10px 5px 5px -1px indianred;
+    box-shadow: 10px 5px 5px -1px indianred;
+}
+
+.row {
+    padding-bottom: 2em;
+}
+
+#job-opt,
+#select-emp {
+    background-color: black;
+    color: ghostwhite;
+}
+
+#pay-per-header {
+    font-size: 1em;
+}
+
+a:hover {
+    color: ghostwhite;
 }
