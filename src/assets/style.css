@@ -111,3 +111,15 @@ input,
 a:hover {
     color: ghostwhite;
 }
+
+.print-panel {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    opacity: .9;
+}
+
+button {
+    margin-left: 2%;
+}

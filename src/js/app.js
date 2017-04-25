@@ -30,7 +30,7 @@ Start.prototype.init = function () {
         withHoldV = new WithHoldingsView(),
         netPayV = new NetPayView(),
         transV = new TransactionView();
-
+    $('.btn-print-content').hide();
 
 };
 
@@ -232,7 +232,7 @@ Start.prototype.savePDF = function () {
 Start.prototype.printPreView = function () {
     'use strict';
 
-    $('#myProgress').fadeOut();
+    $('#progress-panel').fadeOut();
     $('#link-canada').fadeOut();
     // Panels
     var elPayPeriodPanel = $('.pay-period-panel'),
@@ -287,9 +287,22 @@ Start.prototype.printPreView = function () {
     } else {
         elNetPayPanel.fadeOut();
     };
+};
 
-    // $('.print-panel').fadeOut();
-    // window.print();
+Start.prototype.hidePrintPanel = function () {
+    'use strict';
+
+    $('.print-panel-row').fadeOut();
+    $('.dev-panel').fadeOut();
+    $('.btn-print-content').fadeIn();
 
 };
+
+Start.prototype.print = function () {
+    'use strict';
+    $('.btn-print-content').hide();
+    window.print();
+
+};
+
 var app = new Start();

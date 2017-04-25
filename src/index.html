@@ -24,17 +24,19 @@
 
 <body>
     <div class="container">
-        <div class="row">
+        <button class="btn btn-primary btn-print-content" onClick="app.print()">Print</button>
+        <div class="row dev-panel">
             <div class="col-md-12">
                 <h3 id="dev"></h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row print-panel-row">
             <div class="col-md-12">
                 <section class="panels print-panel">
                     <script type="text/template" id="print-template">
                         <h3 id="print-header">Print Panel:</h3>
                         <button class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</button>
+                        <button class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()">Done</button>
                         <table class="table table-bordered table-inverse">
                             <thead>
                                 <tr>
@@ -47,20 +49,21 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" id="p-1">
-                                            <option>Show</option>
+                                            // TODO I want the ui to update on my selections automatically.
                                             <option>Hide</option>
+                                            <option>Show</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select class="form-control" id="p-2">
-                                            <option>Show</option>
                                             <option>Hide</option>
+                                            <option>Show</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select class="form-control" id="p-3">
-                                            <option>Show</option>
                                             <option>Hide</option>
+                                            <option>Show</option>
                                         </select>
                                 </tr>
                             </tbody>
@@ -77,20 +80,20 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" id="p-4">
-                                            <option>Show</option>
                                             <option>Hide</option>
+                                            <option>Show</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select class="form-control" id="p-5">
-                                            <option>Show</option>
                                             <option>Hide</option>
+                                            <option>Show</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select class="form-control" id="p-6">
-                                            <option>Show</option>
                                             <option>Hide</option>
+                                            <option>Show</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -100,9 +103,9 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row pay-period-panel">
             <div class="col-md-12">
-                <section class="panels pay-period-panel">
+                <section class="panels">
                     <h3 id="pay-per-header">Pay Period Panel:</h3>
                     <h3 id="employee-h"></h3>
                     <label class="pay-per-labels" for="employee">Employee</label>
@@ -114,16 +117,16 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row progress-panel">
             <div class="col-md-12">
                 <div id="myProgress">
                     <div id="myBar">New Transaction</div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row select-panel">
             <div class="col-md-12">
-                <section class="panels select-panel">
+                <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="app-template">
                         <h3 id="select-panel-header">Select Panel:</h3>
@@ -185,9 +188,9 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row last-trans-panel">
             <div class="col-md-12">
-                <section class="panels last-trans-panel">
+                <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="last-trans-template">
                         <h3 id="last-tran-header">Last Transaction:</h3>
@@ -217,9 +220,9 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row earnings-panel">
             <div class="col-md-12">
-                <section class="panels earnings-panel">
+                <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="earnings-template">
                         <h3 id="earnings-header">Earnings:</h3>
@@ -261,9 +264,9 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row with-holdings-panel">
             <div class="col-md-12">
-                <section class="panels with-holdings-panel">
+                <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="with-holdings-template">
                         <h3 id="deductions-header">Deductions:</h3>
@@ -302,9 +305,9 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row net-pay-panel">
             <div class="col-md-12">
-                <section class="panels net-pay-panel">
+                <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="net-pay-template">
                         <h3 id="net-pay-header">Net Pay:</h3>
@@ -328,15 +331,16 @@
                 </section>
             </div>
         </div>
-        <div class="row">
+        <div class="row trans-panel">
             <div class="col-md-12">
-                <section class="panels trans-panel">
+                <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="trans-template">
                         <h3 id="total-models"></h3>
-                        <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
-                        <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
                         <table class="table table-bordered table-inverse">
+                            <hr>
+                            <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
+                            <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
                             <thead id="trans-table-head">
                                 <tr>
                                     <th>Job</th>
