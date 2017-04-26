@@ -1,7 +1,46 @@
 body {
-    color: darkcyan;
     padding-top: 2.5em;
     padding-bottom: 2.5em;
+    background-color: darkslategrey;
+}
+
+.row {
+    background-color: darkslategrey;
+    opacity: .7;
+    padding-bottom: 2em;
+}
+
+.row:hover {
+    background: #021719;
+    /* Old Browsers */
+    background: -webkit-linear-gradient(right, #021719, #c7ffe2);
+    /*Safari 5.1-6*/
+    background: -o-linear-gradient(right, #021719, #c7ffe2);
+    /*Opera 11.1-12*/
+    background: -moz-linear-gradient(right, #021719, #c7ffe2);
+    /*Fx 3.6-15*/
+    background: linear-gradient(to left, #021719, #c7ffe2);
+    /*Standard*/
+    opacity: .9;
+    color: black;
+}
+
+.container {
+    background: #021719;
+    /* Old Browsers */
+    background: -webkit-linear-gradient(left, #021719, #c7ffe2);
+    /*Safari 5.1-6*/
+    background: -o-linear-gradient(left, #021719, #c7ffe2);
+    /*Opera 11.1-12*/
+    background: -moz-linear-gradient(left, #021719, #c7ffe2);
+    /*Fx 3.6-15*/
+    background: linear-gradient(to right, #021719, #c7ffe2);
+    /*Standard*/
+    color: skyblue;
+}
+
+.color-bg {
+    background: url("images/car.jpg") fixed no-repeat center;
 }
 
 .shadow {
@@ -17,37 +56,12 @@ body {
     opacity: .7;
 }
 
-.btn-add:hover,
-.btn-print:hover,
-#sel-qty:hover,
-#sel-rate:hover,
-#sel-stat:hover,
-#sel-ot:hover,
-#datepicker:hover,
-#job-opt:hover {
-    opacity: .9;
-    border: .1em solid;
-    border-color: red;
-    -webkit-box-shadow: 10px 11px 5px -1px indianred;
-    -moz-box-shadow: 10px 11px 5px -1px indianred;
-    box-shadow: 10px 11px 5px -1px indianred;
-}
-
 .btn-add {
     left: 1%;
 }
 
 .btn-print {
     right: 1%;
-}
-
-.ui-icon:hover,
-input:hover {
-    border: .1em solid;
-    color: ghostwhite;
-    -webkit-box-shadow: 10px 11px 5px -1px indianred;
-    -moz-box-shadow: 10px 11px 5px -1px indianred;
-    box-shadow: 10px 11px 5px -1px indianred;
 }
 
 #myProgress {
@@ -69,14 +83,13 @@ input:hover {
 }
 
 .ui-datepicker,
-#myProgress,
-body {
+#myProgress {
     background-color: darkslategrey;
 }
 
 input,
 .form-control {
-    background-color: skyblue;
+    background-color: azure;
 }
 
 .ui-datepicker {
@@ -85,17 +98,6 @@ input,
 
 .ui-state-default {
     padding: .5em;
-}
-
-.row:hover {
-    background-color: midnightblue;
-    -webkit-box-shadow: 10px 5px 5px -1px indianred;
-    -moz-box-shadow: 10px 5px 5px -1px indianred;
-    box-shadow: 10px 5px 5px -1px indianred;
-}
-
-.row {
-    padding-bottom: 2em;
 }
 
 #job-opt,
@@ -113,13 +115,17 @@ a:hover {
 }
 
 .print-panel {
-    position: fixed;
     z-index: 1;
-    top: 0;
-    right: 0;
-    opacity: .9;
+    background-color: darkslategrey;
+    color: red;
 }
 
 button {
     margin-left: 2%;
+}
+
+.effects {
+    -webkit-transition-property: background-color color;
+    -webkit-transition-duration: 800ms;
+    -webkit-transition-timing-function:
 }

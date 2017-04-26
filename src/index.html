@@ -23,7 +23,8 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container color-bg">
+        <button class="btn btn-primary btn-contrast" onClick="app.contrastLow()">Contrast</button>
         <button class="btn btn-primary btn-print-content" onClick="app.print()">Print</button>
         <div class="row dev-panel">
             <div class="col-md-12">
@@ -32,17 +33,17 @@
         </div>
         <div class="row print-panel-row">
             <div class="col-md-12">
-                <section class="panels print-panel">
+                <section class="panels print-panel effects">
                     <script type="text/template" id="print-template">
                         <h3 id="print-header">Print Panel:</h3>
                         <button class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</button>
                         <button class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()">Done</button>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
-                                    <th>Panel 1</th>
-                                    <th>Panel 2</th>
-                                    <th>Panel 3</th>
+                                    <th>Period</th>
+                                    <th>Select</th>
+                                    <th>Last T</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,12 +69,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
-                                    <th>Panel 4</th>
-                                    <th>Panel 5</th>
-                                    <th>Panel 6</th>
+                                    <th>Earnings</th>
+                                    <th>Deductions</th>
+                                    <th>Net Pay</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,7 +104,7 @@
                 </section>
             </div>
         </div>
-        <div class="row pay-period-panel">
+        <div class="row pay-period-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <h3 id="pay-per-header">Pay Period Panel:</h3>
@@ -117,14 +118,14 @@
                 </section>
             </div>
         </div>
-        <div class="row progress-panel">
+        <div class="row progress-panel effects">
             <div class="col-md-12">
                 <div id="myProgress">
                     <div id="myBar">New Transaction</div>
                 </div>
             </div>
         </div>
-        <div class="row select-panel">
+        <div class="row select-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <!-- Backbone Template===========================> -->
@@ -132,7 +133,7 @@
                         <h3 id="select-panel-header">Select Panel:</h3>
                         <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
                         <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
                                     <th>Job</th>
@@ -150,7 +151,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
                                     <th>Qty</th>
@@ -177,8 +178,17 @@
                                     </td>
                                     <td>
                                         <select class="form-control" id="sel-stat">
-                                            <option>No</option>
-                                            <option>Yes</option>
+                                            <option>No Stat</option>
+                                            <option>New Years</option>
+                                            <option>Family</option>
+                                            <option>Good Friday</option>
+                                            <option>Victoria</option>
+                                            <option>Canada</option>
+                                            <option>BC</option>
+                                            <option>Labour</option>
+                                            <option>Thanksgiving</option>
+                                            <option>Remembrance</option>
+                                            <option>Christmas</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -188,13 +198,13 @@
                 </section>
             </div>
         </div>
-        <div class="row last-trans-panel">
+        <div class="row last-trans-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="last-trans-template">
                         <h3 id="last-tran-header">Last Transaction:</h3>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
                                     <th>Job</th>
@@ -220,13 +230,13 @@
                 </section>
             </div>
         </div>
-        <div class="row earnings-panel">
+        <div class="row earnings-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="earnings-template">
                         <h3 id="earnings-header">Earnings:</h3>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
                                     <th>Earnings</th>
@@ -264,13 +274,13 @@
                 </section>
             </div>
         </div>
-        <div class="row with-holdings-panel">
+        <div class="row with-holdings-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="with-holdings-template">
                         <h3 id="deductions-header">Deductions:</h3>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
                                     <th>Deductions</th>
@@ -305,13 +315,13 @@
                 </section>
             </div>
         </div>
-        <div class="row net-pay-panel">
+        <div class="row net-pay-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="net-pay-template">
                         <h3 id="net-pay-header">Net Pay:</h3>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
                                     <th>Net</th>
@@ -331,13 +341,13 @@
                 </section>
             </div>
         </div>
-        <div class="row trans-panel">
+        <div class="row trans-panel effects">
             <div class="col-md-12">
                 <section class="panels">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="trans-template">
                         <h3 id="total-models"></h3>
-                        <table class="table table-bordered table-inverse">
+                        <table class="table table-bordered table-responsive effects">
                             <hr>
                             <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
                             <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>

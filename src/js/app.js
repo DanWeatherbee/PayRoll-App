@@ -305,4 +305,10 @@ Start.prototype.print = function () {
 
 };
 
+Start.prototype.contrastLow = function () {
+    'use strict';
+    $('.container').toggleClass('color-bg');
+
+
+};
 var app = new Start();
