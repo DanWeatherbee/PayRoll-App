@@ -250,7 +250,9 @@ Start.prototype.printPreView = function () {
         lastTransPanelText = $('#p-3 option:selected').text(),
         earningsPanelText = $('#p-4 option:selected').text(),
         withHoldingsPanelText = $('#p-5 option:selected').text(),
-        netPayPanelText = $('#p-6 option:selected').text();
+        netPayPanelText = $('#p-6 option:selected').text(),
+        netTransPanelText = $('#p-7 option:selected').text(),
+        netColorText = $('#p-8 option:selected').text();
 
     if (payPeriodPanelText == "Show") {
         elPayPeriodPanel.fadeIn();
@@ -286,6 +288,18 @@ Start.prototype.printPreView = function () {
         elNetPayPanel.fadeIn();
     } else {
         elNetPayPanel.fadeOut();
+    };
+
+    if (netTransPanelText == "Show") {
+        elTransPanel.fadeIn();
+    } else {
+        elTransPanel.fadeOut();
+    };
+
+    if (netColorText == "Yes") {
+        alert('Yes color is not hooked up yet');
+    } else {
+        alert('No color is not hooked up yet');
     };
 };
 
