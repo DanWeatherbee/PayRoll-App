@@ -302,6 +302,7 @@ Start.prototype.print = function () {
     'use strict';
     $('.btn-print-content').hide();
     window.print();
+    location.reload();
 
 };
 

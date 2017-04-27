@@ -115,7 +115,6 @@ a:hover {
 }
 
 .print-panel {
-    z-index: 1;
     background-color: darkslategrey;
     color: red;
 }
@@ -129,3 +128,4 @@ button {
     -webkit-transition-duration: 800ms;
     -webkit-transition-timing-function:
 }
+
