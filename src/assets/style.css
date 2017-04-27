@@ -22,7 +22,7 @@ body {
     background: linear-gradient(to left, #021719, #c7ffe2);
     /*Standard*/
     opacity: .9;
-    color: black;
+    color: firebrick;
 }
 
 .container {
@@ -127,5 +127,9 @@ button {
     -webkit-transition-property: background-color color;
     -webkit-transition-duration: 800ms;
     -webkit-transition-timing-function:
+}
+
+hr {
+    background-color: magenta;
 }
 
