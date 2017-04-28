@@ -16,20 +16,23 @@ Start.prototype.init = function () {
     'use strict';
     this.application = appModel; // Backbone Class Trans_Model
     var devElem = $("#dev");
-    devElem.append(this.application.project + ' -- ' +
-        this.application.dev + ': ' +
+    devElem.append(this.application.dev + ': ' +
         this.application.name + ' Version: ' +
         this.application.version + ' Framework: ' +
         this.application.framework + ' Library: ' +
         this.application.library + ' CSS: ' +
         this.application.cssframework);
+
+    // Instantiate views.
     var appV = new AppView(),
         transactionsList = new Collection(),
         transV = new LastTransView(),
         earningsV = new EarningsView(),
         withHoldV = new WithHoldingsView(),
         netPayV = new NetPayView(),
-        transV = new TransactionView();
+        transV = new TransactionView(),
+        payPerV = new PayPeriodView();
+
     $('.btn-print-content').hide();
 
 };
@@ -323,7 +326,11 @@ Start.prototype.print = function () {
 Start.prototype.contrastLow = function () {
     'use strict';
     $('.container').toggleClass('color-bg');
+};
 
-
+Start.prototype.killPadding = function () {
+    'use strict';
+    $('.container').removeClass('container-top');
+    $('#application-name').fadeOut();
 };
 var app = new Start();

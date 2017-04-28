@@ -22,13 +22,18 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
-    <div class="container color-bg text-center">
-        <button class="btn btn-primary btn-print-content" onClick="app.print()">Print</button>
-        <div class="row dev-panel">
-            <div class="col-md-12">
+<body onscroll="app.killPadding()">
+    <div class="container container-top color-bg text-center">
+
+        <div class="row effects">
+            <div class="col-md-4">
+                <button class="btn btn-primary btn-print-content" onClick="app.print()">Print</button>
+            </div>
+            <div class="col-md-4">
+                <h1 id="application-name">Payroll Web App</h1>
+            </div>
+            <div class="col-md-4 dev-panel">
                 <h3 id="dev"></h3>
-                <button class="btn btn-primary btn-contrast" onClick="app.contrastLow()">Contrast</button>
             </div>
         </div>
         <div class="print-panel-row text-left">
@@ -129,14 +134,15 @@
         <div class="row pay-period-panel effects">
             <div class="col-md-12">
                 <section class="panels">
-                    <h3 id="pay-per-header">Pay Period Panel:</h3>
-                    <h3 id="employee-h"></h3>
-                    <label class="pay-per-labels" for="employee">Employee</label>
-                    <input type="text" id="select-emp" name="employee" placeholder="Enter">
-                    <label class="pay-per-labels" for="from">From</label>
-                    <input type="text" id="from" name="from" placeholder="Calender">
-                    <label class="pay-per-labels" for="to">to</label>
-                    <input type="text" id="to" name="to" placeholder="Calender">
+                    <script type="text/template" id="pay-per-template">
+                        <h3 id="employee-h"></h3>
+                        <label class="pay-per-labels" for="employee">Employee</label>
+                        <input type="text" id="select-emp" name="employee" placeholder="Enter">
+                        <label class="pay-per-labels" for="from">From</label>
+                        <input type="text" id="from" name="from" placeholder="Calender">
+                        <label class="pay-per-labels" for="to">to</label>
+                        <input type="text" id="to" name="to" placeholder="Calender">
+                    </script>
                 </section>
             </div>
         </div>
@@ -155,6 +161,7 @@
                         <h3 id="select-panel-header">Select Panel:</h3>
                         <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
                         <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
+                        <button class="btn btn-primary btn-contrast" onClick="app.contrastLow()">Contrast</button>
                         <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
@@ -419,6 +426,7 @@
         <script type="text/javascript" src="js/views/net-pay-view.js"></script>
         <script type="text/javascript" src="js/views/trans-template-view.js"></script>
         <script type="text/javascript" src="js/views/print-view.js"></script>
+        <script type="text/javascript" src="js/views/pay-period-view.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
     </div>
 </body>

@@ -1,7 +1,32 @@
 body {
-    padding-top: 2.5em;
-    padding-bottom: 2.5em;
+    padding: 2% 0 2% 0;
     background-color: darkslategrey;
+}
+
+label,
+input,
+.btn,
+.row {
+    margin: 2% 2% 2% 2%;
+    padding: 2% 2% 2% 2%;
+    border-radius: 2% 2% 2% 2%;
+}
+
+.container {
+    border-radius: 2% 2% 2% 2%;
+}
+
+.container-top {
+    padding: 50% 2% 2% 2%;
+}
+
+#application-name {
+    position: fixed;
+    top: 50%;
+    left: 9.5%;
+    color: white;
+    background-color: black;
+    z-index: 1;
 }
 
 .row {
@@ -49,21 +74,6 @@ body {
     box-shadow: 10px 11px 5px -1px indianred;
 }
 
-.btn-add,
-.btn-print {
-    top: 0;
-    position: fixed;
-    opacity: .7;
-}
-
-.btn-add {
-    left: 1%;
-}
-
-.btn-print {
-    right: 1%;
-}
-
 #myProgress {
     width: 88%;
     margin: 5%;
@@ -85,11 +95,6 @@ body {
 .ui-datepicker,
 #myProgress {
     background-color: darkslategrey;
-}
-
-input,
-.form-control {
-    background-color: azure;
 }
 
 .ui-datepicker {
@@ -120,7 +125,7 @@ a:hover {
 }
 
 button {
-    margin-left: 2%;
+    padding-left: 2%;
 }
 
 .effects {
@@ -132,4 +137,3 @@ button {
 hr {
     background-color: magenta;
 }
-
