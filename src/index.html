@@ -24,10 +24,9 @@
 
 <body onscroll="app.killPadding()">
     <div class="container container-top color-bg text-center">
-
-        <div class="row effects">
+        <div class="row effects header-row">
             <div class="col-md-4">
-                <button class="btn btn-primary btn-print-content" onClick="app.print()">Print</button>
+                <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
             </div>
             <div class="col-md-4">
                 <h1 id="application-name">Payroll Web App</h1>
@@ -38,10 +37,10 @@
         </div>
         <div class="print-panel-row text-left">
             <div class="col-md-12">
-                <section class="panels print-panel effects">
+                <section class="panels print-panel effects" id="print-section">
                     <script type="text/template" id="print-template">
                         <h3 id="print-header">Print Panel:</h3>
-                        <button class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</button>
+                        <a href="#progress-row" class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</a>
                         <img src="assets/images/print-prev.png" class="img-responsive">
                         <button class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()">Done</button>
                         <hr>
@@ -146,7 +145,7 @@
                 </section>
             </div>
         </div>
-        <div class="row progress-panel effects">
+        <div class="row progress-panel effects" id="progress-row">
             <div class="col-md-12">
                 <div id="myProgress">
                     <div id="myBar">New Transaction</div>
@@ -155,12 +154,12 @@
         </div>
         <div class="row select-panel effects">
             <div class="col-md-12">
-                <section class="panels">
+                <section class="panels" id="select-section">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="app-template">
                         <h3 id="select-panel-header">Select Panel:</h3>
-                        <button class="btn btn-primary btn-add" onClick="app.progress()">Add</button>
-                        <button class="btn btn-primary btn-print" onClick="app.savePDF()">Save</button>
+                        <a href="#trans-section" class="btn btn-primary btn-add" onClick="app.progress()">Add</a>
+                        <a href="#print-section" class="btn btn-primary btn-print" onClick="app.savePDF()">Print Options</a>
                         <button class="btn btn-primary btn-contrast" onClick="app.contrastLow()">Contrast</button>
                         <table class="table table-bordered table-responsive effects">
                             <thead>
@@ -229,7 +228,7 @@
         </div>
         <div class="row last-trans-panel effects">
             <div class="col-md-12">
-                <section class="panels">
+                <section class="panels" id="last-trans-section">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="last-trans-template">
                         <h3 id="last-tran-header">Last Transaction:</h3>
@@ -375,14 +374,13 @@
         </div>
         <div class="row trans-panel effects">
             <div class="col-md-12">
-                <section class="panels">
+                <section class="panels" id="trans-section">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="trans-template">
                         <h3 id="total-models"></h3>
                         <table class="table table-bordered table-responsive effects">
                             <hr>
-                            <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
-                            <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
+                            <a href="#select-section" class="btn btn-primary btn-select-panel">Select Panel</a>
                             <thead id="trans-table-head">
                                 <tr>
                                     <th>Job</th>
@@ -404,6 +402,8 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
+                        <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
                         <a href="http://www.cra-arc.gc.ca/tx/llrts/menu-eng.html" id="link-canada">Canada Revenue Calculations</a>
                     </script>
                 </section>

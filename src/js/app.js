@@ -224,17 +224,17 @@ Start.prototype.savePDF = function () {
         elBtnDelFirst = $('.btn-del-first'),
         elBtnPrintSelected = $('.btn-print-selected');
 
+
     elBtnPrintSelected.fadeIn();
     elBtnPrint.fadeOut();
     elBtnAdd.fadeOut();
     elBtnDelLast.fadeOut();
     elBtnDelFirst.fadeOut();
-
 };
 
 Start.prototype.printPreView = function () {
     'use strict';
-
+    $('.btn-select-panel').fadeOut();
     $('#progress-panel').fadeOut();
     $('#link-canada').fadeOut();
     // Panels
@@ -310,15 +310,20 @@ Start.prototype.hidePrintPanel = function () {
     'use strict';
 
     $('.print-panel-row').fadeOut();
+    $('#progress-row').hide();
     $('.dev-panel').fadeOut();
     $('.btn-print-content').fadeIn();
+
 
 };
 
 Start.prototype.print = function () {
     'use strict';
     $('.btn-print-content').hide();
+    $('#progress-row').hide();
+    $('.header-row').hide();
     window.print();
+
     location.reload();
 
 };
