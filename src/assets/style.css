@@ -1,6 +1,6 @@
 body {
     padding: 2% 0 2% 0;
-    background-color: darkslategrey;
+    background: url("images/bg.png");
 }
 
 a,
@@ -15,10 +15,8 @@ input,
 
 .container {
     border-radius: 2% 2% 2% 2%;
-}
-
-.container-top {
-    padding: 50% 2% 2% 2%;
+    background: transparent;
+    color: white;
 }
 
 #application-name {
@@ -31,42 +29,9 @@ input,
 }
 
 .row {
-    background-color: darkslategrey;
+    background: transparent;
     opacity: .7;
     padding-bottom: 2em;
-}
-
-.row:hover {
-    background: #021719;
-    /* Old Browsers */
-    background: -webkit-linear-gradient(right, #021719, #c7ffe2);
-    /*Safari 5.1-6*/
-    background: -o-linear-gradient(right, #021719, #c7ffe2);
-    /*Opera 11.1-12*/
-    background: -moz-linear-gradient(right, #021719, #c7ffe2);
-    /*Fx 3.6-15*/
-    background: linear-gradient(to left, #021719, #c7ffe2);
-    /*Standard*/
-    opacity: .9;
-    color: firebrick;
-}
-
-.container {
-    background: #021719;
-    /* Old Browsers */
-    background: -webkit-linear-gradient(left, #021719, #c7ffe2);
-    /*Safari 5.1-6*/
-    background: -o-linear-gradient(left, #021719, #c7ffe2);
-    /*Opera 11.1-12*/
-    background: -moz-linear-gradient(left, #021719, #c7ffe2);
-    /*Fx 3.6-15*/
-    background: linear-gradient(to right, #021719, #c7ffe2);
-    /*Standard*/
-    color: skyblue;
-}
-
-.color-bg {
-    background: url("images/car.jpg") fixed no-repeat center;
 }
 
 .shadow {
@@ -89,13 +54,15 @@ input,
 }
 
 #dev {
-    padding-top: 1em;
-    font-size: 1em;
+    opacity: .7;
+    padding: 5%;
+    border: 10px solid transparent;
+    padding: 15px;
 }
 
 .ui-datepicker,
 #myProgress {
-    background-color: darkslategrey;
+    background: transparent;
 }
 
 .ui-datepicker {
@@ -121,7 +88,7 @@ a:hover {
 }
 
 .print-panel {
-    background-color: darkslategrey;
+    background: transparent;
     color: red;
 }
 

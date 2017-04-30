@@ -300,9 +300,9 @@ Start.prototype.printPreView = function () {
     };
 
     if (netColorText == "Yes") {
-        alert('Yes color is not hooked up yet');
+
     } else {
-        alert('No color is not hooked up yet');
+
     };
 };
 
@@ -328,14 +328,4 @@ Start.prototype.print = function () {
 
 };
 
-Start.prototype.contrastLow = function () {
-    'use strict';
-    $('.container').toggleClass('color-bg');
-};
-
-Start.prototype.killPadding = function () {
-    'use strict';
-    $('.container').removeClass('container-top');
-    $('#application-name').fadeOut();
-};
 var app = new Start();

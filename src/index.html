@@ -14,7 +14,7 @@
     <meta name="copyright" content="Dan Weatherbee">
     <meta name="contact" content="dan@jedi-clan.us">
     <meta name="reply-to" content="dan@jedi-clan.us">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#db5945">
     <meta name="msapplication-square310x310logo" content="favicon.ico">
     <title>Dan Weatherbee's payroll App</title>
@@ -22,17 +22,11 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body onscroll="app.killPadding()">
-    <div class="container container-top color-bg text-center">
+<body>
+    <div class="container container-top text-center">
         <div class="row effects header-row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
-            </div>
-            <div class="col-md-4">
-                <h1 id="application-name">Payroll Web App</h1>
-            </div>
-            <div class="col-md-4 dev-panel">
-                <h3 id="dev"></h3>
             </div>
         </div>
         <div class="print-panel-row text-left">
@@ -50,7 +44,6 @@
                                     <th>Period</th>
                                     <th>Select</th>
                                     <th>Last T</th>
-                                    <th>Color</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,7 +153,6 @@
                         <h3 id="select-panel-header">Select Panel:</h3>
                         <a href="#trans-section" class="btn btn-primary btn-add" onClick="app.progress()">Add</a>
                         <a href="#print-section" class="btn btn-primary btn-print" onClick="app.savePDF()">Print Options</a>
-                        <button class="btn btn-primary btn-contrast" onClick="app.contrastLow()">Contrast</button>
                         <table class="table table-bordered table-responsive effects">
                             <thead>
                                 <tr>
