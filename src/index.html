@@ -25,11 +25,7 @@
 <body>
     <div class="container container-top text-center">
         <h3 id="dev"></h3>
-        <div class="row effects header-row">
-            <div class="col-md-12">
-                <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
-            </div>
-        </div>
+        <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
         <div class="print-panel-row text-left">
             <div class="col-md-12">
                 <section class="panels print-panel effects" id="print-section">
@@ -172,6 +168,7 @@
                                     <th>Rate</th>
                                     <th>OT</th>
                                     <th>Stat</th>
+                                    <th>Fed Rate</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -203,6 +200,10 @@
                                             <option>Thanksgiving</option>
                                             <option>Remembrance</option>
                                             <option>Christmas</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="sel-fed-rate">
                                         </select>
                                     </td>
                                 </tr>

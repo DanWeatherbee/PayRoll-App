@@ -20,7 +20,8 @@ Collection = Backbone.Collection.extend({
             dateNow = Date(),
             // Tax Variables.
             pay,
-            fed,
+            fedTax,
+            fedTaxPercent,
             totalTax,
             cpp,
             ui,
@@ -105,6 +106,9 @@ Collection = Backbone.Collection.extend({
 
         payEnd = this.models[this.models[0].collection.length - 1].get('periodE');
 
+        fedTaxPercent = this.models[prevRecord].get('fed');
+        $('#dev').html('Your Federal Tax Settings: ' + fedTaxPercent);
+
 
 
         // Append and update elements from collection.
@@ -136,8 +140,8 @@ Collection = Backbone.Collection.extend({
         // 2017 Tax Calculations.
         if (pay > 0) {
 
-            fed = pay * 0.014;
-            totalTax = fed
+            fedTax = pay * this.models[prevRecord].get('fed');
+            totalTax = fedTax;
             cpp = pay * 0.0495;
             ui = pay * 0.0163;
             totalUIplusCPP = cpp + ui;
@@ -153,11 +157,11 @@ Collection = Backbone.Collection.extend({
             elYtdNetPayStub.html(netPay.toFixed(2));
             elCurCppStub.html('- ' + cpp.toFixed(2));
             elCurUiStub.html('- ' + ui.toFixed(2));
-            elCurFedStub.html('- ' + fed.toFixed(2));
+            elCurFedStub.html('- ' + fedTax.toFixed(2));
             elCurTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
             elYtdCppStub.html('- ' + cpp.toFixed(2));
             elYtdUiStub.html('- ' + ui.toFixed(2));
-            elYtdFedStub.html('- ' + fed.toFixed(2));
+            elYtdFedStub.html('- ' + fedTax.toFixed(2));
             elYtdTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
         }
 

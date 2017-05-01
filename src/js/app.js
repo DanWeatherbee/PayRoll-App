@@ -120,6 +120,7 @@ Start.prototype.addOne = function () {
         OT = $('#sel-ot option:selected').text(),
         JOB = $('#job-opt').val(),
         DATE = $('#select-date').val(),
+        FED = $('#sel-fed-rate option:selected').val(),
 
         // Hide Pay Period elements once input is received.
         elTo = $('#to'),
@@ -144,7 +145,8 @@ Start.prototype.addOne = function () {
         stat: STAT,
         periodB: DATE_PERIOD_BEGIN,
         periodE: DATE_PERIOD_END,
-        job: JOB
+        job: JOB,
+        fed: FED
     };
 
     //Save the object as new model an add to collections
@@ -298,7 +300,6 @@ Start.prototype.hidePrintPanel = function () {
 Start.prototype.print = function () {
     'use strict';
     $('.btn-print-content').hide();
-    $('.header-row').hide();
     $('#dev').hide();
     $(".container").css("background-color", "white");
     $(".container").css("color", "darkgrey");
