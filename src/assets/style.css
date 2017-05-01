@@ -11,6 +11,7 @@ input,
     margin: 2% 2% 2% 2%;
     padding: 2% 2% 2% 2%;
     border-radius: 2% 2% 2% 2%;
+    background: transparent;
 }
 
 .container {
@@ -19,45 +20,13 @@ input,
     color: white;
 }
 
-#application-name {
-    position: fixed;
-    top: 50%;
-    left: 9.5%;
-    color: white;
-    background-color: black;
-    z-index: 1;
-}
-
-.row {
-    background: transparent;
-    opacity: .7;
-    padding-bottom: 2em;
-}
-
-.shadow {
-    -webkit-box-shadow: 10px 11px 5px -1px indianred;
-    -moz-box-shadow: 10px 11px 5px -1px indianred;
-    box-shadow: 10px 11px 5px -1px indianred;
-}
-
-#myProgress {
-    width: 88%;
-    margin: 5%;
-    display: none;
-    margin-bottom: 5%;
-}
-
-#myBar {
-    width: 1%;
-    height: 5px;
-    background-color: limegreen;
-}
-
-#dev {
-    opacity: .7;
-    padding: 5%;
-    border: 10px solid transparent;
+#dev,
+.row:hover {
+    border: 15px solid transparent;
     padding: 15px;
+    border-image-source: url(images/border.png);
+    border-image-repeat: stretch;
+    border-image-slice: 30;
 }
 
 .ui-datepicker,

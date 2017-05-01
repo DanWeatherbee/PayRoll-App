@@ -24,6 +24,7 @@
 
 <body>
     <div class="container container-top text-center">
+        <h3 id="dev"></h3>
         <div class="row effects header-row">
             <div class="col-md-12">
                 <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
@@ -34,7 +35,7 @@
                 <section class="panels print-panel effects" id="print-section">
                     <script type="text/template" id="print-template">
                         <h3 id="print-header">Print Panel:</h3>
-                        <a href="#progress-row" class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</a>
+                        <a href="#top-nav" class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</a>
                         <img src="assets/images/print-prev.png" class="img-responsive">
                         <button class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()">Done</button>
                         <hr>
@@ -138,20 +139,13 @@
                 </section>
             </div>
         </div>
-        <div class="row progress-panel effects" id="progress-row">
-            <div class="col-md-12">
-                <div id="myProgress">
-                    <div id="myBar">New Transaction</div>
-                </div>
-            </div>
-        </div>
         <div class="row select-panel effects">
             <div class="col-md-12">
                 <section class="panels" id="select-section">
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="app-template">
                         <h3 id="select-panel-header">Select Panel:</h3>
-                        <a href="#trans-section" class="btn btn-primary btn-add" onClick="app.progress()">Add</a>
+                        <a href="#trans-section" class="btn btn-primary btn-add" onClick="app.addOne()">Add</a>
                         <a href="#print-section" class="btn btn-primary btn-print" onClick="app.savePDF()">Print Options</a>
                         <table class="table table-bordered table-responsive effects">
                             <thead>
@@ -218,6 +212,7 @@
                 </section>
             </div>
         </div>
+        <hr id="top-nav">
         <div class="row last-trans-panel effects">
             <div class="col-md-12">
                 <section class="panels" id="last-trans-section">

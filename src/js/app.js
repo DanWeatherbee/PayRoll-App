@@ -16,12 +16,14 @@ Start.prototype.init = function () {
     'use strict';
     this.application = appModel; // Backbone Class Trans_Model
     var devElem = $("#dev");
-    devElem.append(this.application.dev + ': ' +
+    var wrapper = this.application.dev + ': ' +
         this.application.name + ' Version: ' +
         this.application.version + ' Framework: ' +
         this.application.framework + ' Library: ' +
         this.application.library + ' CSS: ' +
-        this.application.cssframework);
+        this.application.cssframework;
+
+    devElem.prepend(wrapper);
 
     // Instantiate views.
     var appV = new AppView(),
@@ -35,28 +37,6 @@ Start.prototype.init = function () {
 
     $('.btn-print-content').hide();
 
-};
-
-// Reusable progress bar class.
-Start.prototype.progress = function () {
-    'use strict';
-    this.addOne();
-    var elem = $("#myBar"),
-        elemContainer = $("#myProgress");
-    elemContainer.show();
-    var width = 1,
-        id = setInterval(frame, 1);
-
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-            elem.html('<br>Completed your request.');
-        } else {
-            width++;
-            elem.css({ width: width + '%' });
-            elem.html("");
-        }
-    }
 };
 
 Start.prototype.records = function () {
@@ -310,8 +290,6 @@ Start.prototype.hidePrintPanel = function () {
     'use strict';
 
     $('.print-panel-row').fadeOut();
-    $('#progress-row').hide();
-    $('.dev-panel').fadeOut();
     $('.btn-print-content').fadeIn();
 
 
@@ -320,8 +298,10 @@ Start.prototype.hidePrintPanel = function () {
 Start.prototype.print = function () {
     'use strict';
     $('.btn-print-content').hide();
-    $('#progress-row').hide();
     $('.header-row').hide();
+    $('#dev').hide();
+    $(".container").css("background-color", "white");
+    $(".container").css("color", "darkgrey");
     window.print();
 
     location.reload();
