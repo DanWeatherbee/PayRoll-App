@@ -14,7 +14,7 @@ AppView = Backbone.View.extend({
             e = '</option>';
 
         // These elements are for looped in because there are hundreds of them.
-        for (var i = 0; i < 1000; i++) {
+        for (var i = 0; i < 500; i++) {
             elSelQty.append(o + i + e, o + (i + .5) + e);
             elSelRate.append(o + i + e, o + (i + .5) + e);
         }
@@ -30,7 +30,16 @@ AppView = Backbone.View.extend({
                 o + 0.06 + i + e,
                 o + 0.07 + i + e,
                 o + 0.08 + i + e,
-                o + 0.09 + i + e
+                o + 0.09 + i + e,
+                o + 0.9 + i + e,
+                o + 0.8 + i + e,
+                o + 0.7 + i + e,
+                o + 0.6 + i + e,
+                o + 0.5 + i + e,
+                o + 0.4 + i + e,
+                o + 0.3 + i + e,
+                o + 0.2 + i + e,
+                o + 0.1 + i + e
             );
         }
     },
