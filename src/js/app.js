@@ -121,11 +121,18 @@ Start.prototype.addOne = function () {
         JOB = $('#job-opt').val(),
         DATE = $('#select-date').val(),
         FED = $('#sel-fed-rate option:selected').val(),
+        STAT_YES,
 
         // Hide Pay Period elements once input is received.
         elTo = $('#to'),
         elFrom = $('#from'),
         elPayPerLabels = $('.pay-per-labels');
+
+    if (STAT == "No Stat") {
+        STAT_YES = 0;
+    } else {
+        STAT_YES = 1;
+    }
 
     elTo.fadeOut();
     elFrom.fadeOut();
@@ -146,7 +153,8 @@ Start.prototype.addOne = function () {
         periodB: DATE_PERIOD_BEGIN,
         periodE: DATE_PERIOD_END,
         job: JOB,
-        fed: FED
+        fed: FED,
+        statYes: STAT_YES
     };
 
     //Save the object as new model an add to collections
@@ -154,7 +162,6 @@ Start.prototype.addOne = function () {
     this.records.getData();
     var elTotalModels = $('#total-models');
     elTotalModels.html("Total Transactions in collection: " + this.records.length);
-
 };
 
 Start.prototype.delLastRecord = function () {
