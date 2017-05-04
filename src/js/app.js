@@ -97,20 +97,52 @@ Start.prototype.addOne = function () {
     'use strict';
 
     var DATE_PERIOD_BEGIN = $('#from').val(),
-        DATE_PERIOD_END = $('#to').val();
-    // Make sure Date Element is not empty.
-    if (DATE_PERIOD_BEGIN == "") {
-        $('#from').css('border-color', 'red');
+        DATE_PERIOD_END = $('#to').val(),
+        JOB_FIELD = $('#job-opt').val(),
+        JOB_DATE_FIELD = $('#select-date').val(),
+        EMPLOYEE_FIELD = $('#select-emp').val();
 
+    // Make sure Date Element is not empty.
+    if (EMPLOYEE_FIELD == "") {
+        $('#select-emp').css('background-color', 'indianred');
+        $('#error').html("Required! You did not enter an employee. Click/Tap here to fix");
+        $('#error').toggleClass('shake');
+        return;
+
+    } else if (DATE_PERIOD_BEGIN == "") {
+        $('#from').css('background-color', 'indianred');
         $('#error').html("Required! You did not enter a start date. Click/Tap here to fix");
+        $('#error').toggleClass('shake');
         return;
 
     } else if (DATE_PERIOD_END == "") {
-        $('#to').css('border-color', 'red');
-
+        $('#to').css('background-color', 'indianred');
         $('#error').html("Required! You did not enter a end date. Click/Tap here to fix");
+        $('#error').toggleClass('shake');
+        return;
+
+    } else if (JOB_FIELD == "") {
+        $('#job-opt').css('background-color', 'indianred');
+        $('#error').html("Required! You did not enter a Job. Click/Tap here to fix");
+        $('#error').toggleClass('shake');
+        return;
+
+    } else if (JOB_DATE_FIELD == "") {
+        $('#select-date').css('background-color', 'indianred');
+        $('#error').html("Required! You did not enter a Job Date. Click/Tap here to fix");
+        $('#error').toggleClass('shake');
         return;
     }
+
+    // Change borders to green for succes.
+    $('#select-emp').css('background-color', 'aquamarine');
+    $('#from').css('background-color', 'aquamarine');
+    $('#to').css('background-color', 'aquamarine');
+    $('#job-opt').css('background-color', 'aquamarine');
+    $('#select-date').css('background-color', 'aquamarine');
+
+
+
     $('#trans-section').html();
     // Retrieve and assign values to Variables from Selection Panel.
     var QTY = Number($('#sel-qty option:selected').text()),
@@ -135,10 +167,6 @@ Start.prototype.addOne = function () {
     } else {
         STAT_YES = 1;
     }
-
-    elTo.fadeOut();
-    elFrom.fadeOut();
-    elPayPerLabels.fadeOut();
 
     var addtrans = {
         d: D,

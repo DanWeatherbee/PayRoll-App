@@ -122,18 +122,18 @@
         <div class="row pay-period-panel effects">
             <div class="col-md-12">
                 <section class="panels" id="pay-per-section">
+                    <h3 id="employee-h"></h3>
                     <script type="text/template" id="pay-per-template">
-                        <h3 id="employee-h"></h3>
                         <label class="pay-per-labels" for="employee">Employee</label>
                         <!--
                          NOTE: The required attribute of the input tag is not supported
                           in Internet Explorer 9 and earlier versions, or in Safari
                           -->
-                        <input type="text" id="select-emp" name="employee" placeholder="Enter" required>
+                        <input class="form-control" type="text" id="select-emp" name="employee" placeholder="Enter" required>
                         <label class="pay-per-labels" for="from">From</label>
-                        <input type="text" id="from" name="from" placeholder="Calender" required>
+                        <input class="form-control" type="text" id="from" name="from" placeholder="Calender" required>
                         <label class="pay-per-labels" for="to">to</label>
-                        <input type="text" id="to" name="to" placeholder="Calender" required>
+                        <input class="form-control" type="text" id="to" name="to" placeholder="Calender" required>
                     </script>
                 </section>
             </div>
@@ -156,10 +156,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="text" id="job-opt" placeholder="Enter Job" required>
+                                        <input class="form-control" type="text" id="job-opt" placeholder="Enter Job" required>
                                     </td>
                                     <td>
-                                        <input type="text" id="select-date" placeholder="Calender" required>
+                                        <input class="form-control" type="text" id="select-date" placeholder="Calender" required>
                                     </td>
                                 </tr>
                             </tbody>
