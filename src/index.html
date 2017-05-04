@@ -47,7 +47,6 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" id="p-1">
-                                            // TODO I want the ui to update on my selections automatically.
                                             <option>Hide</option>
                                             <option>Show</option>
                                         </select>
@@ -122,15 +121,19 @@
         </div>
         <div class="row pay-period-panel effects">
             <div class="col-md-12">
-                <section class="panels">
+                <section class="panels" id="pay-per-section">
                     <script type="text/template" id="pay-per-template">
                         <h3 id="employee-h"></h3>
                         <label class="pay-per-labels" for="employee">Employee</label>
-                        <input type="text" id="select-emp" name="employee" placeholder="Enter">
+                        <!--
+                         NOTE: The required attribute of the input tag is not supported
+                          in Internet Explorer 9 and earlier versions, or in Safari
+                          -->
+                        <input type="text" id="select-emp" name="employee" placeholder="Enter" required>
                         <label class="pay-per-labels" for="from">From</label>
-                        <input type="text" id="from" name="from" placeholder="Calender">
+                        <input type="text" id="from" name="from" placeholder="Calender" required>
                         <label class="pay-per-labels" for="to">to</label>
-                        <input type="text" id="to" name="to" placeholder="Calender">
+                        <input type="text" id="to" name="to" placeholder="Calender" required>
                     </script>
                 </section>
             </div>
@@ -153,10 +156,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="text" id="job-opt" placeholder="Enter Job">
+                                        <input type="text" id="job-opt" placeholder="Enter Job" required>
                                     </td>
                                     <td>
-                                        <input type="text" id="select-date" placeholder="Calender">
+                                        <input type="text" id="select-date" placeholder="Calender" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -168,7 +171,7 @@
                                     <th>Rate</th>
                                     <th>OT</th>
                                     <th>Stat</th>
-                                    <th>Fed Rate</th>
+                                    <th>(Fed+Prov)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -264,18 +267,11 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Rate</td>
+                                    <td>Regular</td>
                                     <td id="qty-hr-stub"></td>
                                     <td id="rate-hr-stub"></td>
                                     <td id="cur-hr-stub"></td>
                                     <td id="ytd-hr-stub"></td>
-                                </tr>
-                                <tr>
-                                    <td>StatPayOut</td>
-                                    <td id="qty-statPO-stub"></td>
-                                    <td id="rate-statPO-stub"></td>
-                                    <td id="cur-statPO-stub"></td>
-                                    <td id="ytd-statPO-stub"></td>
                                 </tr>
                                 <tr>
                                     <td>Vac</td>
@@ -371,6 +367,10 @@
                     <!-- Backbone Template===========================> -->
                     <script type="text/template" id="trans-template">
                         <h3 id="total-models"></h3>
+                        <br>
+                        <a href="#pay-per-section">
+                            <p id="error"></p>
+                        </a>
                         <table class="table table-bordered table-responsive effects">
                             <hr>
                             <a href="#select-section" class="btn btn-primary btn-select-panel">Select Panel</a>

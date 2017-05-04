@@ -2,10 +2,7 @@ Collection = Backbone.Collection.extend({
     model: Trans_Model,
     localStorage: new Backbone.LocalStorage('payroll'),
     initialize: function () {
-
-        console.log("Collection has been initialized.");
         this.fetch();
-        console.log(this.models);
     },
     getData: function () {
         // Last Transaction variables.
@@ -101,13 +98,13 @@ Collection = Backbone.Collection.extend({
             elOt.append(item.get('ot') + '<br>');
             elStat.append(item.get('stat') + '<br>');
         });
-        console.log(this.models[0].collection.length);
+
         payStart = this.models[this.models[0].collection.length - 1].get('periodB');
 
         payEnd = this.models[this.models[0].collection.length - 1].get('periodE');
 
         fedTaxPercent = this.models[prevRecord].get('fed');
-        $('#dev').html('Your Federal Tax Settings: ' + fedTaxPercent);
+        $('#dev').html('Your Federal Tax Settings(Prov + Fed): ' + fedTaxPercent);
 
 
 

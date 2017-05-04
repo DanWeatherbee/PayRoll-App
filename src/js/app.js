@@ -8,7 +8,6 @@ var Start = function () {
     if (this.records.length > 0) {
         this.records.getData();
     }
-    console.log(this.records.length);
 };
 
 // Instantiate the APP
@@ -42,7 +41,6 @@ Start.prototype.init = function () {
 Start.prototype.records = function () {
     'use strict';
     this.records = new Collection();
-    console.log("Transactions in collection: " + this.records.length);
     return this.records;
 
 };
@@ -92,8 +90,6 @@ Start.prototype.save = function (addtrans) {
     // Save Model to collections.
     this.records.add(entry);
     entry.save();
-    console.log("Transactions in collection: " + this.records.length);
-
 
 };
 
@@ -104,12 +100,18 @@ Start.prototype.addOne = function () {
         DATE_PERIOD_END = $('#to').val();
     // Make sure Date Element is not empty.
     if (DATE_PERIOD_BEGIN == "") {
-        alert("!Please enter an begin date.");
+        $('#from').css('border-color', 'red');
+
+        $('#error').html("Required! You did not enter a start date. Click/Tap here to fix");
         return;
+
     } else if (DATE_PERIOD_END == "") {
-        alert("!Please enter an end date.");
+        $('#to').css('border-color', 'red');
+
+        $('#error').html("Required! You did not enter a end date. Click/Tap here to fix");
         return;
     }
+    $('#trans-section').html();
     // Retrieve and assign values to Variables from Selection Panel.
     var QTY = Number($('#sel-qty option:selected').text()),
         RATE = Number($('#sel-rate option:selected').text()),
@@ -162,6 +164,8 @@ Start.prototype.addOne = function () {
     this.records.getData();
     var elTotalModels = $('#total-models');
     elTotalModels.html("Total Transactions in collection: " + this.records.length);
+    $('#error').fadeOut();
+
 };
 
 Start.prototype.delLastRecord = function () {

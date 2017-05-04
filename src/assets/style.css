@@ -18,6 +18,11 @@ input {
     color: lawngreen;
 }
 
+#error {
+    background-color: red;
+    padding: 3%;
+}
+
 .container {
     border-radius: 2% 2% 2% 2%;
     background: transparent;
