@@ -46,7 +46,7 @@ input {
 
 #error {
     background-color: black;
-    color: indianred;
+    color: magenta;
     padding: 3%;
 }
 
@@ -67,6 +67,19 @@ input {
 
 .ui-datepicker {
     background: darkslategrey;
+    color: indianred;
+}
+
+.ui-icon:hover {
+    background-color: black;
+}
+
+.ui-icon {
+    color: skyblue;
+    border: 2px solid;
+    border-color: skyblue;
+    border-radius: 5px;
+    padding: 0 3% 0 3%;
 }
 
 .ui-datepicker {
@@ -81,17 +94,18 @@ input {
     font-size: 1em;
 }
 
+a {
+    color: magenta;
+}
+
 a:hover {
-    color: ghostwhite;
+    color: lawngreen;
+    font-weight: 900;
 }
 
 .print-panel {
     background: transparent;
     color: red;
-}
-
-button {
-    padding-left: 2%;
 }
 
 .effects {

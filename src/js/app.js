@@ -36,6 +36,7 @@ Start.prototype.init = function () {
 
     $('.btn-print-content').hide();
 
+
 };
 
 Start.prototype.records = function () {
@@ -51,13 +52,13 @@ Start.prototype.calender = function () {
         pickerObj = {
             defaultDate: TIME,
             changeMonth: true,
-            numberOfMonths: 2
+            numberOfMonths: 1
         };
     var dateFormat = "mm/dd/yy",
         selDate = $("#select-date")
         .datepicker(pickerObj)
         .on("change", function () {
-            to.datepicker("option", "minDate", self.getDate(this));
+            to.datepicker(self.getDate(this));
         }),
         from = $("#from")
         .datepicker(pickerObj)
@@ -102,44 +103,47 @@ Start.prototype.addOne = function () {
         JOB_DATE_FIELD = $('#select-date').val(),
         EMPLOYEE_FIELD = $('#select-emp').val();
 
-    // Make sure Date Element is not empty.
+    // Make sure inputs are not empty.
     if (EMPLOYEE_FIELD == "") {
-        $('#select-emp').css('background-color', 'indianred');
+        $('#select-emp').css('background-color', 'magenta');
         $('#error').html("Required! You did not enter an employee. Click/Tap here to fix");
         $('#error').toggleClass('shake');
         return;
 
     } else if (DATE_PERIOD_BEGIN == "") {
-        $('#from').css('background-color', 'indianred');
+        $('#from').css('background-color', 'magenta');
         $('#error').html("Required! You did not enter a start date. Click/Tap here to fix");
         $('#error').toggleClass('shake');
         return;
 
     } else if (DATE_PERIOD_END == "") {
-        $('#to').css('background-color', 'indianred');
-        $('#error').html("Required! You did not enter a end date. Click/Tap here to fix");
+        $('#to').css('background-color', 'magenta');
+        $('#error').html("Required! You did not enter an end date. Click/Tap here to fix");
         $('#error').toggleClass('shake');
         return;
 
     } else if (JOB_FIELD == "") {
-        $('#job-opt').css('background-color', 'indianred');
+        $('#job-opt').css('background-color', 'magenta');
         $('#error').html("Required! You did not enter a Job. Click/Tap here to fix");
         $('#error').toggleClass('shake');
         return;
 
     } else if (JOB_DATE_FIELD == "") {
-        $('#select-date').css('background-color', 'indianred');
+        $('#select-date').css('background-color', 'magenta');
         $('#error').html("Required! You did not enter a Job Date. Click/Tap here to fix");
         $('#error').toggleClass('shake');
         return;
+
+    } else {
+        // Change borders to green for succes.
+        $('#select-emp').css('background-color', 'aquamarine');
+        $('#from').css('background-color', 'aquamarine');
+        $('#to').css('background-color', 'aquamarine');
+        $('#job-opt').css('background-color', 'aquamarine');
+        $('#select-date').css('background-color', 'aquamarine');
     }
 
-    // Change borders to green for succes.
-    $('#select-emp').css('background-color', 'aquamarine');
-    $('#from').css('background-color', 'aquamarine');
-    $('#to').css('background-color', 'aquamarine');
-    $('#job-opt').css('background-color', 'aquamarine');
-    $('#select-date').css('background-color', 'aquamarine');
+
 
 
 
@@ -349,3 +353,5 @@ Start.prototype.print = function () {
 };
 
 var app = new Start();
+$('a').tooltip();
+

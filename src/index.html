@@ -30,10 +30,12 @@
             <div class="col-md-12">
                 <section class="panels print-panel effects" id="print-section">
                     <script type="text/template" id="print-template">
-                        <h3 id="print-header">Print Panel:</h3>
-                        <a href="#top-nav" class="btn btn-primary btn-print-selected" onClick="app.printPreView()">Print Preview</a>
+                        <h3 id="print-header">Print Panel</h3>
+                        <a class="btn btn-primary btn-print-selected" onClick="app.printPreView()" title="" data-placement="top" data-toggle="tooltip" href="#top-nav" data-original-title="Click or tap print preview to add or remove panels.">Print Preview</a>
+                        <!-- // Tooltip Structure for bootstrap. $('a').tooltip(); is being run in the appropriate view-->
+                        <!-- // <a class="" onClick="" title="" data-placement="" data-toggle="tooltip" href="" data-original-title="">Print Options</a> -->
                         <img src="assets/images/print-prev.png" class="img-responsive">
-                        <button class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()">Done</button>
+                        <a class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" data-original-title="When you are satisfied with your view click this button to go to the next step.">Done</a>
                         <hr>
                         <table class="table table-bordered table-responsive effects">
                             <thead>
@@ -112,7 +114,6 @@
                             </tbody>
                         </table>
                         <div>
-                            Choose witch panels you wish to show for printing and click or tap print preview to add or remove panels.
                         </div>
                         <hr>
                     </script>
@@ -120,286 +121,281 @@
             </div>
         </div>
         <div class="row pay-period-panel effects">
-            <div class="col-md-12">
-                <section class="panels" id="pay-per-section">
-                    <h3 id="employee-h"></h3>
-                    <script type="text/template" id="pay-per-template">
-                        <label class="pay-per-labels" for="employee">Employee</label>
-                        <!--
+            <section class="panels col-md-6" id="pay-per-section">
+                <h3 id="employee-h"></h3>
+                <script type="text/template" id="pay-per-template">
+                    <label class="pay-per-labels" for="employee">Employee</label>
+                    <!--
                          NOTE: The required attribute of the input tag is not supported
                           in Internet Explorer 9 and earlier versions, or in Safari
                           -->
+                    <a data-placement="top" data-toggle="tooltip" data-original-title="This field is used for printing later, please add Employee or Company Name.">
                         <input class="form-control" type="text" id="select-emp" name="employee" placeholder="Enter" required>
-                        <label class="pay-per-labels" for="from">From</label>
+                    </a>
+                    <label class="pay-per-labels" for="from">From</label>
+                    <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender.">
                         <input class="form-control" type="text" id="from" name="from" placeholder="Calender" required>
-                        <label class="pay-per-labels" for="to">to</label>
+                    </a>
+                    <label class="pay-per-labels" for="to">to</label>
+                    <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender.">
                         <input class="form-control" type="text" id="to" name="to" placeholder="Calender" required>
-                    </script>
-                </section>
-            </div>
+                    </a>
+                </script>
+            </section>
         </div>
         <div class="row select-panel effects">
-            <div class="col-md-12">
-                <section class="panels" id="select-section">
-                    <!-- Backbone Template===========================> -->
-                    <script type="text/template" id="app-template">
-                        <h3 id="select-panel-header">Select Panel:</h3>
-                        <a href="#trans-section" class="btn btn-primary btn-add" onClick="app.addOne()">Add</a>
-                        <a href="#print-section" class="btn btn-primary btn-print" onClick="app.savePDF()">Print Options</a>
-                        <table class="table table-bordered table-responsive effects">
-                            <thead>
-                                <tr>
-                                    <th>Job</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
+            <section class="panels col-md-1" id="select-section">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="app-template">
+                    <h3 id="select-panel-header">Select Panel</h3>
+                    <a class="btn btn-primary btn-add" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
+                    <a class="btn btn-primary btn-print" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead>
+                            <tr>
+                                <th>Job</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Enter a Job title/Conpany Name/Job Description.">
                                         <input class="form-control" type="text" id="job-opt" placeholder="Enter Job" required>
-                                    </td>
-                                    <td>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a title="" data-placement="right" data-toggle="tooltip" data-original-title="Enter a date for this Transaction.">
                                         <input class="form-control" type="text" id="select-date" placeholder="Calender" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-bordered table-responsive effects">
-                            <thead>
-                                <tr>
-                                    <th>Qty</th>
-                                    <th>Rate</th>
-                                    <th>OT</th>
-                                    <th>Stat</th>
-                                    <th>(Fed+Prov)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <select class="form-control" id="sel-qty">
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control" id="sel-rate">
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control" id="sel-ot">
-                                            <option>No</option>
-                                            <option>Yes</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control" id="sel-stat">
-                                            <option>No Stat</option>
-                                            <option>New Years</option>
-                                            <option>Family</option>
-                                            <option>Good Friday</option>
-                                            <option>Victoria</option>
-                                            <option>Canada</option>
-                                            <option>BC</option>
-                                            <option>Labour</option>
-                                            <option>Thanksgiving</option>
-                                            <option>Remembrance</option>
-                                            <option>Christmas</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control" id="sel-fed-rate">
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </script>
-                </section>
-            </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead>
+                            <tr>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>OT</th>
+                                <th>Stat</th>
+                                <th>(Fed+Prov)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="sel-qty">
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="sel-rate">
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="sel-ot">
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="sel-stat">
+                                        <option>No Stat</option>
+                                        <option>New Years</option>
+                                        <option>Family</option>
+                                        <option>Good Friday</option>
+                                        <option>Victoria</option>
+                                        <option>Canada</option>
+                                        <option>BC</option>
+                                        <option>Labour</option>
+                                        <option>Thanksgiving</option>
+                                        <option>Remembrance</option>
+                                        <option>Christmas</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="sel-fed-rate">
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+            </section>
         </div>
         <hr id="top-nav">
         <div class="row last-trans-panel effects">
-            <div class="col-md-12">
-                <section class="panels" id="last-trans-section">
-                    <!-- Backbone Template===========================> -->
-                    <script type="text/template" id="last-trans-template">
-                        <h3 id="last-tran-header">Last Transaction:</h3>
-                        <table class="table table-bordered table-responsive effects">
-                            <thead>
-                                <tr>
-                                    <th>Job</th>
-                                    <th>Date</th>
-                                    <th>Qty</th>
-                                    <th>Rate</th>
-                                    <th>OT</th>
-                                    <th>Stat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td id="job-l"></td>
-                                    <td id="dte-l"></td>
-                                    <td id="qty-l"></td>
-                                    <td id="rate-l"></td>
-                                    <td id="ot-l"></td>
-                                    <td id="stat-l"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </script>
-                </section>
-            </div>
+            <section class="panels col-md-1" id="last-trans-section">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="last-trans-template">
+                    <a title="" data-placement="right" data-toggle="tooltip" data-original-title="This Panel shows you the last Transaction you saved to collections."><h3 id="last-tran-header">Last Transaction</h3></a>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead>
+                            <tr>
+                                <th>Job</th>
+                                <th>Date</th>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>OT</th>
+                                <th>Stat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="job-l"></td>
+                                <td id="dte-l"></td>
+                                <td id="qty-l"></td>
+                                <td id="rate-l"></td>
+                                <td id="ot-l"></td>
+                                <td id="stat-l"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+            </section>
         </div>
         <div class="row earnings-panel effects">
-            <div class="col-md-12">
-                <section class="panels">
-                    <!-- Backbone Template===========================> -->
-                    <script type="text/template" id="earnings-template">
-                        <h3 id="earnings-header">Earnings:</h3>
-                        <table class="table table-bordered table-responsive effects">
-                            <thead>
-                                <tr>
-                                    <th>Earnings</th>
-                                    <th>Qty</th>
-                                    <th>Rate</th>
-                                    <th>Current</th>
-                                    <th>YTD</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Regular</td>
-                                    <td id="qty-hr-stub"></td>
-                                    <td id="rate-hr-stub"></td>
-                                    <td id="cur-hr-stub"></td>
-                                    <td id="ytd-hr-stub"></td>
-                                </tr>
-                                <tr>
-                                    <td>Vac</td>
-                                    <td id="qty-vac-stub"></td>
-                                    <td id="rate-vac-stub"></td>
-                                    <td id="cur-vac-stub"></td>
-                                    <td id="ytd-vac-stub"></td>
-                                </tr>
-                                <tr>
-                                    <td>Totals</td>
-                                    <td id="qty-vacP-stub"></td>
-                                    <td id="rate-vacP-stub"></td>
-                                    <td id="cur-vacP-stub"></td>
-                                    <td id="ytd-vacP-stub"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </script>
-                </section>
-            </div>
+            <section class="panels col-md-1">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="earnings-template">
+                    <h3 id="earnings-header">Earnings</h3>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead>
+                            <tr>
+                                <th>Earnings</th>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>Current</th>
+                                <th>YTD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Regular</td>
+                                <td id="qty-hr-stub"></td>
+                                <td id="rate-hr-stub"></td>
+                                <td id="cur-hr-stub"></td>
+                                <td id="ytd-hr-stub"></td>
+                            </tr>
+                            <tr>
+                                <td>Vac</td>
+                                <td id="qty-vac-stub"></td>
+                                <td id="rate-vac-stub"></td>
+                                <td id="cur-vac-stub"></td>
+                                <td id="ytd-vac-stub"></td>
+                            </tr>
+                            <tr>
+                                <td>Totals</td>
+                                <td id="qty-vacP-stub"></td>
+                                <td id="rate-vacP-stub"></td>
+                                <td id="cur-vacP-stub"></td>
+                                <td id="ytd-vacP-stub"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+            </section>
         </div>
         <div class="row with-holdings-panel effects">
-            <div class="col-md-12">
-                <section class="panels">
-                    <!-- Backbone Template===========================> -->
-                    <script type="text/template" id="with-holdings-template">
-                        <h3 id="deductions-header">Deductions:</h3>
-                        <table class="table table-bordered table-responsive effects">
-                            <thead>
-                                <tr>
-                                    <th>Deductions</th>
-                                    <th>Current</th>
-                                    <th>YTD</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>CPP-Employee</td>
-                                    <td id="cur-cpp-stub"></td>
-                                    <td id="ytd-cpp-stub"></td>
-                                </tr>
-                                <tr>
-                                    <td>UI-Employee</td>
-                                    <td id="cur-ui-stub"></td>
-                                    <td id="ytd-ui-stub"></td>
-                                </tr>
-                                <tr>
-                                    <td>Federal Income Tax</td>
-                                    <td id="cur-fed-stub"></td>
-                                    <td id="ytd-fed-stub"></td>
-                                </tr>
-                                <tr>
-                                    <td>Totals</td>
-                                    <td id="cur-tot-stub"></td>
-                                    <td id="ytd-tot-stub"></td>
-                                </tr>
-                            </tbody>
-                            <a href="https://apps.cra-arc.gc.ca/ebci/rhpd/wlcm-bnvn.do">Online Caculator</a>
-                        </table>
-                    </script>
-                </section>
-            </div>
+            <section class="panels col-md-1">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="with-holdings-template">
+                    <h3 id="deductions-header">Deductions</h3>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead>
+                            <tr>
+                                <th>Deductions</th>
+                                <th>Current</th>
+                                <th>YTD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CPP-Employee</td>
+                                <td id="cur-cpp-stub"></td>
+                                <td id="ytd-cpp-stub"></td>
+                            </tr>
+                            <tr>
+                                <td>UI-Employee</td>
+                                <td id="cur-ui-stub"></td>
+                                <td id="ytd-ui-stub"></td>
+                            </tr>
+                            <tr>
+                                <td>Federal Income Tax</td>
+                                <td id="cur-fed-stub"></td>
+                                <td id="ytd-fed-stub"></td>
+                            </tr>
+                            <tr>
+                                <td>Totals</td>
+                                <td id="cur-tot-stub"></td>
+                                <td id="ytd-tot-stub"></td>
+                            </tr>
+                        </tbody>
+                        <a class="right" title="" data-placement="top" data-toggle="tooltip" href="https://apps.cra-arc.gc.ca/ebci/rhpd/wlcm-bnvn.do" data-original-title="Government Payroll Online Caculator Service.">Caculator</a>
+                    </table>
+                </script>
+            </section>
         </div>
         <div class="row net-pay-panel effects">
-            <div class="col-md-12">
-                <section class="panels">
-                    <!-- Backbone Template===========================> -->
-                    <script type="text/template" id="net-pay-template">
-                        <h3 id="net-pay-header">Net Pay:</h3>
-                        <table class="table table-bordered table-responsive effects">
-                            <thead>
-                                <tr>
-                                    <th>Net</th>
-                                    <th>Current</th>
-                                    <th>YTD</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Totals</td>
-                                    <td id="cur-netPay-stub"></td>
-                                    <td id="ytd-netPay-stub"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </script>
-                </section>
-            </div>
+            <section class="panels col-md-1">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="net-pay-template">
+                    <h3 id="net-pay-header">Net Pay</h3>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead>
+                            <tr>
+                                <th>Net</th>
+                                <th>Current</th>
+                                <th>YTD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Totals</td>
+                                <td id="cur-netPay-stub"></td>
+                                <td id="ytd-netPay-stub"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+            </section>
         </div>
         <div class="row trans-panel effects">
-            <div class="col-md-12">
-                <section class="panels" id="trans-section">
-                    <!-- Backbone Template===========================> -->
-                    <script type="text/template" id="trans-template">
-                        <h3 id="total-models"></h3>
-                        <br>
-                        <a href="#pay-per-section">
-                            <p id="error"></p>
-                        </a>
-                        <table class="table table-bordered table-responsive effects">
-                            <hr>
-                            <a href="#select-section" class="btn btn-primary btn-select-panel">Select Panel</a>
-                            <thead id="trans-table-head">
-                                <tr>
-                                    <th>Job</th>
-                                    <th>Date</th>
-                                    <th>Qty</th>
-                                    <th>Rate</th>
-                                    <th>OT</th>
-                                    <th>Stat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td id="job"></td>
-                                    <td id="dte"></td>
-                                    <td id="qty"></td>
-                                    <td id="rate"></td>
-                                    <td id="ot"></td>
-                                    <td id="stat"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button class="btn btn-primary btn-del-last" onClick="app.delLastRecord()">Del last</button>
-                        <button class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()">Del first</button>
-                    </script>
-                </section>
-            </div>
+            <section class="panels col-md-1" id="trans-section">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="trans-template">
+                    <h3 id="total-models"></h3>
+                    <br>
+                    <a href="#pay-per-section">
+                        <p id="error"></p>
+                    </a>
+                    <table class="table table-bordered table-responsive effects">
+                        <thead id="trans-table-head">
+                            <tr>
+                                <th>Job</th>
+                                <th>Date</th>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>OT</th>
+                                <th>Stat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="job"></td>
+                                <td id="dte"></td>
+                                <td id="qty"></td>
+                                <td id="rate"></td>
+                                <td id="ot"></td>
+                                <td id="stat"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary btn-del-last" onClick="app.delLastRecord()" href="#trans-section">Del last</a>
+                    <a class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()" href="#trans-section">Del first</a>
+                    <a class="btn btn-primary btn-select-panel" href="#select-section">Select Panel</a>
+                </script>
+            </section>
         </div>
         <script src="js/lib/jquery-3.1.1.min.js"></script>
         <script src="js/lib/jquery-ui.min.js"></script>
