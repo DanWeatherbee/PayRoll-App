@@ -15,7 +15,8 @@ Start.prototype.init = function () {
     'use strict';
     this.application = appModel; // Backbone Class Trans_Model
     var devElem = $("#dev");
-    var wrapper = this.application.dev + ': ' +
+    var wrapper = this.application.project + ' ' +
+        this.application.dev + ': ' +
         this.application.name + ' Version: ' +
         this.application.version + ' Framework: ' +
         this.application.framework + ' Library: ' +
@@ -259,9 +260,6 @@ Start.prototype.savePDF = function () {
 
 Start.prototype.printPreView = function () {
     'use strict';
-    $('.btn-select-panel').fadeOut();
-    $('#progress-panel').fadeOut();
-    $('#link-canada').fadeOut();
     // Panels
     var elPayPeriodPanel = $('.pay-period-panel'),
         elSelectPanel = $('.select-panel'),
@@ -269,7 +267,8 @@ Start.prototype.printPreView = function () {
         elEarningsPanel = $('.earnings-panel'),
         elWithHoldingsPanel = $('.with-holdings-panel'),
         elNetPayPanel = $('.net-pay-panel'),
-        elTransPanel = $('.trans-panel');
+        elTransPanel = $('.trans-panel'),
+        elContainer = $('.container');
 
 
     // Print Select Options Show Hide.
@@ -281,6 +280,16 @@ Start.prototype.printPreView = function () {
         netPayPanelText = $('#p-6 option:selected').text(),
         netTransPanelText = $('#p-7 option:selected').text(),
         netColorText = $('#p-8 option:selected').text();
+
+    // Hide Elements not desired for printing.
+    $('.btn-select-panel').fadeOut();
+    $('#link-canada').fadeOut();
+    $('hr').fadeOut();
+    $('img').fadeOut();
+    $('#dev').fadeOut();
+    $('body').css("padding", "0");
+    $('input').css("background-color", "white");
+    elTransPanel.css("padding", "0");
 
     if (payPeriodPanelText == "Show") {
         elPayPeriodPanel.fadeIn();
@@ -324,10 +333,21 @@ Start.prototype.printPreView = function () {
         elTransPanel.fadeOut();
     };
 
-    if (netColorText == "Yes") {
-
+    if (netColorText == "No") {
+        elContainer.css("background-color", "white");
+        elContainer.css("color", "black");
+        elContainer.css("width", "100%");
+        elContainer.css("height", "100%");
+        $('a').css("color", "black");
+        $('th').css("color", "black");
+        $('body').css("background-image", "none");
+        $('h3').css("color", "black");
+        $('#print-header').html("This Panel will be hidden when you print.");
     } else {
-
+        $('body').css("background-color", "lightgrey");
+        elContainer.css("background-color", "cornsilk");
+        elContainer.css("color", "black");
+        $('a').css("color", "indianred");
     };
 };
 
@@ -344,8 +364,6 @@ Start.prototype.print = function () {
     'use strict';
     $('.btn-print-content').hide();
     $('#dev').hide();
-    $(".container").css("background-color", "white");
-    $(".container").css("color", "darkgrey");
     window.print();
 
     location.reload();
@@ -354,4 +372,3 @@ Start.prototype.print = function () {
 
 var app = new Start();
 $('a').tooltip();
-
