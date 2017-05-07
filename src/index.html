@@ -35,7 +35,7 @@
                         <!-- // Tooltip Structure for bootstrap. $('a').tooltip(); is being run in the appropriate view-->
                         <!-- // <a class="" onClick="" title="" data-placement="" data-toggle="tooltip" href="" data-original-title="">Print Options</a> -->
                         <img src="assets/images/print-prev.png" class="img-responsive">
-                        <a class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" data-original-title="When you are satisfied with your view click this button to go to the next step.">Done</a>
+                        <a class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="When you are satisfied with your view click this button to go to the next step.">Done</a>
                         <hr>
                         <table class="table table-bordered table-responsive effects">
                             <thead>
@@ -150,6 +150,7 @@
                     <h3 id="select-panel-header">Select Panel</h3>
                     <a class="btn btn-primary btn-add" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
                     <a class="btn btn-primary btn-print" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
+                    <a class="btn btn-primary btn-hide-print-panel" onClick="app.noColor()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="This cancels background color and changes text to black.">No Color</a>
                     <table class="table table-bordered table-responsive effects">
                         <thead>
                             <tr>

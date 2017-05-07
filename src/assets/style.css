@@ -56,8 +56,7 @@ input {
     color: white;
 }
 
-#dev,
-.row:hover {
+#dev:hover {
     border: 15px solid transparent;
     padding: 15px;
     border-image-source: url(images/border.png);

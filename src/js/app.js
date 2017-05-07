@@ -7,13 +7,28 @@ var Start = function () {
     this.calender();
     if (this.records.length > 0) {
         this.records.getData();
-    }
+    };
+
+    // Buttons
+
+    /*
+     TODO incorporate this code to use buttons globaly.
+    this.printBtn = $('.btn-print');
+    this.addBtn = $('.btn-add');
+    this.delLastBtn = $('.btn-del-last');
+    this.delFirstBtn = $('.btn-del-first');
+    this.printSelectedBtn = $('.btn-print-selected');
+    this.hidePrintPanelBtn = $('.btn-hide-print-panel');
+    */
+
+
 };
 
 // Instantiate the APP
 Start.prototype.init = function () {
     'use strict';
     this.application = appModel; // Backbone Class Trans_Model
+    this.container = $('.container');
     var devElem = $("#dev");
     var wrapper = this.application.project + ' ' +
         this.application.dev + ': ' +
@@ -97,6 +112,7 @@ Start.prototype.save = function (addtrans) {
 
 Start.prototype.addOne = function () {
     'use strict';
+    this.elError = $('#error');
 
     var DATE_PERIOD_BEGIN = $('#from').val(),
         DATE_PERIOD_END = $('#to').val(),
@@ -107,32 +123,32 @@ Start.prototype.addOne = function () {
     // Make sure inputs are not empty.
     if (EMPLOYEE_FIELD == "") {
         $('#select-emp').css('background-color', 'magenta');
-        $('#error').html("Required! You did not enter an employee. Click/Tap here to fix");
-        $('#error').toggleClass('shake');
+        this.elError.html("Required! You did not enter an employee. Click/Tap here to fix");
+        this.elError.toggleClass('shake');
         return;
 
     } else if (DATE_PERIOD_BEGIN == "") {
         $('#from').css('background-color', 'magenta');
-        $('#error').html("Required! You did not enter a start date. Click/Tap here to fix");
-        $('#error').toggleClass('shake');
+        this.elError.html("Required! You did not enter a start date. Click/Tap here to fix");
+        this.elError.toggleClass('shake');
         return;
 
     } else if (DATE_PERIOD_END == "") {
         $('#to').css('background-color', 'magenta');
-        $('#error').html("Required! You did not enter an end date. Click/Tap here to fix");
-        $('#error').toggleClass('shake');
+        this.elError.html("Required! You did not enter an end date. Click/Tap here to fix");
+        this.elError.toggleClass('shake');
         return;
 
     } else if (JOB_FIELD == "") {
         $('#job-opt').css('background-color', 'magenta');
-        $('#error').html("Required! You did not enter a Job. Click/Tap here to fix");
-        $('#error').toggleClass('shake');
+        this.elError.html("Required! You did not enter a Job. Click/Tap here to fix");
+        this.elError.toggleClass('shake');
         return;
 
     } else if (JOB_DATE_FIELD == "") {
         $('#select-date').css('background-color', 'magenta');
-        $('#error').html("Required! You did not enter a Job Date. Click/Tap here to fix");
-        $('#error').toggleClass('shake');
+        this.elError.html("Required! You did not enter a Job Date. Click/Tap here to fix");
+        this.elError.toggleClass('shake');
         return;
 
     } else {
@@ -197,7 +213,7 @@ Start.prototype.addOne = function () {
     this.records.getData();
     var elTotalModels = $('#total-models');
     elTotalModels.html("Total Transactions in collection: " + this.records.length);
-    $('#error').fadeOut();
+    this.elError.fadeOut();
 
 };
 
@@ -248,8 +264,12 @@ Start.prototype.savePDF = function () {
         elBtnAdd = $('.btn-add'),
         elBtnDelLast = $('.btn-del-last'),
         elBtnDelFirst = $('.btn-del-first'),
-        elBtnPrintSelected = $('.btn-print-selected');
+        elBtnPrintSelected = $('.btn-print-selected'),
+        elBtnHidePrintPanel = $('.btn-hide-print-panel');
 
+
+    elBtnPrintSelected.css("background-color", "black");
+    elBtnHidePrintPanel.css("background-color", "black");
 
     elBtnPrintSelected.fadeIn();
     elBtnPrint.fadeOut();
@@ -267,8 +287,7 @@ Start.prototype.printPreView = function () {
         elEarningsPanel = $('.earnings-panel'),
         elWithHoldingsPanel = $('.with-holdings-panel'),
         elNetPayPanel = $('.net-pay-panel'),
-        elTransPanel = $('.trans-panel'),
-        elContainer = $('.container');
+        elTransPanel = $('.trans-panel');
 
 
     // Print Select Options Show Hide.
@@ -287,6 +306,9 @@ Start.prototype.printPreView = function () {
     $('hr').fadeOut();
     $('img').fadeOut();
     $('#dev').fadeOut();
+
+
+
     $('body').css("padding", "0");
     $('input').css("background-color", "white");
     elTransPanel.css("padding", "0");
@@ -334,21 +356,35 @@ Start.prototype.printPreView = function () {
     };
 
     if (netColorText == "No") {
-        elContainer.css("background-color", "white");
-        elContainer.css("color", "black");
-        elContainer.css("width", "100%");
-        elContainer.css("height", "100%");
-        $('a').css("color", "black");
-        $('th').css("color", "black");
-        $('body').css("background-image", "none");
-        $('h3').css("color", "black");
+
+        this.noColor();
+
+        $('.btn-print-selected').css("color", "white");
+        $('.btn-hide-print-panel').css("color", "white");
+        this.container.css("width", "100%");
+        this.container.css("height", "100%");
+
         $('#print-header').html("This Panel will be hidden when you print.");
     } else {
         $('body').css("background-color", "lightgrey");
-        elContainer.css("background-color", "cornsilk");
-        elContainer.css("color", "black");
+        this.container.css("background-color", "cornsilk");
+        this.container.css("color", "black");
         $('a').css("color", "indianred");
     };
+};
+
+Start.prototype.noColor = function () {
+    'use strict';
+
+    this.container.css("background-color", "white");
+    this.container.css("color", "black");
+
+    $('a').css("color", "black");
+    $('th').css("color", "black");
+    $('body').css("background-image", "none");
+    $('h3').css("color", "black");
+
+
 };
 
 Start.prototype.hidePrintPanel = function () {
