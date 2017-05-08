@@ -28,16 +28,16 @@
         <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
         <div class="print-panel-row text-left">
             <div class="col-md-12">
-                <section class="panels print-panel effects" id="print-section">
+                <section class="panels print-panel" id="print-section">
                     <script type="text/template" id="print-template">
-                        <h3 id="print-header">Print Panel</h3>
+                        <h3 id="print-header" class="efects">Print Panel</h3>
                         <a class="btn btn-primary btn-print-selected" onClick="app.printPreView()" title="" data-placement="top" data-toggle="tooltip" href="#top-nav" data-original-title="Click or tap print preview to add or remove panels.">Print Preview</a>
                         <!-- // Tooltip Structure for bootstrap. $('a').tooltip(); is being run in the appropriate view-->
                         <!-- // <a class="" onClick="" title="" data-placement="" data-toggle="tooltip" href="" data-original-title="">Print Options</a> -->
                         <img src="assets/images/print-prev.png" class="img-responsive">
                         <a class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="When you are satisfied with your view click this button to go to the next step.">Done</a>
                         <hr>
-                        <table class="table table-bordered table-responsive effects">
+                        <table class="table table-bordered table-responsive">
                             <thead>
                                 <tr>
                                     <th>Period</th>
@@ -68,7 +68,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-responsive effects">
+                        <table class="table table-bordered table-responsive">
                             <thead>
                                 <tr>
                                     <th>Earnings</th>
@@ -120,8 +120,8 @@
                 </section>
             </div>
         </div>
-        <div class="row pay-period-panel effects">
-            <section class="panels col-md-6" id="pay-per-section">
+        <div class="row pay-period-panel">
+            <section class="panels col-md-1" id="pay-per-section">
                 <h3 id="employee-h"></h3>
                 <script type="text/template" id="pay-per-template">
                     <label class="pay-per-labels" for="employee">Employee</label>
@@ -132,26 +132,35 @@
                     <a data-placement="top" data-toggle="tooltip" data-original-title="This field is used for printing later, please add Employee or Company Name.">
                         <input class="form-control" type="text" id="select-emp" name="employee" placeholder="Enter" required>
                     </a>
-                    <label class="pay-per-labels" for="from">From</label>
-                    <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender.">
-                        <input class="form-control" type="text" id="from" name="from" placeholder="Calender" required>
-                    </a>
-                    <label class="pay-per-labels" for="to">to</label>
-                    <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender.">
-                        <input class="form-control" type="text" id="to" name="to" placeholder="Calender" required>
-                    </a>
+                    <div class="col-md-4">
+                        <label class="pay-per-labels" for="from">From</label>
+                        <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender.">
+                            <input class="form-control" type="text" id="from" name="from" placeholder="Calender" required>
+                        </a>
+                        <label class="pay-per-labels" for="to">to</label>
+                        <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender.">
+                            <input class="form-control" type="text" id="to" name="to" placeholder="Calender" required>
+                        </a>
+                    </div>
                 </script>
             </section>
         </div>
-        <div class="row select-panel effects">
+        <div class="row select-panel">
             <section class="panels col-md-1" id="select-section">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="app-template">
                     <h3 id="select-panel-header">Select Panel</h3>
-                    <a class="btn btn-primary btn-add" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
-                    <a class="btn btn-primary btn-print" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
-                    <a class="btn btn-primary btn-hide-print-panel" onClick="app.noColor()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="This cancels background color and changes text to black.">No Color</a>
-                    <table class="table table-bordered table-responsive effects">
+                    <div class="col-md-9">
+                        <a class="btn btn-primary btn-add" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
+                        <a class="btn btn-primary btn-print" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="btn btn-primary btn-no-color" onClick="app.noColor()">No Color</a>
+                        <a class="btn btn-primary btn-color" onClick="app.color()">Color</a>
+                        <a class="btn btn-primary btn-disable-tool" onClick="app.disableTooltips()">No Tips</a>
+                        <a class="btn btn-primary btn-enable-tool" onClick="app.enableTooltips()">Tips</a>
+                    </div>
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>Job</th>
@@ -173,7 +182,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered table-responsive effects">
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>Qty</th>
@@ -225,12 +234,12 @@
             </section>
         </div>
         <hr id="top-nav">
-        <div class="row last-trans-panel effects">
+        <div class="row last-trans-panel">
             <section class="panels col-md-1" id="last-trans-section">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="last-trans-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel shows you the last Transaction you saved to collections."><h3 id="last-tran-header">Last Transaction</h3></a>
-                    <table class="table table-bordered table-responsive effects">
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>Job</th>
@@ -255,12 +264,12 @@
                 </script>
             </section>
         </div>
-        <div class="row earnings-panel effects">
+        <div class="row earnings-panel">
             <section class="panels col-md-1">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="earnings-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel displays your earnings based on the total transactions stored in backbone-localstorage(In your browser eg. Chrome, Safari)."><h3 id="earnings-header">Earnings</h3></a>
-                    <table class="table table-bordered table-responsive effects">
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>Earnings</th>
@@ -297,12 +306,12 @@
                 </script>
             </section>
         </div>
-        <div class="row with-holdings-panel effects">
+        <div class="row with-holdings-panel">
             <section class="panels col-md-1">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="with-holdings-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel contains deductions based on Canadadian Gov. online Service. Percentages were determined from there. A Link is provided on this page(Caculator)."><h3 id="deductions-header">Deductions</h3></a>
-                    <table class="table table-bordered table-responsive effects">
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>Deductions</th>
@@ -337,12 +346,12 @@
                 </script>
             </section>
         </div>
-        <div class="row net-pay-panel effects">
+        <div class="row net-pay-panel">
             <section class="panels col-md-1">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="net-pay-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Net Pay as well as all other calculations are performed on the total transactions retrieved from the storage and not on unsaved transactions. This confirms the data exists before the task begins and insures accuracy."><h3 id="net-pay-header">Net Pay</h3></a>
-                    <table class="table table-bordered table-responsive effects">
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>Net</th>
@@ -361,7 +370,7 @@
                 </script>
             </section>
         </div>
-        <div class="row trans-panel effects">
+        <div class="row trans-panel">
             <section class="panels col-md-1" id="trans-section">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="trans-template">
@@ -370,7 +379,7 @@
                     <a href="#pay-per-section">
                         <p id="error"></p>
                     </a>
-                    <table class="table table-bordered table-responsive effects">
+                    <table class="table table-bordered table-responsive">
                         <thead id="trans-table-head">
                             <tr>
                                 <th>Job</th>

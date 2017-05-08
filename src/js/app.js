@@ -10,17 +10,13 @@ var Start = function () {
     };
 
     // Buttons
-
-    /*
-     TODO incorporate this code to use buttons globaly.
     this.printBtn = $('.btn-print');
     this.addBtn = $('.btn-add');
     this.delLastBtn = $('.btn-del-last');
     this.delFirstBtn = $('.btn-del-first');
     this.printSelectedBtn = $('.btn-print-selected');
     this.hidePrintPanelBtn = $('.btn-hide-print-panel');
-    */
-
+    this.nav = $('a');
 
 };
 
@@ -29,6 +25,7 @@ Start.prototype.init = function () {
     'use strict';
     this.application = appModel; // Backbone Class Trans_Model
     this.container = $('.container');
+    this.printContentBtn = $('.btn-print-content');
     var devElem = $("#dev");
     var wrapper = this.application.project + ' ' +
         this.application.dev + ': ' +
@@ -50,7 +47,7 @@ Start.prototype.init = function () {
         transV = new TransactionView(),
         payPerV = new PayPeriodView();
 
-    $('.btn-print-content').hide();
+    this.printContentBtn.hide();
 
 
 };
@@ -257,25 +254,14 @@ Start.prototype.delFirstRecord = function () {
 Start.prototype.savePDF = function () {
     'use strict';
 
-    var printV = new PrintView(),
+    var printV = new PrintView();
+    this.printSelectedBtn.css("color", "black");
+    this.printSelectedBtn.fadeIn();
 
-        // Buttons
-        elBtnPrint = $('.btn-print'),
-        elBtnAdd = $('.btn-add'),
-        elBtnDelLast = $('.btn-del-last'),
-        elBtnDelFirst = $('.btn-del-first'),
-        elBtnPrintSelected = $('.btn-print-selected'),
-        elBtnHidePrintPanel = $('.btn-hide-print-panel');
-
-
-    elBtnPrintSelected.css("background-color", "black");
-    elBtnHidePrintPanel.css("background-color", "black");
-
-    elBtnPrintSelected.fadeIn();
-    elBtnPrint.fadeOut();
-    elBtnAdd.fadeOut();
-    elBtnDelLast.fadeOut();
-    elBtnDelFirst.fadeOut();
+    this.printBtn.fadeOut();
+    this.addBtn.fadeOut();
+    this.delLastBtn.fadeOut();
+    this.delFirstBtn.fadeOut();
 };
 
 Start.prototype.printPreView = function () {
@@ -310,7 +296,7 @@ Start.prototype.printPreView = function () {
 
 
     $('body').css("padding", "0");
-    $('input').css("background-color", "white");
+    $('input').css("background-color", "ghostwhite");
     elTransPanel.css("padding", "0");
 
     if (payPeriodPanelText == "Show") {
@@ -358,9 +344,6 @@ Start.prototype.printPreView = function () {
     if (netColorText == "No") {
 
         this.noColor();
-
-        $('.btn-print-selected').css("color", "white");
-        $('.btn-hide-print-panel').css("color", "white");
         this.container.css("width", "100%");
         this.container.css("height", "100%");
 
@@ -369,42 +352,60 @@ Start.prototype.printPreView = function () {
         $('body').css("background-color", "lightgrey");
         this.container.css("background-color", "cornsilk");
         this.container.css("color", "black");
-        $('a').css("color", "indianred");
+
     };
 };
 
 Start.prototype.noColor = function () {
     'use strict';
 
-    this.container.css("background-color", "white");
+    this.container.css("background-color", "ghostwhite");
     this.container.css("color", "black");
 
-    $('a').css("color", "black");
+    this.nav.css("color", "black");
     $('th').css("color", "black");
     $('body').css("background-image", "none");
     $('h3').css("color", "black");
-
-
 };
+
+Start.prototype.color = function () {
+    'use strict';
+
+
+    this.container.css("color", "blue");
+
+    this.nav.css("color", "black");
+    $('th').css("color", "black");
+    this.container.css("background-color", "cornsilk");
+    $('h3').css("color", "black");
+};
+
+
 
 Start.prototype.hidePrintPanel = function () {
     'use strict';
 
     $('.print-panel-row').fadeOut();
-    $('.btn-print-content').fadeIn();
-
-
+    this.printContentBtn.fadeIn();
 };
 
 Start.prototype.print = function () {
     'use strict';
-    $('.btn-print-content').hide();
+    this.printContentBtn.hide();
     $('#dev').hide();
     window.print();
 
     location.reload();
+};
 
+Start.prototype.disableTooltips = function () {
+    'use strict';
+    this.nav.tooltip("disable");
+};
+
+Start.prototype.enableTooltips = function () {
+    'use strict';
+    this.nav.tooltip("enable");
 };
 
 var app = new Start();
-$('a').tooltip();

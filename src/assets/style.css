@@ -13,6 +13,10 @@ label,
     background: transparent;
 }
 
+.btn {
+    color: indianred;
+}
+
 .shake {
     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
     transform: translate3d(0, 0, 0);
@@ -56,14 +60,6 @@ input {
     color: white;
 }
 
-#dev:hover {
-    border: 15px solid transparent;
-    padding: 15px;
-    border-image-source: url(images/border.png);
-    border-image-repeat: stretch;
-    border-image-slice: 30;
-}
-
 .ui-datepicker {
     background: darkslategrey;
     color: indianred;
@@ -94,7 +90,7 @@ input {
 }
 
 a {
-    color: magenta;
+    color: indianred;
 }
 
 a:hover {
@@ -105,12 +101,6 @@ a:hover {
 .print-panel {
     background: transparent;
     color: red;
-}
-
-.effects {
-    -webkit-transition-property: background-color color;
-    -webkit-transition-duration: 800ms;
-    -webkit-transition-timing-function:
 }
 
 hr {
