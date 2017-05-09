@@ -107,10 +107,17 @@ Collection = Backbone.Collection.extend({
         $('#dev').html('Your Federal Tax Settings(Prov + Fed): ' + fedTaxPercent);
 
 
-
+        console.log($('#sel-emp').text());
         // Append and update elements from collection.
         elPayPerHeader.html(" Date: " + dateNow);
-        eltotalModels.append("Total Transactions: " + this.models.length);
+        eltotalModels.html("Emp/Com Name: " +
+            $('#select-emp').val() +
+            " Start: " +
+            payStart +
+            " End: " +
+            payEnd +
+            " Total: " +
+            this.models.length);
 
 
         // Populate Earnings Template Elements from collection.
