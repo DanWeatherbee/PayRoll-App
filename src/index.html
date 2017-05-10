@@ -19,25 +19,26 @@
     <meta name="msapplication-square310x310logo" content="favicon.ico">
     <title>Dan Weatherbee's payroll App</title>
     <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/mdb.min.css">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
     <div class="container container-top text-center">
-        <a title="" data-placement="bottom" data-toggle="tooltip" href="http://danweatherbee-front-end-web-developer.com" data-original-title="If you are interested in creating your own cool webpage/website or perhaps joining your team contact Dan Weatherbee email: dan@jedi-clan.us cell: 250-307-6272 or Click/Tap the link above."><h3 id="dev"></h3></a>
-        <a href="" class="btn btn-primary btn-print-content" onClick="app.print()">Print</a>
+        <a title="" data-placement="bottom" data-toggle="tooltip" href="http://danweatherbee-front-end-web-developer.com" data-original-title="If you are interested in creating your own cool webpage/website or perhaps joining your team contact Dan Weatherbee email: dan@jedi-clan.us cell: 250-307-6272 or Click/Tap the link above."><h3 id="dev" class="wow rotateIn"></h3></a>
+        <a href="" class="btn btn-primary btn-print-content wow zoomIn" onClick="app.print()">Print</a>
         <div class="print-panel-row text-left">
             <div class="col-md-12">
                 <section class="panels print-panel" id="print-section">
                     <script type="text/template" id="print-template">
-                        <h3 id="print-header" class="efects">Print Panel</h3>
-                        <a class="btn btn-primary btn-print-selected" onClick="app.printPreView()" title="" data-placement="top" data-toggle="tooltip" href="#top-nav" data-original-title="Click or tap print preview to add or remove panels.">Print Preview</a>
+                        <h3 id="print-header" class="wow rotateIn">Print Panel</h3>
+                        <a class="btn btn-primary btn-print-selected wow zoomIn wow zoomIn" onClick="app.printPreView()" title="" data-placement="top" data-toggle="tooltip" href="#top-nav" data-original-title="Click or tap print preview to add or remove panels.">Print Preview</a>
                         <!-- // Tooltip Structure for bootstrap. $('a').tooltip(); is being run in the appropriate view-->
-                        <!-- // <a class="" onClick="" title="" data-placement="" data-toggle="tooltip" href="" data-original-title="">Print Options</a> -->
-                        <img src="assets/images/print-prev.png" class="img-responsive">
-                        <a class="btn btn-primary btn-hide-print-panel" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="When you are satisfied with your view click this button to go to the next step.">Done</a>
+                        <!-- // <a class=" wow zoomIn" onClick="" title="" data-placement="" data-toggle="tooltip" href="" data-original-title="">Print Options</a> -->
+                        <img src="assets/images/print-prev.png" class="img-responsive wow zoomIn">
+                        <a class="btn btn-primary btn-hide-print-panel wow zoomIn" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="When you are satisfied with your view click this button to go to the next step.">Done</a>
                         <hr>
-                        <table class="table table-bordered table-responsive">
+                        <table class="table table-bordered table-responsive wow bounceInUp">
                             <thead>
                                 <tr>
                                     <th>Period</th>
@@ -68,7 +69,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-responsive">
+                        <table class="table table-bordered table-responsive wow lightSpeedIn">
                             <thead>
                                 <tr>
                                     <th>Earnings</th>
@@ -120,9 +121,9 @@
                 </section>
             </div>
         </div>
-        <div class="row pay-period-panel">
+        <div class="row pay-period-panel wow slideInLeft">
             <section class="panels col-md-1" id="pay-per-section">
-                <h3 id="employee-h"></h3>
+                <h3 id="employee-h" class="wow rotateIn"></h3>
                 <script type="text/template" id="pay-per-template">
                     <label class="pay-per-labels" for="employee">Employee</label>
                     <!--
@@ -130,35 +131,35 @@
                           in Internet Explorer 9 and earlier versions, or in Safari
                           -->
                     <a data-placement="top" data-toggle="tooltip" data-original-title="This field is used for printing later, please add Employee or Company Name.">
-                        <input class="form-control" type="text" id="select-emp" name="employee" placeholder="Enter" required>
+                        <input class="form-control text-center" type="text" id="select-emp" name="employee" placeholder="Enter" required>
                     </a>
                     <div class="col-md-4">
                         <label class="pay-per-labels" for="from">From</label>
                         <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender.">
-                            <input class="form-control" type="text" id="from" name="from" placeholder="Calender" required>
+                            <input class="form-control text-center" type="text" id="from" name="from" placeholder="Calender" required>
                         </a>
                         <label class="pay-per-labels" for="to">to</label>
                         <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender.">
-                            <input class="form-control" type="text" id="to" name="to" placeholder="Calender" required>
+                            <input class="form-control text-center" type="text" id="to" name="to" placeholder="Calender" required>
                         </a>
                     </div>
                 </script>
             </section>
         </div>
-        <div class="row select-panel">
+        <div class="row select-panel wow slideInDown">
             <section class="panels col-md-1" id="select-section">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="app-template">
-                    <h3 id="select-panel-header">Select Panel</h3>
+                    <h3 id="select-panel-header" class="wow rotateIn">Select Panel</h3>
                     <div class="col-md-9">
-                        <a class="btn btn-primary btn-add" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
-                        <a class="btn btn-primary btn-print" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
+                        <a class="btn btn-primary btn-add wow zoomIn" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
+                        <a class="btn btn-primary btn-print wow zoomIn" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
                     </div>
                     <div class="col-md-6">
-                        <a class="btn btn-primary btn-no-color" onClick="app.noColor()">No Color</a>
-                        <a class="btn btn-primary btn-color" onClick="app.color()">Color</a>
-                        <a class="btn btn-primary btn-disable-tool" onClick="app.disableTooltips()">No Tips</a>
-                        <a class="btn btn-primary btn-enable-tool" onClick="app.enableTooltips()">Tips</a>
+                        <a class="btn btn-primary btn-no-color wow zoomIn" onClick="app.noColor()">No Color</a>
+                        <a class="btn btn-primary btn-color wow zoomIn" onClick="app.color()">Color</a>
+                        <a class="btn btn-primary btn-disable-tool wow zoomIn" onClick="app.disableTooltips()">No Tips</a>
+                        <a class="btn btn-primary btn-enable-tool wow zoomIn" onClick="app.enableTooltips()">Tips</a>
                     </div>
                     <table class="table table-bordered table-responsive">
                         <thead>
@@ -171,12 +172,12 @@
                             <tr>
                                 <td>
                                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Enter a Job title/Conpany Name/Job Description.">
-                                        <input class="form-control" type="text" id="job-opt" placeholder="Enter Job" required>
+                                        <input class="form-control text-center" type="text" id="job-opt" placeholder="Enter Job" required>
                                     </a>
                                 </td>
                                 <td>
                                     <a title="" data-placement="right" data-toggle="tooltip" data-original-title="Enter a date for this Transaction.">
-                                        <input class="form-control" type="text" id="select-date" placeholder="Calender" required>
+                                        <input class="form-control text-center" type="text" id="select-date" placeholder="Calender" required>
                                     </a>
                                 </td>
                             </tr>
@@ -234,11 +235,11 @@
             </section>
         </div>
         <hr id="top-nav">
-        <div class="row last-trans-panel">
+        <div class="row last-trans-panel wow slideInUp">
             <section class="panels col-md-1" id="last-trans-section">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="last-trans-template">
-                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel shows you the last Transaction you saved to collections."><h3 id="last-tran-header">Last Transaction</h3></a>
+                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel shows you the last Transaction you saved to collections."><h3 id="last-tran-header" class="wow rotateIn">Last Transaction</h3></a>
                     <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
@@ -264,11 +265,11 @@
                 </script>
             </section>
         </div>
-        <div class="row earnings-panel">
+        <div class="row earnings-panel wow flipInX">
             <section class="panels col-md-1">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="earnings-template">
-                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel displays your earnings based on the total transactions stored in backbone-localstorage(In your browser eg. Chrome, Safari)."><h3 id="earnings-header">Earnings</h3></a>
+                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel displays your earnings based on the total transactions stored in backbone-localstorage(In your browser eg. Chrome, Safari)."><h3 id="earnings-header" class="wow rotateIn">Earnings</h3></a>
                     <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
@@ -306,11 +307,11 @@
                 </script>
             </section>
         </div>
-        <div class="row with-holdings-panel">
+        <div class="row with-holdings-panel wow flipInY">
             <section class="panels col-md-1">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="with-holdings-template">
-                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel contains deductions based on Canadadian Gov. online Service. Percentages were determined from there. A Link is provided on this page(Caculator)."><h3 id="deductions-header">Deductions</h3></a>
+                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel contains deductions based on Canadadian Gov. online Service. Percentages were determined from there. A Link is provided on this page(Caculator)."><h3 id="deductions-header" class="wow rotateIn">Deductions</h3></a>
                     <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
@@ -346,11 +347,11 @@
                 </script>
             </section>
         </div>
-        <div class="row net-pay-panel">
+        <div class="row net-pay-panel wow bounceIn">
             <section class="panels col-md-1">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="net-pay-template">
-                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Net Pay as well as all other calculations are performed on the total transactions retrieved from the storage and not on unsaved transactions. This confirms the data exists before the task begins and insures accuracy."><h3 id="net-pay-header">Net Pay</h3></a>
+                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Net Pay as well as all other calculations are performed on the total transactions retrieved from the storage and not on unsaved transactions. This confirms the data exists before the task begins and insures accuracy."><h3 id="net-pay-header" class="wow rotateIn">Net Pay</h3></a>
                     <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
@@ -370,11 +371,11 @@
                 </script>
             </section>
         </div>
-        <div class="row trans-panel">
+        <div class="row trans-panel wow rollIn">
             <section class="panels col-md-1" id="trans-section">
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="trans-template">
-                    <h5 id="total-models"></h5>
+                    <h5 id="total-models" class="wow rotateIn"></h5>
                     <br>
                     <a href="#pay-per-section">
                         <p id="error"></p>
@@ -401,8 +402,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-primary btn-del-last" onClick="app.delLastRecord()" href="#trans-section">Del last</a>
-                    <a class="btn btn-primary btn-del-first" onClick="app.delFirstRecord()" href="#trans-section">Del first</a>
+                    <a class="btn btn-primary btn-del-last wow zoomIn" onClick="app.delLastRecord()" href="#trans-section">Del last</a>
+                    <a class="btn btn-primary btn-del-first wow zoomIn" onClick="app.delFirstRecord()" href="#trans-section">Del first</a>
                     <a class="btn btn-primary btn-select-panel" href="#select-section">Select Panel</a>
                 </script>
             </section>
@@ -411,6 +412,7 @@
         <script src="js/lib/jquery-ui.min.js"></script>
         <script src="js/lib/tether.min.js"></script>
         <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/mdb.min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
         <script src="js/lib/backbone-localstorage.min.js"></script>

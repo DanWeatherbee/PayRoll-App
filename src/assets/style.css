@@ -5,16 +5,11 @@ body {
 
 a,
 label,
-.btn,
 .row {
     margin: 2% 2% 2% 2%;
     padding: 2% 2% 2% 2%;
     border-radius: 2% 2% 2% 2%;
     background: transparent;
-}
-
-.btn {
-    color: indianred;
 }
 
 .shake {
@@ -44,13 +39,17 @@ label,
     }
 }
 
-input {
-    color: lawngreen;
+.form-control {
+    color: indianred;
+}
+
+option {
+    color: blue;
 }
 
 #error {
     background-color: black;
-    color: magenta;
+    color: red;
     padding: 3%;
 }
 

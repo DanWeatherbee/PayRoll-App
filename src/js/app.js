@@ -106,37 +106,37 @@ Start.prototype.addOne = function () {
 
     // Make sure inputs are not empty.
     if (this.EMPLOYEE_FIELD == "") {
-        $('#select-emp').css('background-color', 'magenta');
+        $('#select-emp').css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter an employee. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.DATE_PERIOD_BEGIN == "") {
-        $('#from').css('background-color', 'magenta');
+        $('#from').css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter a start date. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.DATE_PERIOD_END == "") {
-        $('#to').css('background-color', 'magenta');
+        $('#to').css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter an end date. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
         console.log(this.JOB_FIELD);
     } else if (this.JOB_FIELD == "") {
-        $('#job-opt').css('background-color', 'magenta');
+        $('#job-opt').css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter a Job. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.JOB_DATE_FIELD == "") {
-        $('#select-date').css('background-color', 'magenta');
+        $('#select-date').css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter a Job Date. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else {
-        // Change borders to green for succes.
+        // Change borders to green for success.
         $('#select-emp').css('background-color', 'aquamarine');
         $('#from').css('background-color', 'aquamarine');
         $('#to').css('background-color', 'aquamarine');
@@ -259,7 +259,7 @@ Start.prototype.printPreView = function () {
     this.netTransPanelText = $('#p-7 option:selected').text();
     this.netColorText = $('#p-8 option:selected').text();
 
-    // Hide Elements not desired for printing.
+    // Hide Elements not desilightsalmon for printing.
     $('.btn-select-panel').fadeOut();
     $('#link-canada').fadeOut();
     this.hr.fadeOut();
@@ -424,3 +424,4 @@ Start.prototype.render = function () {
 };
 
 var app = new Start();
+var animate = new WOW().init();
