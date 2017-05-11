@@ -4,8 +4,8 @@ var Start = function () {
     this.startTime = Date.now();
     console.log(this.startTime);
     this.render();
-    this.endTime = (Date.now() - this.startTime) / 100;
-    this.dev.prepend("App performance: " + this.endTime + " Seconds | ");
+    this.endTime = (Date.now() - this.startTime) / 1000;
+    this.dev.prepend("Algorithm performance: " + this.endTime + " Seconds | ");
 };
 
 // Instantiate the APP
@@ -14,16 +14,16 @@ Start.prototype.init = function () {
     this.application = appModel; // Backbone Class Trans_Model
     this.container = $('.container');
     this.printContentBtn = $('.btn-print-content');
-    var devElem = $("#dev");
-    var wrapper = this.application.project + ' ' +
+    this.devElem = $("#dev");
+    this.wrapper = this.application.project + ' | ' +
         this.application.dev + ': ' +
-        this.application.name + ' Version: ' +
-        this.application.version + ' Framework: ' +
-        this.application.framework + ' Library: ' +
-        this.application.library + ' CSS: ' +
+        this.application.name + ' | Version: ' +
+        this.application.version + ' | Framework: ' +
+        this.application.framework + ' | Library: ' +
+        this.application.library + '  | CSS: ' +
         this.application.cssframework;
 
-    devElem.prepend(wrapper);
+    this.devElem.prepend(this.wrapper);
 
     // Instantiate views.
     var appV = new AppView(),
@@ -123,31 +123,31 @@ Start.prototype.addOne = function () {
     // Error System - make sure inputs are not empty.
     if (this.EMPLOYEE_FIELD == "") {
         this.selectEmp.css('background-color', 'lightsalmon');
-        this.errorMsg.html("Required! You did not enter an employee. Click/Tap here to fix");
+        this.errorMsg.html(this.required + " an employee. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.DATE_PERIOD_BEGIN == "") {
         this.from.css('background-color', 'lightsalmon');
-        this.errorMsg.html("Required! You did not enter a start date. Click/Tap here to fix");
+        this.errorMsg.html(this.required + " a start date." + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.DATE_PERIOD_END == "") {
         this.to.css('background-color', 'lightsalmon');
-        this.errorMsg.html("Required! You did not enter an end date. Click/Tap here to fix");
+        this.errorMsg.html(this.required + " an end date. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
         console.log(this.JOB_FIELD);
     } else if (this.JOB_FIELD == "") {
         this.jobOpt.css('background-color', 'lightsalmon');
-        this.errorMsg.html("Required! You did not enter a Job. Click/Tap here to fix");
+        this.errorMsg.html(this.required + " a Job. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.JOB_DATE_FIELD == "") {
         this.selectDate.css('background-color', 'lightsalmon');
-        this.errorMsg.html("Required! You did not enter a Job Date. Click/Tap here to fix");
+        this.errorMsg.html(this.required + " a Job Date. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
@@ -416,6 +416,8 @@ Start.prototype.render = function () {
     this.linkCanada = $('#link-canada');
     this.img = $('img');
     this.inputField = $('input');
+    this.required = "Required! You did not enter";
+    this.fix = "Click/Tap here to fix."
 };
 
 var app = new Start();
