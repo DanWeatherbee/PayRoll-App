@@ -104,7 +104,7 @@ Collection = Backbone.Collection.extend({
         payEnd = this.models[this.models[0].collection.length - 1].get('periodE');
 
         fedTaxPercent = this.models[prevRecord].get('fed');
-        $('#dev').html('Your Federal Tax Settings(Prov + Fed): ' + fedTaxPercent);
+        $('#dev').html('Settings(Prov + Fed): ' + fedTaxPercent);
 
 
         console.log($('#sel-emp').text());

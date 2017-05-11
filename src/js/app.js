@@ -1,8 +1,11 @@
 // Load Methods and Launch APP.
 var Start = function () {
     'use strict';
+    this.startTime = Date.now();
+    console.log(this.startTime);
     this.render();
-
+    this.endTime = (Date.now() - this.startTime) / 100;
+    this.dev.prepend("App performance: " + this.endTime + " Seconds | ");
 };
 
 // Instantiate the APP
@@ -33,7 +36,6 @@ Start.prototype.init = function () {
         payPerV = new PayPeriodView();
 
     this.printContentBtn.hide();
-
 
 };
 
@@ -101,90 +103,90 @@ Start.prototype.addOne = function () {
     this.JOB_FIELD = $('#job-opt').val();
     this.JOB_DATE_FIELD = $('#select-date').val();
     this.EMPLOYEE_FIELD = $('#select-emp').val();
+    this.QTY = Number($('#sel-qty option:selected').text());
+    this.RATE = Number($('#sel-rate option:selected').text());
+    this.CUR = this.QTY * this.RATE;
+    this.VAC = this.CUR * .04;
+    this.GROSS = this.CUR + this.VAC;
+    this.STAT = $('#sel-stat option:selected').text();
+    this.OT = $('#sel-ot option:selected').text();
+    this.JOB = $('#job-opt').val();
+    this.DATE = $('#select-date').val();
+    this.FED = $('#sel-fed-rate option:selected').val();
+    this.elTo = $('#to');
+    this.elFrom = $('#from');
+    this.elPayPerLabels = $('.pay-per-labels');
 
 
 
-    // Make sure inputs are not empty.
+
+    // Error System - make sure inputs are not empty.
     if (this.EMPLOYEE_FIELD == "") {
-        $('#select-emp').css('background-color', 'lightsalmon');
+        this.selectEmp.css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter an employee. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.DATE_PERIOD_BEGIN == "") {
-        $('#from').css('background-color', 'lightsalmon');
+        this.from.css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter a start date. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.DATE_PERIOD_END == "") {
-        $('#to').css('background-color', 'lightsalmon');
+        this.to.css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter an end date. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
         console.log(this.JOB_FIELD);
     } else if (this.JOB_FIELD == "") {
-        $('#job-opt').css('background-color', 'lightsalmon');
+        this.jobOpt.css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter a Job. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else if (this.JOB_DATE_FIELD == "") {
-        $('#select-date').css('background-color', 'lightsalmon');
+        this.selectDate.css('background-color', 'lightsalmon');
         this.errorMsg.html("Required! You did not enter a Job Date. Click/Tap here to fix");
         this.errorMsg.toggleClass('shake');
         return;
 
     } else {
         // Change borders to green for success.
-        $('#select-emp').css('background-color', 'aquamarine');
-        $('#from').css('background-color', 'aquamarine');
-        $('#to').css('background-color', 'aquamarine');
-        $('#job-opt').css('background-color', 'aquamarine');
-        $('#select-date').css('background-color', 'aquamarine');
+        this.selectEmp.css('background-color', 'aquamarine');
+        this.from.css('background-color', 'aquamarine');
+        this.to.css('background-color', 'aquamarine');
+        this.jobOpt.css('background-color', 'aquamarine');
+        this.selectDate.css('background-color', 'aquamarine');
     }
 
     $('#trans-section').html();
-    // Retrieve and assign values to Variables from Selection Panel.
-    var QTY = Number($('#sel-qty option:selected').text()),
-        RATE = Number($('#sel-rate option:selected').text()),
-        CUR = QTY * RATE,
-        VAC = CUR * .04,
-        GROSS = CUR + VAC,
-        STAT = $('#sel-stat option:selected').text(),
-        OT = $('#sel-ot option:selected').text(),
-        JOB = $('#job-opt').val(),
-        DATE = $('#select-date').val(),
-        FED = $('#sel-fed-rate option:selected').val(),
-        STAT_YES,
 
-        // Hide Pay Period elements once input is received.
-        elTo = $('#to'),
-        elFrom = $('#from'),
-        elPayPerLabels = $('.pay-per-labels');
+    var STAT_YES;
 
-    if (STAT == "No Stat") {
+    if (this.STAT == "No Stat") {
         STAT_YES = 0;
     } else {
         STAT_YES = 1;
     }
 
+    //Model
     var addtrans = {
         d: D,
         m: M,
         y: Y,
-        dte: DATE,
-        qty: QTY,
-        ot: OT,
-        rate: RATE,
-        cur: CUR,
-        vac: VAC,
-        gross: GROSS,
-        stat: STAT,
+        dte: this.DATE,
+        qty: this.QTY,
+        ot: this.OT,
+        rate: this.RATE,
+        cur: this.CUR,
+        vac: this.VAC,
+        gross: this.GROSS,
+        stat: this.STAT,
         periodB: this.DATE_PERIOD_BEGIN,
         periodE: this.DATE_PERIOD_END,
-        job: JOB,
-        fed: FED,
+        job: this.JOB,
+        fed: this.FED,
         statYes: STAT_YES
     };
 
@@ -207,13 +209,8 @@ Start.prototype.delLastRecord = function () {
 
         //Because of the zero based index I used this.records.length - 1 to remove last entry.
         this.records.remove(this.records.models[this.records.length - 1].destroy());
-
-        console.log("Delete last Trans was used.")
-        console.log(this.records.length);
         this.records.getData();
-
         this.totalModels.html("Total Transactions in collection: " + this.records.length);
-
     };
 };
 
@@ -225,11 +222,7 @@ Start.prototype.delFirstRecord = function () {
     } else {
 
         this.records.remove(this.records.models[0].destroy());
-
-        console.log("Delete Prev Trans was used.")
-        console.log(this.records.length);
         this.records.getData();
-
         this.totalModels.html("Total Transactions in collection: " + this.records.length);
     };
 };
@@ -240,7 +233,6 @@ Start.prototype.savePDF = function () {
     var printV = new PrintView();
     this.printSelectedBtn.css("color", "black");
     this.printSelectedBtn.fadeIn();
-
     this.printBtn.fadeOut();
     this.addBtn.fadeOut();
     this.delLastBtn.fadeOut();
@@ -259,17 +251,16 @@ Start.prototype.printPreView = function () {
     this.netTransPanelText = $('#p-7 option:selected').text();
     this.netColorText = $('#p-8 option:selected').text();
 
-    // Hide Elements not desilightsalmon for printing.
-    $('.btn-select-panel').fadeOut();
-    $('#link-canada').fadeOut();
+    // Hide Elements not desired for printing.
+    this.selectPanelBtn.fadeOut();
+    this.linkCanada.fadeOut();
     this.hr.fadeOut();
-    $('img').fadeOut();
-    $('#dev').fadeOut();
+    this.img.fadeOut();
+    this.dev.fadeOut();
 
-    console.log(this.netTransPanelText);
-
+    // Neutralize css for printing.
     this.body.css("padding", "0");
-    $('input').css("background-color", "ghostwhite");
+    this.inputField.css("background-color", "ghostwhite");
     this.transPanel.css("padding", "0");
 
     if (this.payPeriodPanelText == "Show") {
@@ -315,17 +306,14 @@ Start.prototype.printPreView = function () {
     };
 
     if (this.netColorText == "No") {
-
         this.noColor();
         this.container.css("width", "100%");
         this.container.css("height", "100%");
-
         this.printHeader.html("This Panel will be hidden when you print.");
     } else {
         this.body.css("background-color", "lightgrey");
         this.container.css("background-color", "cornsilk");
         this.container.css("color", "black");
-
     };
 };
 
@@ -334,7 +322,6 @@ Start.prototype.noColor = function () {
 
     this.container.css("background-color", "ghostwhite");
     this.container.css("color", "black");
-
     this.nav.css("color", "black");
     this.th.css("color", "black");
     this.body.css("background-image", "none");
@@ -344,9 +331,7 @@ Start.prototype.noColor = function () {
 Start.prototype.color = function () {
     'use strict';
 
-
     this.container.css("color", "blue");
-
     this.nav.css("color", "black");
     this.th.css("color", "black");
     this.container.css("background-color", "cornsilk");
@@ -358,16 +343,15 @@ Start.prototype.color = function () {
 Start.prototype.hidePrintPanel = function () {
     'use strict';
 
-    $('.print-panel-row').fadeOut();
+    this.printPanelRow.fadeOut();
     this.printContentBtn.fadeIn();
 };
 
 Start.prototype.print = function () {
     'use strict';
     this.printContentBtn.hide();
-    $('#dev').hide();
+    this.dev.hide();
     window.print();
-
     location.reload();
 };
 
@@ -399,6 +383,7 @@ Start.prototype.render = function () {
     this.printSelectedBtn = $('.btn-print-selected');
     this.hidePrintPanelBtn = $('.btn-hide-print-panel');
     this.nav = $('a');
+    this.selectPanelBtn = $('.btn-select-panel');
 
     // Panels
     this.payPeriodPanel = $('.pay-period-panel');
@@ -408,6 +393,7 @@ Start.prototype.render = function () {
     this.withHoldingsPanel = $('.with-holdings-panel');
     this.netPayPanel = $('.net-pay-panel');
     this.transPanel = $('.trans-panel');
+    this.printPanelRow = $('.print-panel-row');
 
     // Dom Elements
     this.hr = $('hr');
@@ -417,10 +403,19 @@ Start.prototype.render = function () {
     this.printHeader = $('#print-header');
     this.totalModels = $('#total-models');
     this.errorMsg = $('#error');
+    this.dev = $('#dev');
 
-
+    this.selectEmp = $('#select-emp');
+    this.from = $('#from');
+    this.to = $('#to');
+    this.jobOpt = $('#job-opt');
+    this.selectDate = $('#select-date');
     this.totalModels.html("Total Transactions in collection: " +
         this.records.length);
+    this.nav.tooltip("enable");
+    this.linkCanada = $('#link-canada');
+    this.img = $('img');
+    this.inputField = $('input');
 };
 
 var app = new Start();
