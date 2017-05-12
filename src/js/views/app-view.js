@@ -20,27 +20,8 @@ AppView = Backbone.View.extend({
         }
 
         // Federal percent options.
-        for (var i = 0; i < 10; i++) {
-            elSelFedRate.append(
-                o + 0.01 + i + e,
-                o + 0.02 + i + e,
-                o + 0.03 + i + e,
-                o + 0.04 + i + e,
-                o + 0.05 + i + e,
-                o + 0.06 + i + e,
-                o + 0.07 + i + e,
-                o + 0.08 + i + e,
-                o + 0.09 + i + e,
-                o + 0.9 + i + e,
-                o + 0.8 + i + e,
-                o + 0.7 + i + e,
-                o + 0.6 + i + e,
-                o + 0.5 + i + e,
-                o + 0.4 + i + e,
-                o + 0.3 + i + e,
-                o + 0.2 + i + e,
-                o + 0.1 + i + e
-            );
+        for (var i = 0; i < 30; i++) {
+            elSelFedRate.append(o + i + e);
         }
     },
 

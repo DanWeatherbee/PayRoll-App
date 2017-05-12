@@ -2,7 +2,6 @@
 var Start = function () {
     'use strict';
     this.startTime = Date.now();
-    console.log(this.startTime);
     this.render();
     this.endTime = (Date.now() - this.startTime) / 1000;
     this.dev.prepend("Algorithm performance: " + this.endTime + " Seconds | ");
@@ -138,7 +137,6 @@ Start.prototype.addOne = function () {
         this.errorMsg.html(this.required + " an end date. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
-        console.log(this.JOB_FIELD);
     } else if (this.JOB_FIELD == "") {
         this.jobOpt.css('background-color', 'lightsalmon');
         this.errorMsg.html(this.required + " a Job. " + this.fix);
@@ -193,10 +191,7 @@ Start.prototype.addOne = function () {
     //Save the object as new model an add to collections
     this.save(addtrans);
     this.records.getData();
-
-
     this.errorMsg.fadeOut();
-
 };
 
 Start.prototype.delLastRecord = function () {
@@ -206,7 +201,6 @@ Start.prototype.delLastRecord = function () {
         location.reload();
 
     } else {
-
         //Because of the zero based index I used this.records.length - 1 to remove last entry.
         this.records.remove(this.records.models[this.records.length - 1].destroy());
         this.records.getData();
@@ -220,7 +214,6 @@ Start.prototype.delFirstRecord = function () {
         return alert("There are no Transactions.");
 
     } else {
-
         this.records.remove(this.records.models[0].destroy());
         this.records.getData();
         this.totalModels.html("Total Transactions in collection: " + this.records.length);
@@ -263,6 +256,7 @@ Start.prototype.printPreView = function () {
     this.inputField.css("background-color", "ghostwhite");
     this.transPanel.css("padding", "0");
 
+    // Option Selectors Show Hide Panels for printing.
     if (this.payPeriodPanelText == "Show") {
         this.payPeriodPanel.fadeIn();
     } else {
