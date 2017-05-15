@@ -21,7 +21,7 @@ AppView = Backbone.View.extend({
 
         // Federal percent options.
         for (var i = 0; i < 30; i++) {
-            elSelFedRate.append(o + i + e);
+            elSelFedRate.append(o + i + e, o + (i + .5) + e);
         }
     },
 

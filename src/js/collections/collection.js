@@ -31,9 +31,9 @@ Collection = Backbone.Collection.extend({
             fedTaxPercent,
             totalTax,
             cpp,
-            cppSetting = 0.0495,
+            cppSetting,
             ui,
-            uiSetting = 0.0163,
+            uiSetting,
             totalUIplusCPP,
             totalAllDeductions,
             netPay;
@@ -111,12 +111,6 @@ Collection = Backbone.Collection.extend({
         payEnd = this.models[this.models[0].collection.length - 1].get('periodE');
 
         fedTaxPercent = this.models[prevRecord].get('fed');
-        $('#dev').html('Settings(Prov + Fed): ' +
-            fedTaxPercent + '%' +
-            ' | CPP: ' +
-            (cppSetting * 100) + '%' +
-            ' | UI: ' +
-            (uiSetting * 100) + '%');
 
         // Append and update elements from collection.
         self.elPayPerHeader.html(" Date: " + dateNow);
@@ -152,11 +146,21 @@ Collection = Backbone.Collection.extend({
 
         // 2017 Canadian(BC) Tax Calculations.
         if (pay > 0) {
-            console.log((this.models[prevRecord].get('fed') / 100));
-            fedTax = pay * (this.models[prevRecord].get('fed') / 100);
+
+            // .1285 on the first 521 dolars .0001 for every 8 dolars after in the tax table.
+            var fedTax = (pay - 521) / 8;
+            fedTax = fedTax * .0001;
+            fedTax = fedTax + .1285;
+
+            fedTax = pay * fedTax;
             totalTax = fedTax;
-            cpp = pay * cppSetting;
-            ui = pay * uiSetting;
+
+            // For every 20 cents the Gov. adds .01 in the tax table.
+            cppSetting = (pay / 0.20) * 0.01;
+            // For every 60 cents the Gov. adds .01 in the tax table.
+            uiSetting = (pay / 0.60) * 0.01;
+            cpp = cppSetting;
+            ui = uiSetting;
             totalUIplusCPP = cpp + ui;
             totalAllDeductions = totalTax + totalUIplusCPP;
             netPay = pay - totalAllDeductions;

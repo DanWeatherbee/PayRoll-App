@@ -111,7 +111,6 @@ Start.prototype.addOne = function () {
     this.OT = $('#sel-ot option:selected').text();
     this.JOB = $('#job-opt').val();
     this.DATE = $('#select-date').val();
-    this.FED = $('#sel-fed-rate option:selected').val();
     this.elTo = $('#to');
     this.elFrom = $('#from');
     this.elPayPerLabels = $('.pay-per-labels');
@@ -184,7 +183,6 @@ Start.prototype.addOne = function () {
         periodB: this.DATE_PERIOD_BEGIN,
         periodE: this.DATE_PERIOD_END,
         job: this.JOB,
-        fed: this.FED,
         statYes: STAT_YES
     };
 
