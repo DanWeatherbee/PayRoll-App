@@ -125,23 +125,23 @@
             <section class="panels col-md-1" id="pay-per-section">
                 <h3 id="employee-h" class="wow rotateIn"></h3>
                 <script type="text/template" id="pay-per-template">
-                    <label class="pay-per-labels" for="employee">Employee</label>
+                    <a data-placement="top" data-toggle="tooltip" data-original-title="This field is used for printing later, please add Employee or Company Name.">
+                        <label class="pay-per-labels" for="employee">Employee</label>
+                    </a>
                     <!--
                          NOTE: The required attribute of the input tag is not supported
                           in Internet Explorer 9 and earlier versions, or in Safari
                           -->
-                    <a data-placement="top" data-toggle="tooltip" data-original-title="This field is used for printing later, please add Employee or Company Name.">
-                        <input class="form-control text-center" type="text" id="select-emp" name="employee" placeholder="Enter" required>
-                    </a>
+                    <input class="form-control text-center" type="text" id="select-emp" name="employee" placeholder="Enter" required>
                     <div class="col-md-4">
-                        <label class="pay-per-labels" for="from">From</label>
-                        <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender.">
-                            <input class="form-control text-center" type="text" id="from" name="from" placeholder="Calender" required>
+                        <a data-placement="bottom" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender.">
+                            <label class="pay-per-labels" for="from">From</label>
                         </a>
-                        <label class="pay-per-labels" for="to">to</label>
-                        <a data-placement="right" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender.">
-                            <input class="form-control text-center" type="text" id="to" name="to" placeholder="Calender" required>
+                        <input class="form-control text-center" type="text" id="from" name="from" placeholder="Calender" required>
+                        <a data-placement="bottom" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender.">
+                            <label class="pay-per-labels" for="to">to</label>
                         </a>
+                        <input class="form-control text-center" type="text" id="to" name="to" placeholder="Calender" required>
                     </div>
                 </script>
             </section>
@@ -172,7 +172,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a title="" data-placement="right" data-toggle="tooltip" data-original-title="Enter a date for this Transaction.">
+                                    <a title="" data-placement="left" data-toggle="tooltip" data-original-title="Enter a date for this Transaction.">
                                         <input class="form-control text-center" type="text" id="select-date" placeholder="Calender" required>
                                     </a>
                                 </td>
