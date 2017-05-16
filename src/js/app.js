@@ -35,7 +35,6 @@ Start.prototype.init = function () {
         payPerV = new PayPeriodView();
 
     this.printContentBtn.hide();
-
 };
 
 Start.prototype.records = function () {
@@ -186,10 +185,18 @@ Start.prototype.addOne = function () {
         statYes: STAT_YES
     };
 
-    //Save the object as new model an add to collections
+    // Save the object as new model an add to collections
     this.save(addtrans);
     this.records.getData();
     this.errorMsg.fadeOut();
+
+    // Fade in Panels with data.
+    this.lastTransPanel.fadeIn();
+    this.earningsPanel.fadeIn();
+    this.withHoldingsPanel.fadeIn();
+    this.netPayPanel.fadeIn();
+    this.transPanel.fadeIn();
+
 };
 
 Start.prototype.delLastRecord = function () {
@@ -363,9 +370,6 @@ Start.prototype.render = function () {
     this.init();
     this.records();
     this.calender();
-    if (this.records.length > 0) {
-        this.records.getData();
-    };
 
     // Buttons
     this.printBtn = $('.btn-print');
@@ -409,7 +413,18 @@ Start.prototype.render = function () {
     this.img = $('img');
     this.inputField = $('input');
     this.required = "Required! You did not enter";
-    this.fix = "Click/Tap here to fix."
+    this.fix = "Click/Tap here to fix.";
+
+    if (this.records.length > 0) {
+        this.records.getData();
+    } else {
+        this.lastTransPanel.fadeOut();
+        this.earningsPanel.fadeOut();
+        this.withHoldingsPanel.fadeOut();
+        this.netPayPanel.fadeOut();
+        this.transPanel.fadeOut();
+    }
+
 };
 
 var app = new Start();
