@@ -155,8 +155,8 @@ Collection = Backbone.Collection.extend({
             fedTax = pay * fedTax;
             totalTax = fedTax;
 
-            // For every 20 cents the Gov. adds .01 in the tax table.
-            cppSetting = (pay / 0.20) * 0.01;
+            // For every 20 cents the Gov. adds .01 in the tax table after the first 134.61.
+            cppSetting = (pay - 134.61)/ 0.20 * 0.01;
             // For every 60 cents the Gov. adds .01 in the tax table.
             uiSetting = (pay / 0.60) * 0.01;
             cpp = cppSetting;

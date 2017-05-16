@@ -38,7 +38,7 @@
                         <img src="assets/images/print-prev.png" class="img-responsive wow zoomIn">
                         <a class="btn btn-primary btn-hide-print-panel wow zoomIn" onClick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="When you are satisfied with your view, click this button to go to the next step.">Done</a>
                         <hr>
-                        <table class="table table-bordered table-responsive wow bounceInUp">
+                        <table class="table table-striped table-responsive table-condensed wow bounceInUp">
                             <thead>
                                 <tr>
                                     <th>Period</th>
@@ -69,7 +69,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-responsive wow lightSpeedIn">
+                        <table class="table table-striped table-responsive table-condensed wow lightSpeedIn">
                             <thead>
                                 <tr>
                                     <th>Earnings</th>
@@ -151,17 +151,13 @@
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="app-template">
                     <h3 id="select-panel-header" class="wow rotateIn">Select Panel</h3>
-                    <div class="col-md-9">
-                        <a class="btn btn-primary btn-add wow zoomIn" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
-                        <a class="btn btn-primary btn-print wow zoomIn" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8 text-right">
                         <a class="btn btn-primary btn-no-color wow zoomIn" onClick="app.noColor()">No Color</a>
                         <a class="btn btn-primary btn-color wow zoomIn" onClick="app.color()">Color</a>
                         <a class="btn btn-primary btn-disable-tool wow zoomIn" onClick="app.disableTooltips()">No Tips</a>
                         <a class="btn btn-primary btn-enable-tool wow zoomIn" onClick="app.enableTooltips()">Tips</a>
                     </div>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-condensed">
                         <thead>
                             <tr>
                                 <th>Job</th>
@@ -183,7 +179,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-responsive table-condensed">
                         <thead>
                             <tr>
                                 <th>Qty</th>
@@ -226,6 +222,8 @@
                             </tr>
                         </tbody>
                     </table>
+                    <a class="btn btn-primary btn-add wow zoomIn" onClick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a>
+                    <a class="btn btn-primary btn-print wow zoomIn" onClick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
                 </script>
             </section>
         </div>
@@ -235,7 +233,7 @@
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="last-trans-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel shows you the last Transaction you saved to collections."><h3 id="last-tran-header" class="wow rotateIn">Last Transaction</h3></a>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-responsive table-condensed">
                         <thead>
                             <tr>
                                 <th>Job</th>
@@ -265,7 +263,7 @@
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="earnings-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel displays your earnings based on the total transactions stored in backbone-localstorage(In your browser eg. Chrome, Safari)."><h3 id="earnings-header" class="wow rotateIn">Earnings</h3></a>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-responsive table-condensed">
                         <thead>
                             <tr>
                                 <th>Earnings</th>
@@ -307,7 +305,7 @@
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="with-holdings-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel contains deductions based on Canadadian Gov. online Service. Percentages were determined from there. A Link is provided on this page(Caculator)."><h3 id="deductions-header" class="wow rotateIn">Deductions</h3></a>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-responsive table-condensed">
                         <thead>
                             <tr>
                                 <th>Deductions</th>
@@ -347,7 +345,7 @@
                 <!-- Backbone Template===========================> -->
                 <script type="text/template" id="net-pay-template">
                     <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Net Pay as well as all other calculations are performed on the total transactions retrieved from the storage and not on unsaved transactions. This confirms the data exists before the task begins and insures accuracy."><h3 id="net-pay-header" class="wow rotateIn">Net Pay</h3></a>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-responsive table-condensed">
                         <thead>
                             <tr>
                                 <th>Net</th>
@@ -375,7 +373,7 @@
                     <a href="#pay-per-section">
                         <p id="error"></p>
                     </a>
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-striped table-responsive table-condensed">
                         <thead id="trans-table-head">
                             <tr>
                                 <th>Job</th>
