@@ -151,12 +151,27 @@ Collection = Backbone.Collection.extend({
 
 
 
-            if (pay < 737) {
+            if (pay < 637) {
                 // Fed Tax Table Formula.
                 A = pay - 521;
                 A = A.toFixed(0);
 
                 B = A / 4.2;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+            if (pay < 737) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 4.1;
                 B = B.toFixed(0);
 
                 C = B * .55;
@@ -182,12 +197,28 @@ Collection = Backbone.Collection.extend({
                 R = (Number(C) + 67.50);
             }
 
+            if (pay > 937) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 4;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+
             if (pay > 2040) {
                 // Fed Tax Table Formula.
                 A = pay - 521;
                 A = A.toFixed(0);
 
-                B = A / 3.9;
+                B = A / 3.45;
                 B = B.toFixed(0);
 
                 C = B * .55;
@@ -197,13 +228,12 @@ Collection = Backbone.Collection.extend({
                 R = (Number(C) + 67.50);
             }
 
-
-            if (pay > 3353) {
+            if (pay > 2940) {
                 // Fed Tax Table Formula.
                 A = pay - 521;
                 A = A.toFixed(0);
 
-                B = A / 3.2;
+                B = A / 3.15;
                 B = B.toFixed(0);
 
                 C = B * .55;
@@ -213,6 +243,36 @@ Collection = Backbone.Collection.extend({
                 R = (Number(C) + 67.50);
             }
 
+
+            if (pay > 3800) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 3;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+            if (pay > 4800) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 2.71;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
 
             fedTax = R;
 
