@@ -145,18 +145,82 @@ Collection = Backbone.Collection.extend({
         pay = totalCur + totalVac;
 
         // 2017 Canadian(BC) Tax Calculations.
-        if (pay > 0) {
+        if (pay > 525) {
 
-            // .1285 on the first 521 dolars .0001 for every 8 dolars after in the tax table.
-            var fedTax = (pay - 521) / 8;
-            fedTax = fedTax * .0001;
-            fedTax = fedTax + .1285;
+            var A, B, C, R;
 
-            fedTax = pay * fedTax;
+
+
+            if (pay < 737) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 4.2;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+
+            if (pay > 737) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 4.1;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+            if (pay > 2040) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 3.9;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+
+            if (pay > 3353) {
+                // Fed Tax Table Formula.
+                A = pay - 521;
+                A = A.toFixed(0);
+
+                B = A / 3.2;
+                B = B.toFixed(0);
+
+                C = B * .55;
+                C = C.toFixed(2);
+
+
+                R = (Number(C) + 67.50);
+            }
+
+
+            fedTax = R;
+
+
             totalTax = fedTax;
 
             // For every 20 cents the Gov. adds .01 in the tax table after the first 134.61.
-            cppSetting = (pay - 134.61)/ 0.20 * 0.01;
+            cppSetting = (pay - 134.61) / 0.20 * 0.01;
             // For every 60 cents the Gov. adds .01 in the tax table.
             uiSetting = (pay / 0.60) * 0.01;
             cpp = cppSetting;
