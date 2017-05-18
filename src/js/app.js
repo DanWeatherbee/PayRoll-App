@@ -1,4 +1,3 @@
-
 // Load Methods and Launch APP.
 var Start = function () {
     'use strict';
@@ -25,7 +24,7 @@ Start.prototype.init = function () {
 
     this.devElem.prepend(this.wrapper);
 
-            // Instantiate views.
+    // Instantiate views.
     var appV = new AppView(),
         transactionsList = new Collection(),
         transV = new LastTransView(),
@@ -157,6 +156,9 @@ Start.prototype.addOne = function () {
         this.selectDate.css('background-color', 'aquamarine');
     }
 
+    this.delFirstBtn.fadeIn();
+    this.delLastBtn.fadeIn();
+
     $('#trans-section').html();
 
     var STAT_YES;
@@ -203,27 +205,36 @@ Start.prototype.addOne = function () {
 Start.prototype.delLastRecord = function () {
     'use strict';
     if (this.records.length === 0) {
-        alert("All records are deleted.");
-        location.reload();
+        this.delFirstBtn.fadeOut();
+        this.delLastBtn.fadeOut();
+
+        return;
 
     } else {
         //Because of the zero based index I used this.records.length - 1 to remove last entry.
         this.records.remove(this.records.models[this.records.length - 1].destroy());
-        this.records.getData();
-        this.totalModels.html("Total Transactions in collection: " + this.records.length);
     }
+
+    this.records.getData();
+    this.totalModels.html("Total Transactions in collection: " + this.records.length);
 };
 
 Start.prototype.delFirstRecord = function () {
     'use strict';
-    if (this.records.length < 0) {
-        return alert("There are no Transactions.");
+    if (this.records.length === 0) {
+
+        this.delFirstBtn.fadeOut();
+        this.delLastBtn.fadeOut();
+
+        return;
 
     } else {
         this.records.remove(this.records.models[0].destroy());
-        this.records.getData();
-        this.totalModels.html("Total Transactions in collection: " + this.records.length);
+
     }
+    this.records.getData();
+    this.totalModels.html("Total Transactions in collection: " + this.records.length);
+
 };
 
 Start.prototype.savePDF = function () {
