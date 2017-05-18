@@ -1,3 +1,4 @@
+
 // Load Methods and Launch APP.
 var Start = function () {
     'use strict';
@@ -24,7 +25,7 @@ Start.prototype.init = function () {
 
     this.devElem.prepend(this.wrapper);
 
-    // Instantiate views.
+            // Instantiate views.
     var appV = new AppView(),
         transactionsList = new Collection(),
         transV = new LastTransView(),
@@ -104,7 +105,7 @@ Start.prototype.addOne = function () {
     this.QTY = Number($('#sel-qty option:selected').text());
     this.RATE = Number($('#sel-rate option:selected').text());
     this.CUR = this.QTY * this.RATE;
-    this.VAC = this.CUR * .04;
+    this.VAC = this.CUR * 0.04;
     this.GROSS = this.CUR + this.VAC;
     this.STAT = $('#sel-stat option:selected').text();
     this.OT = $('#sel-ot option:selected').text();
@@ -118,30 +119,30 @@ Start.prototype.addOne = function () {
 
 
     // Error System - make sure inputs are not empty.
-    if (this.EMPLOYEE_FIELD == "") {
+    if (this.EMPLOYEE_FIELD === "") {
         this.selectEmp.css('background-color', 'lightsalmon');
         this.errorMsg.html(this.required + " an employee. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
-    } else if (this.DATE_PERIOD_BEGIN == "") {
+    } else if (this.DATE_PERIOD_BEGIN === "") {
         this.from.css('background-color', 'lightsalmon');
         this.errorMsg.html(this.required + " a start date." + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
-    } else if (this.DATE_PERIOD_END == "") {
+    } else if (this.DATE_PERIOD_END === "") {
         this.to.css('background-color', 'lightsalmon');
         this.errorMsg.html(this.required + " an end date. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
-    } else if (this.JOB_FIELD == "") {
+    } else if (this.JOB_FIELD === "") {
         this.jobOpt.css('background-color', 'lightsalmon');
         this.errorMsg.html(this.required + " a Job. " + this.fix);
         this.errorMsg.toggleClass('shake');
         return;
 
-    } else if (this.JOB_DATE_FIELD == "") {
+    } else if (this.JOB_DATE_FIELD === "") {
         this.selectDate.css('background-color', 'lightsalmon');
         this.errorMsg.html(this.required + " a Job Date. " + this.fix);
         this.errorMsg.toggleClass('shake');
@@ -201,7 +202,7 @@ Start.prototype.addOne = function () {
 
 Start.prototype.delLastRecord = function () {
     'use strict';
-    if (this.records.length == 0) {
+    if (this.records.length === 0) {
         alert("All records are deleted.");
         location.reload();
 
@@ -210,7 +211,7 @@ Start.prototype.delLastRecord = function () {
         this.records.remove(this.records.models[this.records.length - 1].destroy());
         this.records.getData();
         this.totalModels.html("Total Transactions in collection: " + this.records.length);
-    };
+    }
 };
 
 Start.prototype.delFirstRecord = function () {
@@ -222,7 +223,7 @@ Start.prototype.delFirstRecord = function () {
         this.records.remove(this.records.models[0].destroy());
         this.records.getData();
         this.totalModels.html("Total Transactions in collection: " + this.records.length);
-    };
+    }
 };
 
 Start.prototype.savePDF = function () {
@@ -265,44 +266,44 @@ Start.prototype.printPreView = function () {
     if (this.payPeriodPanelText == "Show") {
         this.payPeriodPanel.fadeIn();
     } else {
-        this.payPeriodPanel.fadeOut()
-    };
+        this.payPeriodPanel.fadeOut();
+    }
 
     if (this.selectPanelText == "Show") {
         this.selectPanel.fadeIn();
     } else {
         this.selectPanel.fadeOut();
-    };
+    }
 
     if (this.lastTransPanelText == "Show") {
         this.lastTransPanel.fadeIn();
     } else {
         this.lastTransPanel.fadeOut();
-    };
+    }
 
     if (this.earningsPanelText == "Show") {
         this.earningsPanel.fadeIn();
     } else {
         this.earningsPanel.fadeOut();
-    };
+    }
 
     if (this.withHoldingsPanelText == "Show") {
         this.withHoldingsPanel.fadeIn();
     } else {
         this.withHoldingsPanel.fadeOut();
-    };
+    }
 
     if (this.netPayPanelText == "Show") {
         this.netPayPanel.fadeIn();
     } else {
         this.netPayPanel.fadeOut();
-    };
+    }
 
     if (this.netTransPanelText == "Show") {
         this.transPanel.fadeIn();
     } else {
         this.transPanel.fadeOut();
-    };
+    }
 
     if (this.netColorText == "No") {
         this.noColor();
@@ -313,7 +314,7 @@ Start.prototype.printPreView = function () {
         this.body.css("background-color", "lightgrey");
         this.container.css("background-color", "cornsilk");
         this.container.css("color", "black");
-    };
+    }
 };
 
 Start.prototype.noColor = function () {

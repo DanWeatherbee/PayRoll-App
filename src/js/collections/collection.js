@@ -7,10 +7,6 @@ Collection = Backbone.Collection.extend({
     getData: function () {
         // Retreive data from collections method.
 
-        /*
-         TODO append selectors in slect panel from collections,
-         so user can come back and they dont have to enter everything again.
-         */
         var self = this,
             prevRecord = this.models.length - 1;
 
@@ -27,8 +23,8 @@ Collection = Backbone.Collection.extend({
             // Tax Variables.
 
             pay,
+            provTax,
             fedTax,
-            fedTaxPercent,
             totalTax,
             cpp,
             cppSetting,
@@ -36,7 +32,17 @@ Collection = Backbone.Collection.extend({
             uiSetting,
             totalUIplusCPP,
             totalAllDeductions,
-            netPay;
+            netPay,
+            // Year estimates
+            yearCpp,
+            yearUi,
+            yearNetPay,
+            yearFedTax,
+            yearTotDeductions,
+            yearTotEarnings,
+            yearTotCur,
+            yearToVac,
+            biWeekly26 = 26;
 
         // Last Transaction Elements.
         self.elDteLast = $('#dte-l');
@@ -93,7 +99,7 @@ Collection = Backbone.Collection.extend({
         _.each(this.models, function (item) {
             // Iterate and add values.
             totalQty = totalQty + item.get('qty');
-            totalYtd = totalYtd + item.get('cur');
+            totalYtd = (totalYtd + item.get('cur') * 26);
             totalVac = totalVac + item.get('vac');
             totalCur = totalCur + item.get('cur');
 
@@ -105,12 +111,13 @@ Collection = Backbone.Collection.extend({
             self.elOt.append(item.get('ot') + '<br>');
             self.elStat.append(item.get('stat') + '<br>');
         });
-
+        yearToVac = totalVac * biWeekly26;
+        yearTotEarnings = (totalCur + totalVac) * biWeekly26;
+        yearTotCur = totalCur * biWeekly26;
         payStart = this.models[this.models[0].collection.length - 1].get('periodB');
 
         payEnd = this.models[this.models[0].collection.length - 1].get('periodE');
 
-        fedTaxPercent = this.models[prevRecord].get('fed');
 
         // Append and update elements from collection.
         self.elPayPerHeader.html(" Date: " + dateNow);
@@ -128,10 +135,10 @@ Collection = Backbone.Collection.extend({
         self.elRateHrStub.html(this.models[prevRecord].get('rate'));
         self.elCurHrStub.html(totalCur);
         self.elCurVacStub.html(totalVac.toFixed(2));
-        self.elYtdHrStub.html(totalYtd);
-        self.elYtdVacStub.html(totalVac.toFixed(2));
+        self.elYtdHrStub.html(yearTotCur.toFixed(2));
+        self.elYtdVacStub.html(yearToVac.toFixed(2));
         self.elCurVacPStub.html(totalCur + totalVac);
-        self.elYtdVacPStub.html(totalCur + totalVac);
+        self.elYtdVacPStub.html(yearTotEarnings.toFixed(2));
 
         // Populate Last Transaction Elements.
         self.elDteLast.html(this.models[prevRecord].get('dte'));
@@ -144,165 +151,111 @@ Collection = Backbone.Collection.extend({
         // Caulate total earnings.
         pay = totalCur + totalVac;
 
+
+        /*
+               Fed and Pro formula.
+
+        Determine the net taxable income for the pay period (pay minus allowable deductions) and
+         multiply it by the number of pay periods in the year to get an estimated
+          annual taxable income amount. This annual taxable income amount is factor A.
+
+                ----------Factor A-----------
+        */
+        var A = pay * 26;
+        /*
+                This annual taxable income amount is factor A.
+
+
+        Calculate the basic federal tax on the estimated annual taxable income,
+         after allowable federal personal tax credits. The basic federal tax is factor T3.
+
+
+        http://www.cra-arc.gc.ca/tx/ndvdls/tpcs/ncm-tx/rtrn/cmpltng/ddctns/lns300-350/300-eng.html
+
+                ----------Factor T3-----------
+        */
+        var taxCredits = 11474.00;
+        var T3 = A - taxCredits;
+
+        /*
+
+        Calculate the annual federal tax payable. This is factor T1.
+
+                ----------Factor T1-----------
+
+                15% on the first $45,916 of taxable income.
+        */
+        var T1 = T3 * 0.150;
+
+
+        /*
+        Calculate the basic provincial or territorial tax on the estimated annual taxable income,
+         after allowable provincial or territorial personal tax credits.
+          The annual basic provincial or territorial tax is factor T4.
+
+
+                ----------Factor T4-----------
+            5.06% on the first $38,898 of taxable income
+
+        */
+        var T4 = T3 * 0.0506;
+
+
+        /*
+
+        Calculate the annual provincial or territorial tax deduction.
+         This is factor T2.
+
+                ----------Factor T2-----------
+        */
+        var T2 = T3 * 0.018;
+
+
+
+        /*
+        To get the estimated federal and provincial or territorial tax deductions for a pay period,
+         add the federal and provincial or territorial tax, and divide the result by the number of pay periods.
+          This is factor T.
+
+                ----------Factor T-----------
+        */
+        var T = (T1 + T2) / 26;
+
         // 2017 Canadian(BC) Tax Calculations.
         if (pay > 525) {
 
-            var A, B, C, R;
+            totalTax = T;
 
-
-
-            if (pay < 637) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 4.2;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-            if (pay < 737) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 4.1;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-
-            if (pay > 737) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 4.1;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-            if (pay > 937) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 4;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-
-            if (pay > 2040) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 3.45;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-            if (pay > 2940) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 3.15;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-
-            if (pay > 3800) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 3;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-            if (pay > 4800) {
-                // Fed Tax Table Formula.
-                A = pay - 521;
-                A = A.toFixed(0);
-
-                B = A / 2.71;
-                B = B.toFixed(0);
-
-                C = B * .55;
-                C = C.toFixed(2);
-
-
-                R = (Number(C) + 67.50);
-            }
-
-            fedTax = R;
-
-
-            totalTax = fedTax;
+            fedTax = T;
+            yearFedTax = fedTax * biWeekly26;
 
             // For every 20 cents the Gov. adds .01 in the tax table after the first 134.61.
             cppSetting = (pay - 134.61) / 0.20 * 0.01;
             // For every 60 cents the Gov. adds .01 in the tax table.
             uiSetting = (pay / 0.60) * 0.01;
             cpp = cppSetting;
+            yearCpp = cpp * biWeekly26;
             ui = uiSetting;
+            yearUi = ui * biWeekly26;
             totalUIplusCPP = cpp + ui;
             totalAllDeductions = totalTax + totalUIplusCPP;
             netPay = pay - totalAllDeductions;
-
+            yearNetPay = netPay * biWeekly26;
+            yearTotDeductions = (totalTax + totalUIplusCPP) * biWeekly26;
             /*
              Append Calculated Data received from Collections
               to Withholdings Template Elements.
              */
             self.elCurNetPayStub.html(netPay.toFixed(2));
-            self.elYtdNetPayStub.html(netPay.toFixed(2));
+            self.elYtdNetPayStub.html(yearNetPay.toFixed(2));
             self.elCurCppStub.html('- ' + cpp.toFixed(2));
             self.elCurUiStub.html('- ' + ui.toFixed(2));
             self.elCurFedStub.html('- ' + fedTax.toFixed(2));
             self.elCurTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
-            self.elYtdCppStub.html('- ' + cpp.toFixed(2));
-            self.elYtdUiStub.html('- ' + ui.toFixed(2));
-            self.elYtdFedStub.html('- ' + fedTax.toFixed(2));
-            self.elYtdTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+            self.elYtdCppStub.html('- ' + yearCpp.toFixed(2));
+            self.elYtdUiStub.html('- ' + yearUi.toFixed(2));
+            self.elYtdFedStub.html('- ' + yearFedTax.toFixed(2));
+            self.elYtdTotStub.html('- ' + yearTotDeductions.toFixed(2));
         }
     }
 });
