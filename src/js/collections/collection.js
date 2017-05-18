@@ -42,7 +42,35 @@ Collection = Backbone.Collection.extend({
             yearTotEarnings,
             yearTotCur,
             yearToVac,
-            biWeekly26 = 26;
+
+            // Government Tax variables.
+            biWeekly26,
+            fedPercent,
+            proPercent,
+            proPercentAfterCredits,
+            taxCredits,
+            proTaxCredit,
+
+            // Tax Formula variables
+            A,
+            T,
+            T1,
+            T2,
+            T3,
+            T4;
+
+        /*
+         TODO create a option panel for this.
+        --------------------------------------------------------
+        2017 BC Canada effective Jan 1
+        */
+        biWeekly26 = 26;
+        proPercentAfterCredits = 0.0506;
+        fedPercent = 0.150;
+        taxCredits = 11474.00;
+        proPercent = 0.018;
+        //--------------------------------------------------------
+
 
         // Last Transaction Elements.
         self.elDteLast = $('#dte-l');
@@ -99,7 +127,7 @@ Collection = Backbone.Collection.extend({
         _.each(this.models, function (item) {
             // Iterate and add values.
             totalQty = totalQty + item.get('qty');
-            totalYtd = (totalYtd + item.get('cur') * 26);
+            totalYtd = (totalYtd + item.get('cur') * biWeekly26);
             totalVac = totalVac + item.get('vac');
             totalCur = totalCur + item.get('cur');
 
@@ -161,7 +189,7 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor A-----------
         */
-        var A = pay * 26;
+        A = pay * biWeekly26;
         /*
                 This annual taxable income amount is factor A.
 
@@ -174,8 +202,9 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor T3-----------
         */
-        var taxCredits = 11474.00;
-        var T3 = A - taxCredits;
+
+
+        T3 = A - taxCredits;
 
         /*
 
@@ -185,7 +214,8 @@ Collection = Backbone.Collection.extend({
 
                 15% on the first $45,916 of taxable income.
         */
-        var T1 = T3 * 0.150;
+
+        T1 = T3 * fedPercent;
 
 
         /*
@@ -196,9 +226,10 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor T4-----------
             5.06% on the first $38,898 of taxable income
-
+            http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html#provincial
         */
-        var T4 = T3 * 0.0506;
+
+        T4 = T3 * proPercentAfterCredits;
 
 
         /*
@@ -208,7 +239,7 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor T2-----------
         */
-        var T2 = T3 * 0.018;
+        T2 = T3 * proPercent;
 
 
 
@@ -219,7 +250,7 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor T-----------
         */
-        var T = (T1 + T2) / 26;
+        T = (T1 + T2) / biWeekly26;
 
         // 2017 Canadian(BC) Tax Calculations.
         if (pay > 525) {
