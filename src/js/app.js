@@ -204,37 +204,29 @@ Start.prototype.addOne = function () {
 
 Start.prototype.delLastRecord = function () {
     'use strict';
-    if (this.records.length === 0) {
-        this.delFirstBtn.fadeOut();
-        this.delLastBtn.fadeOut();
-
-        return;
+    if (this.records.length === 1) {
+        this.records.remove(this.records.models[0].destroy());
+        location.reload();
 
     } else {
         //Because of the zero based index I used this.records.length - 1 to remove last entry.
         this.records.remove(this.records.models[this.records.length - 1].destroy());
+        this.records.getData();
+        this.totalModels.html("Total Transactions in collection: " + this.records.length);
     }
-
-    this.records.getData();
-    this.totalModels.html("Total Transactions in collection: " + this.records.length);
 };
 
 Start.prototype.delFirstRecord = function () {
     'use strict';
-    if (this.records.length === 0) {
-
-        this.delFirstBtn.fadeOut();
-        this.delLastBtn.fadeOut();
-
-        return;
+    if (this.records.length === 1) {
+        this.records.remove(this.records.models[0].destroy());
+        location.reload();
 
     } else {
         this.records.remove(this.records.models[0].destroy());
-
+        this.records.getData();
+        this.totalModels.html("Total Transactions in collection: " + this.records.length);
     }
-    this.records.getData();
-    this.totalModels.html("Total Transactions in collection: " + this.records.length);
-
 };
 
 Start.prototype.savePDF = function () {
@@ -369,11 +361,24 @@ Start.prototype.print = function () {
 Start.prototype.disableTooltips = function () {
     'use strict';
     this.nav.tooltip("disable");
+    $('#tips-on').html("Tips are off.");
 };
 
 Start.prototype.enableTooltips = function () {
     'use strict';
     this.nav.tooltip("enable");
+    $('#tips-on').html("Tips are on.");
+};
+
+Start.prototype.fadeOut = function () {
+    'use strict';
+    this.delFirstBtn.fadeOut();
+    this.delLastBtn.fadeOut();
+    this.lastTransPanel.fadeOut();
+    this.earningsPanel.fadeOut();
+    this.withHoldingsPanel.fadeOut();
+    this.netPayPanel.fadeOut();
+    this.transPanel.fadeOut();
 };
 
 Start.prototype.render = function () {
@@ -430,11 +435,7 @@ Start.prototype.render = function () {
     if (this.records.length > 0) {
         this.records.getData();
     } else {
-        this.lastTransPanel.fadeOut();
-        this.earningsPanel.fadeOut();
-        this.withHoldingsPanel.fadeOut();
-        this.netPayPanel.fadeOut();
-        this.transPanel.fadeOut();
+        this.fadeOut();
     }
 
 };

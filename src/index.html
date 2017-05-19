@@ -152,10 +152,11 @@
                 <script type="text/template" id="app-template">
                     <h3 id="select-panel-header" class="wow rotateIn">Select Panel</h3>
                     <div class="col-md-8 text-right">
-                        <a class="btn btn-primary btn-no-color wow zoomIn" onClick="app.noColor()">No Color</a>
-                        <a class="btn btn-primary btn-color wow zoomIn" onClick="app.color()">Color</a>
-                        <a class="btn btn-primary btn-disable-tool wow zoomIn" onClick="app.disableTooltips()">No Tips</a>
-                        <a class="btn btn-primary btn-enable-tool wow zoomIn" onClick="app.enableTooltips()">Tips</a>
+                        <a class="btn-no-color wow zoomIn" onClick="app.noColor()">BG Color</a>
+                        <a class="btn-color wow zoomIn" onClick="app.color()">BG Color</a>
+                        <a class="btn-disable-tool wow zoomIn" onClick="app.disableTooltips()">Tips Off</a>
+                        <a class="btn-enable-tool wow zoomIn" onClick="app.enableTooltips()">Tips On</a>
+                        <span id="tips-on"></span>
                     </div>
                     <table class="table table-striped table-condensed">
                         <thead>

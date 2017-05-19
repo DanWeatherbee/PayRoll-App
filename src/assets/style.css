@@ -39,6 +39,24 @@ label,
     }
 }
 
+.btn-no-color {
+    background-color: ghostwhite;
+}
+
+.btn-color {
+    background-color: cornsilk;
+}
+
+.btn-enable-tool,
+.btn-disable-tool,
+.btn-no-color,
+.btn-color {
+    border-radius: 100%;
+}
+
+a,
+.ui-datepicker,
+.select-panel,
 .form-control {
     color: indianred;
 }
@@ -61,7 +79,6 @@ option {
 
 .ui-datepicker {
     background: darkslategrey;
-    color: indianred;
 }
 
 .ui-icon:hover {
@@ -86,10 +103,6 @@ option {
 
 #pay-per-header {
     font-size: 1em;
-}
-
-a {
-    color: indianred;
 }
 
 a:hover {
