@@ -27,7 +27,7 @@ Collection = Backbone.Collection.extend({
             fedTax,
             totalTax,
             cpp,
-            cppSetting,
+
             ui,
             uiSetting,
             totalUIplusCPP,
@@ -44,6 +44,7 @@ Collection = Backbone.Collection.extend({
             yearToVac,
 
             // Government Tax variables.
+            cppPercent,
             biWeekly26,
             fedPercent,
             proPercent,
@@ -69,6 +70,7 @@ Collection = Backbone.Collection.extend({
         fedPercent = 0.150;
         taxCredits = 11474.00;
         proPercent = 0.018;
+        cppPercent = 0.0495;
         //--------------------------------------------------------
 
 
@@ -260,12 +262,33 @@ Collection = Backbone.Collection.extend({
             fedTax = T;
             yearFedTax = fedTax * biWeekly26;
 
-            // For every 20 cents the Gov. adds .01 in the tax table after the first 134.61.
-            cppSetting = (pay - 134.61) / 0.20 * 0.01;
+            /*
+
+            Formula to determine CPP contributions for employees receiving salary or wages
+            C = The lesser of:
+            (i) $2,564.10* – D; and
+            (ii) 0.0495** × [PI − ($3,500 ÷ P)].
+            If the result is negative, C = $0.
+
+            D = Employee's year-to-date Canada Pension Plan contribution with the employer
+             (cannot be more than the annual maximum.)
+
+            P = The number of pay periods in the year
+
+            PI = Pensionable income for the pay period,
+             or the gross income plus any taxable benefits for the pay period,
+             including bonuses and retroactive pay increases where applicable
+
+            */
+
+
+            cpp = cppPercent * (pay - (3500 / biWeekly26));
+
+            yearCpp = cpp * biWeekly26;
+
+
             // For every 60 cents the Gov. adds .01 in the tax table.
             uiSetting = (pay / 0.60) * 0.01;
-            cpp = cppSetting;
-            yearCpp = cpp * biWeekly26;
             ui = uiSetting;
             yearUi = ui * biWeekly26;
             totalUIplusCPP = cpp + ui;
