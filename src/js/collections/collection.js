@@ -23,13 +23,13 @@ Collection = Backbone.Collection.extend({
             // Tax Variables.
 
             pay,
-            provTax,
+            proTax,
             fedTax,
             totalTax,
             cpp,
 
             ui,
-            uiSetting,
+            uiPercent,
             totalUIplusCPP,
             totalAllDeductions,
             netPay,
@@ -38,6 +38,7 @@ Collection = Backbone.Collection.extend({
             yearUi,
             yearNetPay,
             yearFedTax,
+            yearProTax,
             yearTotDeductions,
             yearTotEarnings,
             yearTotCur,
@@ -54,11 +55,8 @@ Collection = Backbone.Collection.extend({
 
             // Tax Formula variables
             A,
-            T,
-            T1,
-            T2,
-            T3,
-            T4;
+            T3;
+
 
         /*
          TODO create a option panel for this.
@@ -66,11 +64,11 @@ Collection = Backbone.Collection.extend({
         2017 BC Canada effective Jan 1
         */
         biWeekly26 = 26;
-        proPercentAfterCredits = 0.0506;
         fedPercent = 0.150;
-        taxCredits = 11474.00;
+        taxCredits = 13738.00;
         proPercent = 0.018;
         cppPercent = 0.0495;
+        uiPercent = 0.0163;
         //--------------------------------------------------------
 
 
@@ -111,10 +109,12 @@ Collection = Backbone.Collection.extend({
         self.elCurCppStub = $('#cur-cpp-stub');
         self.elCurUiStub = $('#cur-ui-stub');
         self.elCurFedStub = $('#cur-fed-stub');
+        self.elCurProStub = $('#cur-pro-stub');
         self.elCurTotStub = $('#cur-tot-stub');
         self.elYtdCppStub = $('#ytd-cpp-stub');
         self.elYtdUiStub = $('#ytd-ui-stub');
         self.elYtdFedStub = $('#ytd-fed-stub');
+        self.elYtdProStub = $('#ytd-pro-stub');
         self.elYtdTotStub = $('#ytd-tot-stub');
 
         // Clear the Transaction List before repopulating.
@@ -217,22 +217,13 @@ Collection = Backbone.Collection.extend({
                 15% on the first $45,916 of taxable income.
         */
 
-        T1 = T3 * fedPercent;
+        yearFedTax = T3 * fedPercent;
+        fedTax = yearFedTax / biWeekly26;
 
-
-        /*
-        Calculate the basic provincial or territorial tax on the estimated annual taxable income,
-         after allowable provincial or territorial personal tax credits.
-          The annual basic provincial or territorial tax is factor T4.
-
-
-                ----------Factor T4-----------
-            5.06% on the first $38,898 of taxable income
-            http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html#provincial
-        */
-
-        T4 = T3 * proPercentAfterCredits;
-
+        if (fedTax < 1) {
+            fedTax = 0;
+            yearFedTax = 0;
+        }
 
         /*
 
@@ -241,75 +232,70 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor T2-----------
         */
-        T2 = T3 * proPercent;
+        yearProTax = T3 * proPercent;
+        proTax = yearProTax / biWeekly26;
 
-
-
-        /*
-        To get the estimated federal and provincial or territorial tax deductions for a pay period,
-         add the federal and provincial or territorial tax, and divide the result by the number of pay periods.
-          This is factor T.
-
-                ----------Factor T-----------
-        */
-        T = (T1 + T2) / biWeekly26;
-
-        // 2017 Canadian(BC) Tax Calculations.
-        if (pay > 525) {
-
-            totalTax = T;
-
-            fedTax = T;
-            yearFedTax = fedTax * biWeekly26;
-
-            /*
-
-            Formula to determine CPP contributions for employees receiving salary or wages
-            C = The lesser of:
-            (i) $2,564.10* – D; and
-            (ii) 0.0495** × [PI − ($3,500 ÷ P)].
-            If the result is negative, C = $0.
-
-            D = Employee's year-to-date Canada Pension Plan contribution with the employer
-             (cannot be more than the annual maximum.)
-
-            P = The number of pay periods in the year
-
-            PI = Pensionable income for the pay period,
-             or the gross income plus any taxable benefits for the pay period,
-             including bonuses and retroactive pay increases where applicable
-
-            */
-
-
-            cpp = cppPercent * (pay - (3500 / biWeekly26));
-
-            yearCpp = cpp * biWeekly26;
-
-
-            // For every 60 cents the Gov. adds .01 in the tax table.
-            uiSetting = (pay / 0.60) * 0.01;
-            ui = uiSetting;
-            yearUi = ui * biWeekly26;
-            totalUIplusCPP = cpp + ui;
-            totalAllDeductions = totalTax + totalUIplusCPP;
-            netPay = pay - totalAllDeductions;
-            yearNetPay = netPay * biWeekly26;
-            yearTotDeductions = (totalTax + totalUIplusCPP) * biWeekly26;
-            /*
-             Append Calculated Data received from Collections
-              to Withholdings Template Elements.
-             */
-            self.elCurNetPayStub.html(netPay.toFixed(2));
-            self.elYtdNetPayStub.html(yearNetPay.toFixed(2));
-            self.elCurCppStub.html('- ' + cpp.toFixed(2));
-            self.elCurUiStub.html('- ' + ui.toFixed(2));
-            self.elCurFedStub.html('- ' + fedTax.toFixed(2));
-            self.elCurTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
-            self.elYtdCppStub.html('- ' + yearCpp.toFixed(2));
-            self.elYtdUiStub.html('- ' + yearUi.toFixed(2));
-            self.elYtdFedStub.html('- ' + yearFedTax.toFixed(2));
-            self.elYtdTotStub.html('- ' + yearTotDeductions.toFixed(2));
+        if (proTax < 1) {
+            proTax = 0;
+            yearProTax = 0;
         }
+
+        totalTax = fedTax + proTax;
+        /*
+
+        Formula to determine CPP contributions for employees receiving salary or wages
+        C = The lesser of:
+        (i) $2,564.10* – D; and
+        (ii) 0.0495** × [PI − ($3,500 ÷ P)].
+        If the result is negative, C = $0.
+
+        D = Employee's year-to-date Canada Pension Plan contribution with the employer
+         (cannot be more than the annual maximum.)
+
+        P = The number of pay periods in the year
+
+        PI = Pensionable income for the pay period,
+         or the gross income plus any taxable benefits for the pay period,
+         including bonuses and retroactive pay increases where applicable
+
+        */
+
+
+        cpp = cppPercent * (pay - (3500 / biWeekly26));
+
+        yearCpp = cpp * biWeekly26;
+
+        if (cpp < 1) {
+            cpp = 0;
+            yearCpp = 0;
+        }
+
+        yearUi = uiPercent * (pay * biWeekly26);
+
+
+        ui = yearUi / biWeekly26;
+
+        totalUIplusCPP = cpp + ui;
+        totalAllDeductions = totalTax + totalUIplusCPP;
+        netPay = pay - totalAllDeductions;
+        yearNetPay = netPay * biWeekly26;
+        yearTotDeductions = (totalTax + totalUIplusCPP) * biWeekly26;
+        /*
+         Append Calculated Data received from Collections
+          to Withholdings Template Elements.
+         */
+        self.elCurNetPayStub.html(netPay.toFixed(2));
+        self.elYtdNetPayStub.html(yearNetPay.toFixed(2));
+        self.elCurCppStub.html('- ' + cpp.toFixed(2));
+        self.elCurUiStub.html('- ' + ui.toFixed(2));
+        self.elCurFedStub.html('- ' + fedTax.toFixed(2));
+        self.elCurProStub.html('- ' + proTax.toFixed(2));
+        self.elCurTotStub.html('- ' + (totalTax + totalUIplusCPP).toFixed(2));
+        self.elYtdCppStub.html('- ' + yearCpp.toFixed(2));
+        self.elYtdUiStub.html('- ' + yearUi.toFixed(2));
+        self.elYtdFedStub.html('- ' + yearFedTax.toFixed(2));
+        self.elYtdProStub.html('- ' + yearProTax.toFixed(2));
+        self.elYtdTotStub.html('- ' + yearTotDeductions.toFixed(2));
+
     }
 });
