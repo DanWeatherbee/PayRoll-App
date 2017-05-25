@@ -452,6 +452,4 @@ Start.prototype.render = function () {
 
 var app = new Start();
 var animate = new WOW().init();
-// $("#btn-admin").click(function () {
-//     $("#admin-modal").modal();
-// });
+
