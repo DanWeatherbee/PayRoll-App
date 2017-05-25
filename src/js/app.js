@@ -385,6 +385,11 @@ Start.prototype.fadeOut = function () {
     this.transPanel.fadeOut();
 };
 
+Start.prototype.hideDev = function () {
+    'use strict';
+    this.dev.fadeOut();
+};
+
 Start.prototype.render = function () {
     'use strict';
 

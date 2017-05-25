@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
+<body onScroll="app.hideDev()">
     <div class="container container-top text-center">
         <style>
         .modal-header,
@@ -59,6 +59,7 @@
                                 <h4 id="modal-header-text">Default Tax Settings</h4>
                             </div>
                             <div class="modal-body" style="padding:40px 50px;">
+                                <h5>Tax Tables 2017 BC Claim Code 1</h5>
                                 <form role="form">
                                     <label>Pay Period</label>
                                     <select class="form-group" id="tax-default-period">
@@ -103,9 +104,10 @@
                                         <option>0.00</option>
                                     </select>
                                 </form>
+                                <a class="right" title="" data-placement="top" data-toggle="tooltip" href="https://apps.cra-arc.gc.ca/ebci/rhpd/wlcm-bnvn.do" data-original-title="Government Payroll Online Caculator Service.">Online Caculator</a>
                             </div>
                             <div class="modal-footer">
-                                <h5 id="modal-footer-text">Add a transaction to apply new values.</h5>
+                                <h5 id="modal-footer-text">You must add a transaction to apply new values.</h5>
                             </div>
                         </div>
                     </div>
@@ -427,7 +429,6 @@
                                     <td id="ytd-tot-stub"></td>
                                 </tr>
                             </tbody>
-                            <a class="right" title="" data-placement="top" data-toggle="tooltip" href="https://apps.cra-arc.gc.ca/ebci/rhpd/wlcm-bnvn.do" data-original-title="Government Payroll Online Caculator Service.">Caculator</a>
                         </table>
                     </script>
                 </section>
