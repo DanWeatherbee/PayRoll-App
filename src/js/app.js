@@ -171,9 +171,7 @@ Start.prototype.addOne = function () {
 
     //Model
     var addtrans = {
-        d: D,
-        m: M,
-        y: Y,
+
         dte: this.DATE,
         qty: this.QTY,
         ot: this.OT,
@@ -259,6 +257,7 @@ Start.prototype.printPreView = function () {
     this.hr.fadeOut();
     this.img.fadeOut();
     this.dev.fadeOut();
+    this.adminBtn.fadeOut();
 
     // Neutralize css for printing.
     this.body.css("padding", "0");
@@ -370,6 +369,11 @@ Start.prototype.enableTooltips = function () {
     $('#tips-on').html("Tips are on.");
 };
 
+Start.prototype.settings = function () {
+    'use strict';
+    $("#admin-modal").modal();
+};
+
 Start.prototype.fadeOut = function () {
     'use strict';
     this.delFirstBtn.fadeOut();
@@ -397,6 +401,7 @@ Start.prototype.render = function () {
     this.hidePrintPanelBtn = $('.btn-hide-print-panel');
     this.nav = $('a');
     this.selectPanelBtn = $('.btn-select-panel');
+    this.adminBtn = $('.btn-admin');
 
     // Panels
     this.payPeriodPanel = $('.pay-period-panel');
@@ -442,3 +447,6 @@ Start.prototype.render = function () {
 
 var app = new Start();
 var animate = new WOW().init();
+// $("#btn-admin").click(function () {
+//     $("#admin-modal").modal();
+// });

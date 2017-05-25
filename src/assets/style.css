@@ -118,3 +118,20 @@ a:hover {
 hr {
     background-color: magenta;
 }
+
+.modal-header,
+#modal-header-text,
+.close {
+    background-color: #5cb85c;
+    color: white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+.modal-content {
+    color: black;
+}

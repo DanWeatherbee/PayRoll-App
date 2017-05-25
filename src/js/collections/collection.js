@@ -15,25 +15,26 @@ Collection = Backbone.Collection.extend({
             totalYtd = 0,
             totalVac = 0,
             totalCur = 0,
-            // Pay Period Variables.
 
+            // Pay Period Variables.
             payStart,
             payEnd,
             dateNow = Date(),
-            // Tax Variables.
 
+            // UI Tax Variables.
             pay,
             proTax,
             fedTax,
             totalTax,
             cpp,
-
             ui,
             uiPercent,
             totalUIplusCPP,
             totalAllDeductions,
             netPay,
+
             // Year estimates
+            yearPay,
             yearCpp,
             yearUi,
             yearNetPay,
@@ -43,6 +44,7 @@ Collection = Backbone.Collection.extend({
             yearTotEarnings,
             yearTotCur,
             yearToVac,
+            yeartaxableIncome,
 
             // Government Tax variables.
             cppPercent,
@@ -51,26 +53,17 @@ Collection = Backbone.Collection.extend({
             proPercent,
             proPercentAfterCredits,
             taxCredits,
-            proTaxCredit,
+            maxCpp,
+            proTaxCredit;
 
-            // Tax Formula variables
-            A,
-            T3;
-
-
-        /*
-         TODO create a option panel for this.
-        --------------------------------------------------------
-        2017 BC Canada effective Jan 1
-        */
-        biWeekly26 = 26;
-        fedPercent = 0.150;
-        taxCredits = 13738.00;
-        proPercent = 0.018;
-        cppPercent = 0.0495;
-        uiPercent = 0.0163;
-        //--------------------------------------------------------
-
+        // 2017 BC Canada effective Jan 1 --- Default Settings from modal.
+        biWeekly26 = $('#tax-default-period').val();
+        fedPercent = $('#tax-default-fed').val();
+        taxCredits = $('#tax-default-credit').val();
+        proPercent = $('#tax-default-pro').val();
+        cppPercent = $('#tax-default-cpp').val();
+        uiPercent = $('#tax-default-ui').val();
+        maxCpp = $('#tax-default-max-cpp').val();
 
         // Last Transaction Elements.
         self.elDteLast = $('#dte-l');
@@ -189,9 +182,9 @@ Collection = Backbone.Collection.extend({
          multiply it by the number of pay periods in the year to get an estimated
           annual taxable income amount. This annual taxable income amount is factor A.
 
-                ----------Factor A-----------
+                ----------Factor yearPay-----------
         */
-        A = pay * biWeekly26;
+        yearPay = pay * biWeekly26;
         /*
                 This annual taxable income amount is factor A.
 
@@ -206,7 +199,7 @@ Collection = Backbone.Collection.extend({
         */
 
 
-        T3 = A - taxCredits;
+        yeartaxableIncome = yearPay - taxCredits;
 
         /*
 
@@ -217,7 +210,7 @@ Collection = Backbone.Collection.extend({
                 15% on the first $45,916 of taxable income.
         */
 
-        yearFedTax = T3 * fedPercent;
+        yearFedTax = yeartaxableIncome * fedPercent;
         fedTax = yearFedTax / biWeekly26;
 
         if (fedTax < 1) {
@@ -232,7 +225,7 @@ Collection = Backbone.Collection.extend({
 
                 ----------Factor T2-----------
         */
-        yearProTax = T3 * proPercent;
+        yearProTax = yeartaxableIncome * proPercent;
         proTax = yearProTax / biWeekly26;
 
         if (proTax < 1) {
@@ -245,23 +238,23 @@ Collection = Backbone.Collection.extend({
 
         Formula to determine CPP contributions for employees receiving salary or wages
         C = The lesser of:
-        (i) $2,564.10* – D; and
-        (ii) 0.0495** × [PI − ($3,500 ÷ P)].
+        (i) $2,564.10* – yearCpp; and
+        (ii) 0.0495** × [yearPay − ($3,500 ÷ biWeekly)].
         If the result is negative, C = $0.
 
-        D = Employee's year-to-date Canada Pension Plan contribution with the employer
+        yearCpp = Employee's year-to-date Canada Pension Plan contribution with the employer
          (cannot be more than the annual maximum.)
 
-        P = The number of pay periods in the year
+        biWeekly = The number of pay periods in the year
 
-        PI = Pensionable income for the pay period,
+        yearPay = Pensionable income for the pay period,
          or the gross income plus any taxable benefits for the pay period,
          including bonuses and retroactive pay increases where applicable
 
         */
 
 
-        cpp = cppPercent * (pay - (3500 / biWeekly26));
+        cpp = cppPercent * (pay - (maxCpp / biWeekly26));
 
         yearCpp = cpp * biWeekly26;
 
