@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Dan Weatherbee's Payroll in Backbone">
+    <meta name="web_author" content="Dan Weatherbee Web Developer">
+    <meta name="author" content="Dan Weatherbee">
+    <meta name="copyright" content="Dan Weatherbee">
+    <meta name="contact" content="dan@jedi-clan.us">
+    <meta name="reply-to" content="dan@jedi-clan.us">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#db5945">
+    <meta name="msapplication-square310x310logo" content="favicon.ico">
+    <title>Dan Weatherbee's payroll App</title>
+    <link rel="stylesheet" href="build/assets/allcss.min.css">
+</head>
+
+<body onScroll="app.hideDev()">
+    <div class="container container-top text-center">
+        <div class="container">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-default btn-lg btn-admin" onClick="app.settings()">Settings</button>
+            <!-- Modal -->
+            <div class="modal fade" id="admin-modal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding:35px 50px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 id="modal-header-text">Default Tax Settings</h4>
+                        </div>
+                        <div class="modal-body" style="padding:40px 50px;">
+                            <h5>Tax Tables 2017 BC Claim Code 1</h5>
+                            <form>
+                                <label>Pay Period</label>
+                                <select class="form-group" id="tax-default-period">
+                                    <option>26</option>
+                                    <option>27</option>
+                                    <option>30</option>
+                                </select>
+                                <label>Federal Tax</label>
+                                <select class="form-group" id="tax-default-fed">
+                                    <option>0.150</option>
+                                    <option>0.00</option>
+                                </select>
+                                <label>Provincial Tax</label>
+                                <select class="form-group" id="tax-default-pro">
+                                    <option>0.018</option>
+                                    <option>0.00</option>
+
+                                </select>
+                                <label>Tax Credit</label>
+                                <select class="form-group" id="tax-default-credit">
+                                    <option>13738.00</option>
+                                    <option>14738.00</option>
+                                    <option>15738.00</option>
+                                    <option>16738.00</option>
+                                    <option>0.00</option>
+                                </select>
+                                <label>CPP</label>
+                                <select class="form-group" id="tax-default-cpp">
+                                    <option>0.0495</option>
+                                    <option>0.00</option>
+                                </select>
+                                <label>UI</label>
+                                <select class="form-group" id="tax-default-ui">
+                                    <option>0.0163</option>
+                                    <option>0.00</option>
+                                </select>
+                                <label>Max Cpp</label>
+                                <select class="form-group" id="tax-default-max-cpp">
+                                    <option>3500</option>
+                                    <option>3400</option>
+                                    <option>3300</option>
+                                    <option>0.00</option>
+                                </select>
+                            </form>
+                            <a href="https://apps.cra-arc.gc.ca/ebci/rhpd/wlcm-bnvn.do">Online Caculator</a>
+                        </div>
+                        <div class="modal-footer">
+                            <h5 id="modal-footer-text">You must add a transaction to apply new values.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a title="" data-placement="bottom" data-toggle="tooltip" href="http://danweatherbee-front-end-web-developer.com" data-original-title="If you are interested in creating your own cool webpage/website or perhaps joining your team contact Dan Weatherbee email: dan@jedi-clan.us cell: 250-307-6272 or Click/Tap the link above."><h3 id="dev" class="wow rotateIn"></h3></a>
+        <a href="" class="btn btn-primary btn-print-content wow zoomIn waves-effect waves-light" onClick="app.print()">Print</a>
+        <div class="print-panel-row text-left">
+            <div class="col-md-12">
+                <section class="panels print-panel" id="print-section">
+                    <script type="text/template" id="print-template">
+                        <h3 id="print-header" class="wow rotateIn">Print Panel</h3><a class="btn btn-primary btn-print-selected wow zoomIn wow zoomIn waves-effect waves-light" onclick="app.printPreView()" title="" data-placement="top" data-toggle="tooltip" href="#top-nav" data-original-title="Click or tap print preview to add or remove panels.">Print Preview</a><img src="build/assets/images/print-prev.png" class="img-responsive wow zoomIn"> <a class="btn btn-primary btn-hide-print-panel wow zoomIn waves-effect waves-light" onclick="app.hidePrintPanel()" title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="When you are satisfied with your view, click this button to go to the next step.">Done</a><hr><table class="table table-striped table-responsive table-condensed wow bounceInUp"><thead><tr><th>Period</th><th>Select</th><th>Last T</th></tr></thead><tbody><tr><td><select class="form-control" id="p-1"><option>Hide</option><option>Show</option></select></td><td><select class="form-control" id="p-2"><option>Hide</option><option>Show</option></select></td><td><select class="form-control" id="p-3"><option>Hide</option><option>Show</option></select></td></tr></tbody></table><table class="table table-striped table-responsive table-condensed wow lightSpeedIn"><thead><tr><th>Earnings</th><th>Deductions</th><th>Net Pay</th><th>Transactions</th><th>Color</th></tr></thead><tbody><tr><td><select class="form-control" id="p-4"><option>Hide</option><option>Show</option></select></td><td><select class="form-control" id="p-5"><option>Hide</option><option>Show</option></select></td><td><select class="form-control" id="p-6"><option>Hide</option><option>Show</option></select></td><td><select class="form-control" id="p-7"><option>Show</option><option>Hide</option></select></td><td><select class="form-control" id="p-8"><option>No</option><option>Yes</option></select></td></tr></tbody></table><div></div><hr>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="row pay-period-panel wow slideInLeft">
+            <section class="panels col-md-1" id="pay-per-section">
+                <h3 id="employee-h" class="wow rotateIn"></h3>
+                <script type="text/template" id="pay-per-template">
+                    <a data-placement="top" data-toggle="tooltip" data-original-title="This field is used for printing later, please add Employee or Company Name."><label class="pay-per-labels" for="employee">Employee</label></a><input class="form-control text-center" type="text" id="select-emp" name="employee" placeholder="Enter" required><div class="col-md-4"><a data-placement="bottom" data-toggle="tooltip" data-original-title="Enter the Start Date of your Pay Period by Clicking or Tapping to open up the Calender."><label class="pay-per-labels" for="from">From</label></a><input class="form-control text-center" type="text" id="from" name="from" placeholder="Calender" required> <a data-placement="bottom" data-toggle="tooltip" data-original-title="Enter the End Date of your Pay Period by Clicking or Tapping to open up the Calender."><label class="pay-per-labels" for="to">to</label></a><input class="form-control text-center" type="text" id="to" name="to" placeholder="Calender" required></div>
+                </script>
+            </section>
+        </div>
+        <div class="row select-panel wow slideInDown">
+            <section class="panels col-md-1" id="select-section">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="app-template">
+                    <h3 id="select-panel-header" class="wow rotateIn">Select Panel</h3><div class="col-md-8 text-right"><a class="btn-no-color wow zoomIn" onclick="app.noColor()">BG Color</a> <a class="btn-color wow zoomIn" onclick="app.color()">BG Color</a> <a class="btn-disable-tool wow zoomIn" onclick="app.disableTooltips()">Tips Off</a> <a class="btn-enable-tool wow zoomIn" onclick="app.enableTooltips()">Tips On</a> <span id="tips-on"></span></div><table class="table table-striped table-condensed"><thead><tr><th>Job</th><th>Date</th></tr></thead><tbody><tr><td><a title="" data-placement="top" data-toggle="tooltip" data-original-title="Enter a Job title/Conpany Name/Job Description."><input class="form-control text-center" type="text" id="job-opt" placeholder="Enter Job" required></a></td><td><a title="" data-placement="left" data-toggle="tooltip" data-original-title="Enter a date for this Transaction."><input class="form-control text-center" type="text" id="select-date" placeholder="Calender" required></a></td></tr></tbody></table><table class="table table-striped table-responsive table-condensed"><thead><tr><th>Qty</th><th>Rate</th><th>OT</th><th>Stat</th></tr></thead><tbody><tr><td><select class="form-control" id="sel-qty"></select></td><td><select class="form-control" id="sel-rate"></select></td><td><select class="form-control" id="sel-ot"><option>No</option><option>Yes</option></select></td><td><select class="form-control" id="sel-stat"><option>No Stat</option><option>New Years</option><option>Family</option><option>Good Friday</option><option>Victoria</option><option>Canada</option><option>BC</option><option>Labour</option><option>Thanksgiving</option><option>Remembrance</option><option>Christmas</option></select></td></tr></tbody></table><a class="btn btn-primary btn-add wow zoomIn waves-effect waves-light" onclick="app.addOne()" title="" data-placement="top" data-toggle="tooltip" href="#trans-section" data-original-title="Click or Tap this button to add a new Transaction after you have selected your values.">Add</a> <a class="btn btn-primary btn-print wow zoomIn waves-effect waves-light" onclick="app.savePDF()" title="" data-placement="top" data-toggle="tooltip" href="#print-section" data-original-title="Choose witch panels you wish to show for printing and Click or Tap print preview to add or remove panels.">Print Options</a>
+                </script>
+            </section>
+        </div>
+        <hr id="top-nav">
+        <div class="row last-trans-panel wow slideInUp">
+            <section class="panels col-md-1" id="last-trans-section">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="last-trans-template">
+                    <h5 id="total-models" class="wow rotateIn"></h5><br><a href="#pay-per-section"><p id="error"></p></a><table class="table table-striped table-responsive table-condensed"><thead id="trans-table-head"><tr><th>Job</th><th>Date</th><th>Qty</th><th>Rate</th><th>OT</th><th>Stat</th></tr></thead><tbody><tr><td id="job"></td><td id="dte"></td><td id="qty"></td><td id="rate"></td><td id="ot"></td><td id="stat"></td></tr></tbody></table><a class="btn btn-primary btn-del-last wow zoomIn waves-effect waves-light" onclick="app.delLastRecord()" href="#trans-section">Del last</a> <a class="btn btn-primary btn-del-first wow zoomIn waves-effect waves-light" onclick="app.delFirstRecord()" href="#trans-section">Del first</a> <a class="btn btn-primary btn-select-panel waves-effect waves-light" href="#select-section">Select Panel</a>
+                </script>
+            </section>
+        </div>
+        <div class="row earnings-panel wow flipInX">
+            <section class="panels col-md-1">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="earnings-template">
+                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel displays your earnings based on the total transactions stored in backbone-localstorage(In your browser eg. Chrome, Safari)."><h3 id="earnings-header" class="wow rotateIn">Earnings</h3></a><table class="table table-striped table-responsive table-condensed"><thead><tr><th>Earnings</th><th>Qty</th><th>Rate</th><th>Current</th><th>YTD</th></tr></thead><tbody><tr><td>Regular</td><td id="qty-hr-stub"></td><td id="rate-hr-stub"></td><td id="cur-hr-stub"></td><td id="ytd-hr-stub"></td></tr><tr><td>Vac</td><td id="qty-vac-stub"></td><td id="rate-vac-stub"></td><td id="cur-vac-stub"></td><td id="ytd-vac-stub"></td></tr><tr><td>Totals</td><td id="qty-vacP-stub"></td><td id="rate-vacP-stub"></td><td id="cur-vacP-stub"></td><td id="ytd-vacP-stub"></td></tr></tbody></table>
+                </script>
+            </section>
+        </div>
+        <div class="row with-holdings-panel wow flipInY">
+            <section class="panels col-md-1">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="with-holdings-template">
+                    <a title="" data-placement="top" data-toggle="tooltip" data-original-title="This Panel contains deductions based on Canadadian Gov. online Service. Percentages were determined from there. A Link is provided on this page(Caculator)."><h3 id="deductions-header" class="wow rotateIn">Deductions</h3></a><table class="table table-striped table-responsive table-condensed"><thead><tr><th>Deductions</th><th>Current</th><th>YTD</th></tr></thead><tbody><tr><td>CPP-Employee</td><td id="cur-cpp-stub"></td><td id="ytd-cpp-stub"></td></tr><tr><td>UI-Employee</td><td id="cur-ui-stub"></td><td id="ytd-ui-stub"></td></tr><tr><td>Fed Tax</td><td id="cur-fed-stub"></td><td id="ytd-fed-stub"></td></tr><tr><td>Prov Tax</td><td id="cur-pro-stub"></td><td id="ytd-pro-stub"></td></tr><tr><td>Totals</td><td id="cur-tot-stub"></td><td id="ytd-tot-stub"></td></tr></tbody></table>
+                </script>
+            </section>
+        </div>
+        <div class="row net-pay-panel wow bounceIn">
+            <section class="panels col-md-1">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="net-pay-template">
+                   <a title="" data-placement="top" data-toggle="tooltip" data-original-title="Net Pay as well as all other calculations are performed on the total transactions retrieved from the storage and not on unsaved transactions. This confirms the data exists before the task begins and insures accuracy."><h3 id="net-pay-header" class="wow rotateIn">Net Pay</h3></a><table class="table table-striped table-responsive table-condensed"><thead><tr><th>Net</th><th>Current</th><th>YTD</th></tr></thead><tbody><tr><td>Totals</td><td id="cur-netPay-stub"></td><td id="ytd-netPay-stub"></td></tr></tbody></table>
+                </script>
+            </section>
+        </div>
+        <div class="row trans-panel wow rollIn">
+            <section class="panels col-md-1" id="trans-section">
+                <!-- Backbone Template===========================> -->
+                <script type="text/template" id="trans-template">
+                    <h5 id="total-models" class="wow rotateIn"></h5><br><a href="#pay-per-section"><p id="error"></p></a><table class="table table-striped table-responsive table-condensed"><thead id="trans-table-head"><tr><th>Job</th><th>Date</th><th>Qty</th><th>Rate</th><th>OT</th><th>Stat</th></tr></thead><tbody><tr><td id="job"></td><td id="dte"></td><td id="qty"></td><td id="rate"></td><td id="ot"></td><td id="stat"></td></tr></tbody></table><a class="btn btn-primary btn-del-last wow zoomIn waves-effect waves-light" onclick="app.delLastRecord()" href="#trans-section">Del last</a> <a class="btn btn-primary btn-del-first wow zoomIn waves-effect waves-light" onclick="app.delFirstRecord()" href="#trans-section">Del first</a> <a class="btn btn-primary btn-select-panel waves-effect waves-light" href="#select-section">Select Panel</a>
+                </script>
+            </section>
+        </div>
+        <script src="build/js/all.min.js"></script>
+    </div>
+</body>
+
+</html>

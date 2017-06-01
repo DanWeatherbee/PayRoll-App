@@ -4,7 +4,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var cssmin = require('gulp-cssmin');
-var gulpCopy = require('gulp-copy');
+var htmlmin = require('gulp-htmlmin');
 
 var del = require('del');
 
@@ -34,6 +34,7 @@ var paths = {
     images: "src/assets/images/**/*",
     fonts: "src/font/roboto/*.*",
     css: "src/assets/*.css"
+
 };
 
 gulp.task('clean', function () {
@@ -60,7 +61,7 @@ gulp.task('images', ['clean'], function () {
 
     // Pass in options to the task
     .pipe(imagemin({ optimizationLevel: 5 }))
-        .pipe(gulp.dest('src/build/css/images'));
+        .pipe(gulp.dest('src/build/assets/images'));
 });
 
 gulp.task('fonts', ['clean'], function () {
@@ -75,8 +76,17 @@ gulp.task('min-css', ['clean'], function () {
     return gulp.src(paths.css)
         .pipe(cssmin())
         .pipe(concat('allcss.min.css'))
-        .pipe(gulp.dest('src/build/css'));
+        .pipe(gulp.dest('src/build/assets'));
 });
+
+// Minify index html.
+gulp.task('min-html', ['clean'], function () {
+    'use strict';
+    return gulp.src('src/html/*.html')
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(gulp.dest('src/'));
+});
+
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
@@ -85,7 +95,8 @@ gulp.task('watch', function () {
     gulp.watch(paths.images, ['images']);
     gulp.watch(paths.fonts, ['fonts']);
     gulp.watch(paths.css, ['min-css']);
+    gulp.watch(paths.indexHtml, ['min-html']);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'scripts', 'images', 'fonts', 'min-css']);
+gulp.task('default', ['watch', 'scripts', 'images', 'fonts', 'min-css', 'min-html']);
